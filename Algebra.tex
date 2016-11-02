@@ -1,0 +1,353 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[german]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{tikz,pgf}
+\usepackage{mathrsfs}
+\usepackage{framed}
+\usepackage{hyperref}
+\usepackage[all]{xy}
+
+\newcommand{\gdw}{\ensuremath{\Leftrightarrow}}
+\newcommand{\N}{\ensuremath{\mathbb{N}}}
+\newcommand{\Z}{\ensuremath{\mathbb{Z}}}
+\newcommand{\Q}{\ensuremath{\mathbb{Q}}}
+\newcommand{\R}{\ensuremath{\mathbb{R}}}
+\newcommand{\C}{\ensuremath{\mathbb{C}}}
+\newcommand{\F}{\ensuremath{\mathbb{F}}}
+\newcommand{\impl}{\ensuremath{\Rightarrow}}
+\newcommand{\la}{\ensuremath{\lambda}}
+\newcommand{\al}{\ensuremath{\alpha}}
+\newcommand{\ol}[1]{\overline{#1}}
+\newcommand{\ul}[1]{\underline{#1}}
+\newcommand{\norm}[1]{\|#1\|}
+\newcommand{\dif}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\mdif}[3]{\frac{\partial^#1 #2}{\partial #2^#3}}
+\renewcommand{\P}{\ensuremath{\mathbb P}}
+\newcommand{\E}{\ensuremath{\mathbb E}}
+\newcommand{\Hlb}{\ensuremath{\mathscr H}}
+\newcommand{\surjfunc}{\ensuremath{\xrightarrow{\sim}}}
+\newenvironment{sumup}{\begin{framed}\textbf{Zusammenfassung:}\\}{\end{framed}}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{satz}{Satz}
+\newtheorem{prop}{Proposition}
+
+\theoremstyle{plain}
+\newtheorem{lem}{Lemma}
+\newtheorem{kor}{Korollar}
+
+\theoremstyle{remark}
+\newtheorem{bem}{Bemerkung}
+\newtheorem{exm}{Beispiel}
+
+
+\author{Prof Wedhorn, Mitschrift von Daniel Kallendorf}
+\title{Algebra SS16}
+
+\begin{document}
+	\maketitle
+	\tableofcontents
+	\setcounter{section}{2}
+%	\setcounter{theorem}{6}
+	\begin{bem}
+		$A[X_1,...,X_n]$ ist ein freier $A$-Modul, wobei die Monome eine Basis bilden.
+	\end{bem}
+	\begin{satz}[Universaleigenschaft des Polynomrings]
+		Sei $\phi:A\rightarrow B$ eine $A$-Algebra und seine $b_1,...,b_n\in B$ Elemente. Dann existiert genau ein $A$-Algebra-Homomorphismus $\psi:A[X_1,...,X_n]\rightarrow B$, so dass $\psi(x_i)=b_i$ für alle $i=1,..,n$, nämlich
+		\[\psi\underbrace{\left(\sum_{i_1,...,i_n\ge 0}a_{i_1,...,i_n}X_1^{i_1}\cdot...\cdot X_n^{i_1}\right)}_{=:f}=\underbrace{\sum_{i_1,...,i_n\ge 0}\phi(a_{i_1,...,i_n})b_1^{i_1}\cdot...\cdot b_n^{i_n}}_{=f(b_1,...,b_n)}\]
+	\end{satz}
+	\begin{bem}
+		\begin{align*}
+		\operatorname{Im}(\psi)&=\text{kleinste $A$-Unteralgebra die $b_1,...,b_n$ enthält}\\
+		&=A[b_1,...,b_n]\subset B
+		\end{align*}
+	\end{bem}
+	\begin{exm}
+		Sei $\phi:A\rightarrow B$ eien $A$-Algebra, $b\in B$. Es existiere ein $g\in A[X]$ mit $g(b)=0$. Sei $g$ nomriert. Dann gilt\\
+		\[A[b]=\{f(b)|f\in A[x],\deg(f)<\deg (g)\}\]
+	\end{exm}
+	\begin{exm}
+		Sei $A=\Q\hookrightarrow\C$,$i\in \C$. \\
+		Dann gilt $g(i)=0$ wobei $g=X^3+X=X(X^2+1)$. Es folgt:
+		\begin{align*}
+		\Q[i]&=\{a_0+q_1i+a_2i^2|a_0,a_1,a_2\in\Q\}\\
+		\Q[i]&=\operatorname{Im}(\Q[X]\xrightarrow[X\mapsto i, f\mapsto f(i)]{\psi}\C)
+		\end{align*}
+		Dann $\tilde{g}\in\Q[X]: \psi(\tilde{g})=0\Leftrightarrow \tilde{g}(i)=0$.\\
+		Also $g\in\operatorname{Ker}(\psi)\Rightarrow (g)\subseteq\operatorname{Ker}(\psi)$.\\
+	In diesem Fall $\operatorname{Ker}\psi=(X^2+1)$.\\
+	\end{exm}
+	Begründung von 2.8:
+	\[(g)\subseteq\operatorname{Ker}\left(A[X]\xrightarrow[f\mapsto f(b)]{\psi}B\right)\]
+	Also $\psi$ faktorisiert:
+	\[A[X]/(g)\xrightarrow{\ol{\psi}}A[b]\subseteq B\]
+	mit $\ol{\psi}$ surjektiv.
+	\begin{prop}
+		Sei $g\in A[X]$ normiert. Dann ist\[\{f\in A[X],\deg(f)<\deg(g)\}\hookrightarrow A[X]\rightarrow A[X]/(g)\]
+		bijektiv.
+	\end{prop}
+	\begin{proof}
+		Gilt, da für alle $f\in A[X]$ genau ein $r\in A[X]$ exitiert mit $\deg(r)<\deg(g)$ mit $f\in r+(g)$
+		%TODO
+	\end{proof}
+\section{Tensorprodukte}
+(A) Tensorprodukte von Moduln\\
+(B) Tensorprodukte von Algebren und Basiswechsel\\
+(C) Exaktheitseigenschaften des Tensorprodukts\\
+\subsection{Erinnerung}
+\begin{definition}
+	$A$-Modul$:=(M,+,\cdot)$ wobei $(M,+)$ abelsche Gruppe und $\cdot:A\times X\rightarrow M$ ein Skalarprodukt.
+\end{definition}
+\begin{bem}
+	$\Z$-Modul=ablesche Gruppe
+\end{bem}
+\begin{exm}
+	Sei $I$ eine Menge
+	\[A^{(I)}=\{(a_i)_{i\in I}|a_i\in A, a_i=0\text{für fast alle $i\in I$}\}\]
+	$A$-Modul mit Addition und Skalarprodukt.\\
+	Für $i\in I:e_i\in A^{(I)}$ mit
+	\[e_i=\begin{cases}
+	\text{1 an der i-ten Stelle}\\
+	\text{0 sonst}
+	\end{cases}\]
+\end{exm}
+\begin{definition}
+	Ein $A$-Modul heißt frei, falls $M\approxeq A^{(I)}$ für eine Menge $I$
+\end{definition}
+\begin{definition}
+	Sei $M,N$ $A$-Modul. Dann heißt $u:M\rightarrow N$ A-linear oder Homomorphismus von $A$-Moduln, falls
+	\[u(am+m')=au(m)+u(m')\forall a\in A,m,m'\in M\]
+\end{definition}
+\begin{bem}
+	Sei $I$ eine Menge, $M$ ein $A$-Modul $\underline{m}=(m_i)_{i\in I}$ ein Tupel von Elementen $m_i\in M$. Dann Existiert genau eine Abbildung:
+	\[A^{(I)}\xrightarrow{u_{\underline m} }M\]
+	mit $u_{\underline{m}}(e_i)=m_i$.\\
+	$(m_i)_i=\underline{m}$ heißt linear Unabhängig/ Erzeugende-System/ Basis, \\
+	falls $u_{\underline{m}}$ injektiv/ surjektiv / bijektiv ist.
+\end{bem}
+\begin{bem}
+	Der $A$-Modul M ist endlich erzeugt, genau dann wenn ein $n\in \N$und eine $A$-lineare Surjektion $A^m\rightarrow M$ existieren.
+\end{bem}
+\subsection{Multilineare Abbildungen}
+\begin{definition}
+	Sei $r\in \N_0$, $M_1,...,M_r,P$ A-Moduln.\\
+	Eine Abbildung $\al:M_1\times...\times M_r\rightarrow P$ heißt \underline{r-multilinear}, falls sie in jeder Komponente linear ist, d.h. Für alle $i=1,...,r$ gilt:
+	\[\al(m_1,...,am_{i}+m_i',m_{i+1},...,m_r)=a\al(m_1,...,m_i,...,m_r)+\al(m_1,...,m_i',...,m_r)\]
+	Für alle $m_j\in M_j,m_i\in M_i,a\in A$.
+	($r=1$: linear, $r=2$: bilinear)
+\end{definition}
+%TODO Setze...
+\subsection{..}
+\begin{definition}
+	Sei $r\ge 2$, $M_1,..,M_r$ A-Moduln.\\
+	Dann existiert ein $A$-Modul $M_1\otimes_AM_2\otimes_A...\otimes_AM_r$ und eine $r$-multilineare Abbildung $\tau:M_1\times...\times M_r\rightarrow M_1\otimes_AM_2\otimes_A...\otimes_AM_r$, sodass für jede $r$-multilineaer Abbildung:
+	\[\al M_1\times...\times M_r\rightarrow P\]
+	wobei $P$ ein A-Modul, genau ein A-lineare Abbildung 
+	\[\ol\al:M_1\otimes_A...\otimes_AM_r\rightarrow P\]
+	existiert.
+	$\xymatrix{
+		M_1\times...\times M_r \ar[r]^{\forall\al: \text{r-multilinear}} & P\\
+		M_1\otimes_AM_2\otimes_A...\otimes_AM_r&
+	}$
+\end{definition}
+%VL 31.10.2016
+\begin{satz}[Eindeutigkeit des Tensorprodukts]
+	Seien $(T,\tau:M_1\times...\times M_r\rightarrow T)$ und $(T',\tau')$ Tensorprodukte:
+	\[\xymatrix{ 
+		M_1\times...\times M_r \ar[d]^{\tau} \ar[dr]^{\tau'}&\\
+		T\ar[r]_{\exists!v}&T'
+	}\]
+	$u$ existiert aufgrund der universellen Eigenschaft von $(T,\tau)$.\\
+	$v$ existiert aufgrund der universellen Eigenschaft von $(T',\tau')$.\\
+	Ferner kommutiert\\
+	
+	Die Universelle Eigschaft von $(T,\tau)$ zeigt, dass $v\circ u=id_T$, genauso $u\circ v=id_T$.
+\end{satz}
+\begin{satz}[Existenz des Tensorprodukts]
+	\begin{enumerate}
+		\item Suche einen $A$-Modul $N$ und eine Abbildung $c:M_1\times...\times M_r\rightarrow R$, sodass
+		\[\text{Hom}_A(N,P)\xrightarrow[u\mapsto u\circ\tau]{ }\text{Abb}(M_1\times...\times M_r,P)\]
+		Für alle $A$-Moduln $P$.
+		%TODO
+		\item Wir wollen, dass $(am_1+m_1',m_2,...,m_r)$ und $a(m_1,...,m_r)+(m_1',...,m_r)$ auf das gleiche Element abgebildet werden.\\
+		Sei $Q\subseteq N$ der von
+		\begin{align*}
+		e_{(m_1,...,m_{i-1},am_i+m_i',m_{i+1},...,m_r)}-\left(ae_{(m_1,...,m_i,..,m_r)}+e_{(m_1,...,m_i',...,m_r)}\right)
+		\end{align*}
+		für alle $i=1,...,r$ und $m_i,m_i'\in M_i$ und $a\in A$ erzeugt Untermodul.\\
+		Dann setze $T:=N/Q$. Dann gilt
+		\begin{align*}
+		\text{Hom}_A(T,P)&=\{u\in \text{Hom}(N,P)|u(Q)=0\}\\
+		&=L_A(M_1,...,M_r,P)
+		\end{align*}
+		mit $\tau:M_1\times...\times M_r\rightarrow N\rightarrow N/Q$.
+	\end{enumerate}
+\end{satz}
+\begin{bem}
+	3.4\\
+	$e_{(m_1,...,m_r)}\in A^{(M_1\times...\times M_r)}$ bilden ein Erzeugndensystem.\\
+	Also bilden auch die $\tau(m_1,...,m_r)=:m_1\otimes...\otimes m_r$ eine Erzeugenden-System des $A-$Moduls $M_1\otimes...\otimes M_r$.\\
+	\textbf{Aber:} Nicht jedes Element von $M_1\otimes...\otimes M_r$ ist in dieser Form.\\
+	\\
+	Also genüt es eine lineare Abbildung $u:M_1\otimes...\otimes M_r\rightarrow P$ auf den erzeugdnesn $m_1\otimes...\otimes m_r$ mit ($m_i\in M_i$) anzugeben.\\
+	Umgekehrt sei $P$ ein A-mOdul und es seien elemente $u(m_1\otimes...\otimes m_r)\in P$ gegeben für alle $m_i\in M_i$.\\
+	Genau dann existiert eine $A$-lineare Abbildung $u:M_1\otimes...\otimes M_r\rightarrow P$ mit $m_1\otimes ...\otimes m_r\mapsto u(m_1\otimes ...\otimes m_r)$, wenn für alle $i=1,...,r$, $a\in A$, $m_j\in M_j$ und $m_i'\in M_i$ gilt:
+	\[u(m_1\otimes ..\otimes a m_i+m_i'\otimes..\otimes m_r)=a u(m_1\otimes ..\otimes m_i\otimes..\otimes m_r)+u(m_1\otimes ..\otimes a m_i'\otimes..\otimes m_r)\]
+\end{bem}
+\begin{satz}[Tensorprodukt linearer Abbildungen]
+	Seien $M,M',N,n'$ $A$-Moduln, $u:M\rightarrow M',v:N\rightarrow N'$ $A$-lineare Abbildungen.\\
+	Dann definiert
+	\begin{align*}
+	M\otimes_A N&\rightarrow M'\otimes A N'\\
+	m\otimes n &\mapsto u(m)\otimes u(n)
+	\end{align*}
+	eine $A$-lineare Abbildung bezüglich $u\otimes v:M\otimes N\rightarrow M'\otimes N$.
+\end{satz}
+\begin{proof}
+	Zu zeigen: $u(am+m')\otimes v(n)=a(u(m)\otimes v(n))+u(m')\otimes v(n)$\\
+	Es gilt da das Tensorprodukt $r$-linear ist.
+	\begin{align*}
+	u(am+m')\otimes v(n)&=(au(m)+u(n))\otimes v(n)\\
+	&=(au(m)\otimes v(n))+u(m')\otimes v(n)
+	\end{align*}
+	\\
+	Außerdem zu zeigen: $u(m)\otimes v(an+n')=a(u(m)\otimes v(n))+u(m)\otimes v(n)$\\
+	($\rightarrow $ Genauso.)
+\end{proof}
+\begin{bem}
+	3.6\\
+	\begin{enumerate}
+		\item $A\otimes_A M\approxeq M$\\
+		$u: a\otimes m\mapsto am$\\
+		$v: 1\otimes m.....m $
+		Dabei ist $u$ wohldefiniert, d.h. $(a,m)\rightarrow am$ ist bilinear.
+		%TODO
+		\item $M\otimes_A N\xrightarrow{\sim}N\otimes_A M, m\otimes n\mapsto n\otimes m$ ist ... von A-Moduln.\\
+		Zu zeigen: Wohldefineirtheit 
+		%TODO
+		\item $M\otimes_A N\otimes_A P\simeq (M\otimes_A N)\otimes_A P$\\
+		$m\otimes n\otimes p\mapsto (m\otimes n)\otimes p$\\
+		$m\otimes n\otimes p\mapsto m\otimes (n\otimes p)$
+	\end{enumerate}
+\end{bem}
+\begin{prop}3.7
+	Sei $(M_i)_{i\in I}$ eine Familie von $A$-Moduln, $N$ ein A-Modul:\begin{align*}
+	\left(\bigotimes_{i\in I}M_i\right)\otimes_A N\xrightarrow{\sim} \bigotimes_{i\in I}\left(M_1\otimes_A N\right)\\
+	(m_i)_{i\in I}\otimes n\mapsto(m_i\otimes n)_{i\in I}
+	\end{align*}
+\end{prop}
+\begin{proof}
+	Umkehrabbildung gegeben durch:\[Inhalt..m_i\otimes n\mapsto (m_j)_{j\in I}\otimes n\]
+	mit $m_j:=\begin{cases}
+	m_i, &j=i\\
+	0 &j\neq i
+	\end{cases}$
+\end{proof}
+\subsection{Basiswechsel von Tensorprodukten}
+\begin{satz}
+	\begin{enumerate}
+		\item Sei $M$ ein A-Modul. Dann wird
+		\[\varphi^*(M):=B\otimes_A M\]
+		zu einerm $B$-Modul mit dem Skalarprodukt
+		\begin{align*}
+		B\times(B\otimes_A M)&\rightarrow B\otimes_A M\\
+		(b,b'\otimes m)&\mapsto bb'\otimes m
+		\end{align*}
+		\item Sei $U:M\rightarrow M'$ ein Homomorphismus von A-Moduln. Dann ist
+		\begin{align*}
+		id_B\otimes u:B\otimes M&\rightarrow  B\otimes_A M'\\
+		b\otimes m\mapsto b\otimes u(m)
+		\end{align*}
+		eine B-lineare Abbildung.S
+	\end{enumerate}
+\end{satz}
+\begin{prop}
+	Sei $\varphi:A\rightarrow B$ eine A-Algebra.\\
+	Sei $M$ ein freier A-Modul. Dann ist $B\otimes_A M$ ein freier B-Modul und
+	\[\vartheta_A(M)=\vartheta_B(B\otimes_A M)\]
+\end{prop}
+\begin{proof}
+	Sei $M$ ein freier A-Modul. Dazu ist äquivalent, dass $M\simeq A^{(I)}$.\\
+	Daraus folgt, dass
+	\begin{align*}
+	B\otimes_A M&\simeq B\otimes_A A^{(I)}\\
+	&\simeq B\otimes_A\left(\bigoplus_{i\in I}A\right)\\
+	&\simeq \left(\bigoplus_{i\in I}B\otimes_A A\right)\\
+	&\simeq\bigoplus_{i\in I}B\\
+	&=B^{(I)}
+	\end{align*}
+	Also ist $B\otimes_A M$ frei.
+	%TODO
+\end{proof}
+%VL 02.11.2016
+\begin{prop}
+	Sei $\mathfrak{a}\subseteq A$ ein Ideal, $M$ ein A-Modul.Setze 
+	\begin{align*}
+	\mathfrak a\cdot M&=\langle \{am|a\in\mathfrak a,m\in M\}\\
+	&=\left\{\sum_{i=1}^{m}a_im_i\mid n\in\N_0,a_i\in\mathfrak a,m_i\in M \right\}\\
+	&\subseteq M \quad \text{Untermodul}
+	\end{align*}
+	Dann ist
+	\begin{align*}
+	A/\mathfrak a\otimes_A M&\xrightarrow{\sim} M/\mathfrak a M\\
+	\ol a\otimes m&\mapsto \ol{am}
+	\end{align*}
+	ein Homomorphismus von $A/\mathfrak a$-Moduln.
+\end{prop}
+\begin{proof}$\ol a\oplus m\mapsto \ol{am}$ ist wohldefiniert:
+	Zu zeigen:
+	\begin{enumerate}
+		\item Sei $a'\in A$ mit $\ol{a'}=\ol a\in A/\mathfrak a$.\\
+		Dann ist $\ol{am}=\ol{a'm}\in M/\mathfrak aM$.
+		Es gilt $\ol{a}'=\ol a$ gena dann wenn es ein $x\imath\mathfrak a$ gibt sodass $a'=a+x$.\\
+		Daruas folgt, dass $a'm=am+xm$, und da $xm\in\mathfrak aM$ folgt $\ol{a'm}=\ol{am}$.
+		\item $\ol{am}$ is linear in $a$, d.h.
+		\[\ol{(ba+a')m}=b\ol{am}+a'\ol m \quad \text{für $a,a'\in A$, $b\in A$}\]
+		\item $\ol{am}$ ist linear in $m$, d.h.
+		\[\ol{a(bm+m')}=b\ol{am}+\ol{am'}\quad\text{für $m,m'\in M$, $b\in A$}\]
+	\end{enumerate}
+\end{proof}
+\begin{prop}
+	Eine Umkehrabbildung ist gegeben durch
+	\begin{align*}
+	v:M&\rightarrow A/\mathfrak a\otimes_A M\\
+	m&\mapsto 1\otimes m
+	\end{align*}
+\end{prop}
+\begin{proof}
+	Zu zeigen: $\mathfrak aM\subseteq Ker(v)$, also für alle $x\in\mathfrak a,m\in M$ gilt $v(xm)=0$.
+	\[v(xm)=1\otimes xm=\ol{x}\otimes m=0\]
+	da $\ol{x}=\ol{0}\in A/\mathfrak a$.\\
+	Noch zu zeigen:: $v$ ist Umkehrabbildung zu $\ol a\otimes m\mapsto \ol{am}$.
+\end{proof}
+\subsection{Tensorprodukte von Algebren}
+\begin{definition}
+	Sei $A\rightarrow  B_1$, $A\rightarrow  B_2$ A-Algebren.\\
+	Dann definieren wir auf dem A-Modul $B_1\otimes_A B_2$ eine Multiplikation:
+	\begin{align*}
+	(B_1\otimes B_2)\times(B_1\otimes B_2)&\rightarrow B_1\otimes B_1\otimes B_2\\
+	(a_1\otimes b_2,b_1'\otimes b_2')&\mapsto b_1b_1'\otimes b_2b_2'
+	\end{align*}
+	und erhalten die $A$-Algebra $B_1\otimes_A B_2$.
+\end{definition}
+\begin{exm}
+	Sei $A\xrightarrow{\varphi} B$ eine A-Algebra und sei $C=A[X_1,...,X_n]/(f_1,...,f_r)$ und $f_i\in A[X-1,...,X_n]$.Dann ist
+	\[B\otimes_A A[X-1,...,X_n]/(f_1,...,f_r)=B[X_1,...,X_n]/(\tilde{f}_1,...,\tilde{d}_r)\]
+	wobei 
+	\[f_i=\sum_{\ul{j}\in \N_0^n}a_{\ul{j}}X^{\ul{j}}\rightarrow \tilde{f}_i=\sum_j\varphi(a_j)\]
+	\begin{enumerate}
+		\item Sei $A=\Q$, $C=\Q[i]=\{a+b_i|a,b\in\Q\}=\Q[X]/(X^2+1)$
+		\item $\R\otimes_Q Q[i]=\R[X]/(X^2+1)=\C$
+		\item $C\otimes_Q Q[i]=C[X]/(X^2+1)=\C[X]/(X+i)\times\C[X]/(X-i)\simeq\C\times\C$
+	\end{enumerate}
+\end{exm}
+\begin{exm}
+	$A[X]\otimes_A A[Y]=(A[X])[Y]=A[X,Y]$ mit $f\otimes g\mapsto fg$
+\end{exm}
+\end{document}
