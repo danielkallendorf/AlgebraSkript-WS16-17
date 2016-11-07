@@ -12,39 +12,39 @@
 \usepackage{hyperref}
 \usepackage[all]{xy}
 
-\newcommand{\gdw}{\ensuremath{\Leftrightarrow}}
 \newcommand{\N}{\ensuremath{\mathbb{N}}}
 \newcommand{\Z}{\ensuremath{\mathbb{Z}}}
 \newcommand{\Q}{\ensuremath{\mathbb{Q}}}
 \newcommand{\R}{\ensuremath{\mathbb{R}}}
 \newcommand{\C}{\ensuremath{\mathbb{C}}}
 \newcommand{\F}{\ensuremath{\mathbb{F}}}
-\newcommand{\impl}{\ensuremath{\Rightarrow}}
 \newcommand{\la}{\ensuremath{\lambda}}
 \newcommand{\al}{\ensuremath{\alpha}}
 \newcommand{\ol}[1]{\overline{#1}}
 \newcommand{\ul}[1]{\underline{#1}}
 \newcommand{\norm}[1]{\|#1\|}
-\newcommand{\dif}[2]{\frac{\partial #1}{\partial #2}}
-\newcommand{\mdif}[3]{\frac{\partial^#1 #2}{\partial #2^#3}}
-\renewcommand{\P}{\ensuremath{\mathbb P}}
-\newcommand{\E}{\ensuremath{\mathbb E}}
 \newcommand{\Hlb}{\ensuremath{\mathscr H}}
 \newcommand{\surjfunc}{\ensuremath{\xrightarrow{\sim}}}
+\newcommand{\Hom}{\text{Hom}}
+\newcommand{\Ker}{\ensuremath{\operatorname{Ker}}}
+\newcommand{\Img}{\ensuremath{\operatorname{Im}}}
+\newcommand{\inj}{\xrightarrow{\sim}}
+
 \newenvironment{sumup}{\begin{framed}\textbf{Zusammenfassung:}\\}{\end{framed}}
 
 \theoremstyle{definition}
-\newtheorem{definition}{Definition}
-\newtheorem{satz}{Satz}
-\newtheorem{prop}{Proposition}
+\newtheorem{definition}[subsection]{Definition}
+\newtheorem{satz}[subsection]{Satz}
+\newtheorem{prop}[subsection]{Proposition}
 
 \theoremstyle{plain}
-\newtheorem{lem}{Lemma}
-\newtheorem{kor}{Korollar}
+\newtheorem{lem}[subsection]{Lemma}
+\newtheorem{kor}[subsection]{Korollar}
 
 \theoremstyle{remark}
-\newtheorem{bem}{Bemerkung}
-\newtheorem{exm}{Beispiel}
+\newtheorem{bem}[subsection]{Bemerkung}
+\newtheorem{rem}[subsection]{Erinnerung}
+\newtheorem{exm}[subsection]{Beispiel}
 
 
 \author{Prof Wedhorn, Mitschrift von Daniel Kallendorf}
@@ -172,7 +172,7 @@
 \begin{satz}[Existenz des Tensorprodukts]
 	\begin{enumerate}
 		\item Suche einen $A$-Modul $N$ und eine Abbildung $c:M_1\times...\times M_r\rightarrow R$, sodass
-		\[\text{Hom}_A(N,P)\xrightarrow[u\mapsto u\circ\tau]{ }\text{Abb}(M_1\times...\times M_r,P)\]
+		\[\Hom_A(N,P)\xrightarrow[u\mapsto u\circ\tau]{ }\text{Abb}(M_1\times...\times M_r,P)\]
 		Für alle $A$-Moduln $P$.
 		%TODO
 		\item Wir wollen, dass $(am_1+m_1',m_2,...,m_r)$ und $a(m_1,...,m_r)+(m_1',...,m_r)$ auf das gleiche Element abgebildet werden.\\
@@ -183,7 +183,7 @@
 		für alle $i=1,...,r$ und $m_i,m_i'\in M_i$ und $a\in A$ erzeugt Untermodul.\\
 		Dann setze $T:=N/Q$. Dann gilt
 		\begin{align*}
-		\text{Hom}_A(T,P)&=\{u\in \text{Hom}(N,P)|u(Q)=0\}\\
+		\Hom_A(T,P)&=\{u\in \Hom(N,P)|u(Q)=0\}\\
 		&=L_A(M_1,...,M_r,P)
 		\end{align*}
 		mit $\tau:M_1\times...\times M_r\rightarrow N\rightarrow N/Q$.
@@ -326,8 +326,7 @@
 	da $\ol{x}=\ol{0}\in A/\mathfrak a$.\\
 	Noch zu zeigen:: $v$ ist Umkehrabbildung zu $\ol a\otimes m\mapsto \ol{am}$.
 \end{proof}
-\subsection{Tensorprodukte von Algebren}
-\begin{definition}
+\begin{definition}[Tensorprodukte von Algebren]
 	Sei $A\rightarrow  B_1$, $A\rightarrow  B_2$ A-Algebren.\\
 	Dann definieren wir auf dem A-Modul $B_1\otimes_A B_2$ eine Multiplikation:
 	\begin{align*}
@@ -348,6 +347,227 @@
 	\end{enumerate}
 \end{exm}
 \begin{exm}
-	$A[X]\otimes_A A[Y]=(A[X])[Y]=A[X,Y]$ mit $f\otimes g\mapsto fg$
+	$A[X]\otimes_A A[Y]=(A[X])[Y]=A[X,Y]$ mit $f\otimes g\mapsto fg$.\\
+	Dann ist die Umkehrabbildung
+	%TODO
 \end{exm}
+\subsection*{C) Exaktheitseigenschaften}
+\begin{definition}[Homomorphismen-Funktor]
+	Seien $M,P$ A-Moduln.\\
+	Wir Definiere auf $\Hom_A(M,P):=\{u:M\rightarrow P \text{A-linear}\}$ die Struktur eines $A$-Moduls.
+	\begin{align*}
+	(u+v)(m)&:=u(m)+v(m) &u,v\in\Hom_A(M,P)\\
+	(au)(m)&:=au(m)		 &a\in A,m\in M
+	\end{align*}
+	Sei $u:M\rightarrow M'$ eine A-lineare Abbildung. Wir erhalten die A-lineare Abbildung
+	\begin{align*}
+	\Hom_A(u,P):\Hom_A(M',P)&\rightarrow \Hom_A(M,P)\\
+	w'&\mapsto w'\cdot u
+	\end{align*}
+	Sei $v:P\rightarrow P'$ eine A-lineare Abbildung. Wir erhalten die A-lineare Abbildung
+	\begin{align*}
+	\Hom_A(M,v):\Hom_A(M,P)&\rightarrow \Hom_A(M,P')\\
+	w'&\mapsto v\cdot w
+	\end{align*}
+\end{definition}
+\begin{rem}
+	Eine Sequnez von $A$-lineare Abbildungen\[...\rightarrow M_{i-1}\xrightarrow{u_{i-1}}M_i\xrightarrow{u_{u_i}}M_{i+1}\rightarrow ...\]
+	heißt exakt, falls $\text{Ker}(u_i)=\text{Im}(u_{i-1})$
+\end{rem}
+\begin{exm}
+	$0\rightarrow M*\xrightarrow{u}M$ ist exakt genau dann wenn $u$ injektiv ist.\\
+	$M\xrightarrow{v}M''\rightarrow 0$ ist exakt genau dann wenn $v$ surjektiv ist
+\end{exm}
+\begin{satz}
+	\begin{enumerate}
+		\item Sei $0\rightarrow M'\xrightarrow{u}M\xrightarrow{v}M''(*)$ eine Sequenz von $A-$Moduln.\\
+		Dann ist $(*)$ genau dann exakt, wenn für jeden A-Modul $P$ die Sequenz
+		\begin{align*}
+		\Hom_A(P,(*)):0\rightarrow \Hom_A(P,M')&\rightarrow \Hom_A(P,M)&&\rightarrow \Hom_A(P,M'')\\
+		w'&\mapsto u\circ w'&w&\mapsto v\circ w
+		\end{align*}
+		exakt ist.
+		\item %TODO
+	\end{enumerate}
+\end{satz}
+\begin{proof}Wir beweisen Schrittweise:
+	\begin{enumerate}
+		\item ``$(*)$ ist exakt $\Rightarrow$ $\Hom_A(P,(*))$ ist exakt``
+		\begin{enumerate}
+				\item $w'\mapsto u\circ w'$ injektiv:\\
+				Sei $w\in\Hom_A(P,M')$ mit $u\circ w'=0$.\\
+				Dann ist (da $u$ injektiv) $w'=0$. Also ist $\Ker(w'\mapsto u\circ w')=0.$
+				\item $\Img(w'\mapsto u\circ w')\subseteq\Ker(w\mapsto v\circ w)$:\\
+				Kompoosition: $w'\mapsto u\circ w'\mapsto \underbrace{(v\circ u)}_{=0}\circ w'$ ist Null.
+				\item $\Img(w\mapsto v\circ w)\subseteq\Ker(w'\mapsto u\circ w')$:\\
+				Sei $w\in\Hom_A(P,M)$ mit $v\circ w=0$, sodass $\Img(w)\subseteq\Ker(v)=\Img(u)$.
+			\end{enumerate}
+			\begin{center}
+				\xymatrix{
+				0\ar[r]&M'\ar[r]^u&M\ar[r]^v&M''\\
+				&&P\ar@{..>}[lu]^{w'?}\ar[u]_w\ar[ru]_0&
+				}
+			\end{center}
+			``$\Leftarrow$``
+			\begin{enumerate}
+				\item $u$ injektiv: Sie $m'\in M$ mit $u(m')=0$, $P:=<m'>=Am'\subseteq M',w':P\rightarrow M'$ Inklusion.\\
+				Dann ist...
+				%TODO Rest der VL
+			\end{enumerate}
+	\end{enumerate}
+\end{proof}
+%VL 07.11.2016
+\begin{bem}
+	\label{bem313}
+	Seiene $M,N,P$ A-Moduln. Dann ist
+	\begin{align*}
+	\Hom_A(M\otimes_A N,P)&=L_A(M,N;P)&\quad (*)\\
+	&=\Hom_A(M,\Hom_A(N,P))\\
+	(\al:M\times N\rightarrow P)&\mapsto (n\mapsto \al(m,n))
+	\end{align*}
+	\begin{align*}
+	\text{Sei }T_N:(\text{A-Modul})&\rightarrow (\text{A-Modul})\\
+	M&\mapsto M\otimes_AN\\
+	(u:M\rightarrow M')&\mapsto u\otimes id_N\\
+	N_N:(\text{A-Modul})&\rightarrow \text{(A-Modul)}\\
+	P&\mapsto \Hom_A(N,P)
+	\end{align*}
+	Dann besagt $(*)$:
+	\[\Hom(T_M(M),P)=\Hom(M,H_N(P))\]
+	d.h. $T_N$ ist linksadjungiert zu $H_N$.\\
+	Dann ist $T_N$ rechtsexakt und $H_N$ ist linksexakt.
+\end{bem}
+\begin{prop}
+	Sei $M'\xrightarrow{u}M\xrightarrow{v}M''\rightarrow 0$ eine exakte Sequenz von A-Moduln. Dann ist für jeden A-Modul $N$ die Sequenz
+	\[M'\otimes N\xrightarrow{u\otimes id_N}M\otimes_AN\xrightarrow{u\otimes id_N}M''\otimes_A N\rightarrow 0\]
+	exakt.
+\end{prop}
+\begin{proof}
+	Formal mit \ref{bem313}.\\
+	Sei $M'\rightarrow M \rightarrow M''\rightarrow 0$ exakt.\\
+	Dann gilt mit $\ref{bem312}$, dass für alle A-Mdouln $P$:
+	\[0\rightarrow \Hom_A(M'',H_N(P))\rightarrow \Hom_A(M,H_N(P))\rightarrow \Hom_A(M',H_N(P))\]
+	Ist jeweils gleich (\ref{bem313})
+	\[0\rightarrow \Hom_A(T_N(M''),P)\rightarrow \Hom_A(T_N(M),P)\rightarrow \Hom_A(T_N(M'),P)\]
+	exakt, sodass mit \ref{312}
+	\[T_N(M')\rightarrow \underbrace{T_N(M)}_{=M\otimes_AN}\rightarrow T_N(M'')\rightarrow 0\]
+	exakt ist.
+\end{proof}
+\begin{exm}
+	Sei $A=\Z$, $u:\Z\xrightarrow{x\mapsto2x}\Z$. \\
+	Dann ist $0\rightarrow \Z\xrightarrow{u}\Z$ exakte und $A\otimes_A M=M$.\\
+	Aber 
+	\begin{align*}
+	0\rightarrow \Z\otimes\Z/2\Z&\xrightarrow{u\otimes id_{\Z/2\Z}}\Z\otimes_\Z\Z/2\Z\\
+	\Z/2\Z&\xrightarrow{\cdot 2}\Z/2\Z
+	\end{align*}
+	ist nicht injektiv.
+\end{exm}
+\section{Lokalisierung}
+\subsection*{A) Lokalisierung von Ringen und Moduln}
+\begin{definition}
+	Eine Teilmenge $S\subseteq A$ heißt \underline{multiplikativ}, falls $1\in S$ uns $s,t\in S\Rightarrow st\in A$.
+\end{definition}
+\begin{exm}
+	\begin{enumerate}
+		\item $S=\Z\setminus \{0\}\subseteq A=\Z$
+		\item Sei $f\in A$, dann ist $S_f=\{1,f,f^2,...,\}$ eine multiplikative Teilmenge.
+		\item Sei $y\subset A$ Primideal. Dann ist $A\setminus y\subset A$ eine multiplikative Teilmenge.
+	\end{enumerate}
+\end{exm}
+\begin{definition}
+	Sei $A$ ein Ring, $S\subseteq A$ eine multiplikative Teilmenge.\\
+	Definiere auf $A\times S$ eine Äquivalenzrelation durch
+	\[(a,s)\sim (b,t):\Leftrightarrow at=bs\]
+\end{definition}
+\begin{proof}
+	Dies ist eine Äquivalenzrelation:\begin{itemize}
+		\item Refelxivität
+		\item Symmetrie
+		\item Transitiv: $(a,s)\sim (b,t)$, $(b,t)\sim (c,u)$
+		\[\exists v,w\in S:\quad vat=bvs\quad,\quad wba=wtc\]
+		Dann ist $vbsw=^!$ %TODO bis "genannt kanonisch"
+	\end{itemize}
+\end{proof}
+\begin{satz}[Universelle Eigenschaft]
+	Sei $S\subseteq A$ eine multiplikative Teilmenge und sei $1:A\rightarrow S^{-1}$ kanonisch. Sei $B$ ein Ring, $\varphi:A\rightarrow B$ ein Ring-Homomorphimsmus mit $\varphi(s)\in B^\times=\{b\in B\mid  \exists c\in B: bc=1\}$ für alle $s\in S$. Dann existiert ein eindeutiger RIngHomomorphismus $\tilde{\varphi}S^{-1 A\rightarrow B}$ mit $\tilde{\varphi}\circ 1=\varphi:$.
+	
+	\[\xymatrix{
+		 A\ar[r]^{\forall\varphi:\varphi(s)\subseteq B^\times}\ar[d]^{1}&B\\
+		S^{-1}A\ar[ru]^{\exists!\tilde\varphi}&
+	}\]
+\end{satz}
+\begin{proof}
+	\underline{Eindeutigkeit} Für $\frac{a}{s}-in S^{-1}A$ muss für $\tilde{\varphi}$ gilt:
+	\begin{align*}
+	\tilde\varphi\left(\frac{a}{a}\right)&=\tilde{\varphi}\left(\frac{a}{1}\left(\frac{s}{1}\right)^{-1}\right)=\tilde{\varphi}\left(\frac{a}{1}\right)\tilde{\varphi}\left(\frac{s}{1}\right)^{-1}&(*)\\
+	&=\varphi(a)\varphi(s)^{-1}
+	\end{align*}
+	\underline{Eindeutigkeit}
+	Definiere $\tilde\varphi$ durch $(*)$\\
+	Z.z: $\tilde\varphi$ ist wohldefiniert.
+\end{proof}
+\begin{bem}
+	Sei $S\subseteq A$ eine multilineare Teilmenge.\\
+	Dann gilt: $1:A\rightarrow S^{-1}A$ ist injektive $\Leftrightarrow$ S enthält keien Nullteiler.
+\end{bem}
+\begin{proof}
+	\begin{align*}
+	&1\text{ ist injektiv }\\
+	\Leftrightarrow&\Ker(1)=0\\
+	\Leftrightarrow&(\forall a\in A:\frac{a}{1}=1\Rightarrow a=0)
+	\Leftrightarrow&(\forall a\in A:\exists s\in S:as=0\Rightarrow a=0)
+	\Leftrightarrow&\text{$S$ enthält eine Nullteiler}
+	\end{align*}
+\end{proof}
+\begin{satz}[Lokalisierung von Moduln]
+	Sei $S\subseteq A$ ein multiplikative Teilmenge, $M$ ein A-Modul. Definiere auf $M\times S$ eine Äquivalenz Relation:
+	\[(m,s)\sim (n,t)\Leftrightarrow\exists v\in S:vtm=vsm\]
+	Man erhält den $S^{-1}A$-Modul $S^{-1}M=(M\times S)/\sim$:
+	\begin{itemize}
+		\item Mit Addition: $\frac{m}{s}+\frac{n}{t}:=\frac{tm+sn}{st}$
+		\item Mit Skalarmultiplikation: $\frac{a}{s}\cdot \frac{m}{t}:=\frac{am}{st}$
+	\end{itemize}
+\end{satz}
+\begin{satz}[Lokalisierung als Funktor]
+	Sei $u:M\rightarrow  N$ eine A-lineare Abbildung, $S\subseteq A$ ein multiplikative Teilgruppe. Dann ist
+	\begin{align*}
+	S^{-1}u:S^{-1}M&\rightarrow S^{-1}N\\
+	\frac{m}{s}&\mapsto \frac{u(m)}{s}
+	\end{align*}
+	eine $S^{-1}A$ lineare Abbildung.
+\end{satz}
+\begin{satz}[Lokalisierung ist exakt]
+	InhaltSei $M'\xrightarrow{u}M\xrightarrow{v}M''$ eine exakte Sequenz von A-Moduln, $S\subseteq$ eine multilineare Teilmenge. Dann ist
+	\[S^{-1}M'\xrightarrow{S^{-1}u}S^{-1}M\xrightarrow{S^{-1}v}S^{-1}M''\]
+	eine exakte Sequnez von $S^{-1}A$ Moduln.
+\end{satz}
+\begin{proof}
+	$v\circ u=0$. Also ist $S^{-1}v\circ S^{-1}u=0$.\\
+	Noch zu zeigen: $\Ker(S^{-1}v)\subseteq \Img(S^{-1}u)$.\\
+	Sei $\frac{m}{s}\in S^{-1}M$ mit $S^{-1}v\frac{v}{s}=\frac{v(m)}{s}=0$.\\
+	Also gibt es $t\in S:tv(m)=v(tm)=0$.\\
+	Damit liegt $tm\in\Ker(v)=\Im(u)$.\\
+	Also existiert $m\in M:u(m'=tm)$.
+	Dann ist $S^{-1}u\left(\frac{m'}{st}\right)=\frac{u(m')}{st}=\frac{m}{s}$ und damit $\frac{m}{s}\in\Img(S^{-1}u)$
+\end{proof}
+\begin{prop}
+	Sei $M$ ein A-Modul, $S\subseteq A$ eine multiplikative Teilmenge, dann ist
+	\begin{align*}
+	u:S^{-1}A\otimes_A M&\inj S^{-1 M}\\
+	\frac{a}{s}\otimes m\mapsto \frac{am}{s}
+	\end{align*}
+	ist Homomorphismus von $S^{-1}A$-Moduln.
+\end{prop}
+\begin{proof}
+	\begin{enumerate}
+		\item $1$ ist wohldefiniert: z.Z:
+		\begin{enumerate}
+			\item $\frac{a}{s}=\frac{b}{t}\Rightarrow \frac{am}{s}=\frac{bm}{t}$.
+			\item $\frac{am}{s}$ ist linear in $\frac{a}{s}$ und in $m$.
+		\end{enumerate}
+		\item %TODO
+	\end{enumerate}
+	
+\end{proof}
 \end{document}
