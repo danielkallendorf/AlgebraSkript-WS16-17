@@ -28,6 +28,7 @@
 \newcommand{\Hom}{\text{Hom}}
 \newcommand{\Ker}{\ensuremath{\operatorname{Ker}}}
 \newcommand{\Img}{\ensuremath{\operatorname{Im}}}
+\newcommand{\Qud}{\text{Qud}}
 \newcommand{\inj}{\xrightarrow{\sim}}
 
 \newenvironment{sumup}{\begin{framed}\textbf{Zusammenfassung:}\\}{\end{framed}}
@@ -568,6 +569,130 @@
 		\end{enumerate}
 		\item %TODO
 	\end{enumerate}
-	
 \end{proof}
+%VL 09.11.2016
+\begin{satz}[Ideal in $S^{-1}A$]
+	Sei $S\subseteq A$ eine multilineare Teilmenge.
+	\begin{align*}
+	\left\{\text{Ideale in A}\right\}
+	{\xrightarrow{\mathfrak a\mapsto S^{-1\mathfrak a}}\atop \xleftarrow[b\mapsto \iota^{-1}(b)]{}
+	}\left\{\text{Ideale in $S^{-1}A$}\right\}
+	\end{align*}
+	\[1:A\rightarrow S^{-1}A,a\mapsto \frac{a}{1}\]
+	Nicht zu einander invers.
+	\begin{enumerate}
+		\item Sei $\mathfrak a\subseteq A$ ein Ideal. Dann ist $S^{-1\mathfrak a}=S^{-1}A$ genau dann wenn $\mathfrak a\cap S\neq 0$.\\
+		Dann folgt auch, dass $\mathfrak\mapsto S^{-1\mathfrak a}$ ist nur invertierbar , falls $S\subseteq A^\times$.
+		\item Für $b\subseteq S^{-1}A$ Ideal gilt:\\
+		\[S^{-1}(\iota^{-1}(b))=b\]
+		Dann folgt $b\mapsto\iota^{-1}(b)$ ist injektiv und jedes Ideal von $S^{-1}A$ ist von der Form $S^{-1}\mathfrak a$ für einIdeal $\mathfrak a\subseteq A$.
+		\item Sei $\mathfrak a\subseteq A$ ein Ideal. Dann gilt:
+		Es gibt ein Ideal $b\subseteq S^{-1}A$ mit $\mathfrak a=\iota^{-1(b)}$.\\
+		Dies ist Äquivalent dazu, dass kein $s\in S$ ins $A/\mathfrak a$ Nullteiler ist.
+		\item Man hat zueinander inverse Bijektionen: \label{4104}
+		\[\left\{q\subset S^{-1 A}\mid \text{Primideal}\right\}
+		\xrightarrow{q\mapsto\iota^{-1(q)}}\atop\xleftarrow[\mathfrak p\mapsto S^{-1\mathfrak p}]{}\left\{\text{Primiedeale $\mathfrak p\subset A$ mit $\mathfrak p\cap S=\emptyset$}\right\}
+		\]
+		%TODO 4
+	\end{enumerate}
+\end{satz}
+\begin{proof}
+	\begin{enumerate}
+		\item $\frac{1}{1}-in S^{/1 A}$ ist genau dann wenn es ein $a\in\mathfrak a,s\in S$ gibt, sodass $\frac{a}{s}=\frac{1}{1}$.
+		\begin{align*}
+		&\Leftrightarrow \exists a\in\mathfrak a,s,t\in S: ta=ts\\
+		&\Leftrightarrow\mathfrak a\cap S\neq 0
+		\end{align*}
+		\item Sei $\frac{a}{s}\in S^{-1}(\iota^{-1(b)})$.\\
+		Ist äquivalent zu $\exists t\in S$ und $b\in A$ mit $\frac{b}{1}\in b$, so dass
+		\[\frac{a}{s}=\frac{b}{t}=\frac{b}{1}\frac{1}{t}\]
+		$\Leftrightarrow \frac{a}{s}\in b$
+		\item Sei $\mathfrak a=\iota^{-1}(b)$ für ein Ideal $b\subseteq S^{-1}A$.
+		\begin{align*}
+		&\Leftrightarrow\mathfrak a=\iota^{-1}(S^{-1}\mathfrak a)\\
+		&\Leftrightarrow A/\mathfrak 
+		a\xrightarrow{\ol{a} \mapsto \ol{\left(\frac{a}{1}\right)}}
+		S^{-1}A/S^{-1}\mathfrak a=^{\ref{480}}S^{-1}A/\mathfrak a\quad\text{injektiv}\\
+		\end{align*}
+		(Wende $\ref{480}$ an auf die exakte Sequenz
+		\begin{align*}
+		0\rightarrow \mathfrak a&\rightarrow A\rightarrow A/\mathfrak a\rightarrow 0
+		\intertext{Dann ist auch}
+		0\rightarrow S^{-1}\mathfrak a&\rightarrow S^{-1}A\rightarrow S^{-1}(A/\mathfrak a)\rightarrow 0\\
+		\end{align*} exakt.)
+		Mit $\ref{450}$ gilt äquivalenz dazu, dass kein $s\in S$ ist Nullteiler in $A/\mathfrak a$.
+		\item %TODO Proof 4
+	\end{enumerate}
+\end{proof}
+%TODO 4.10, 4.11
+\begin{satz}[Universelle Eigenschaft des Quotientenkörpers]
+	Sei $\iota:A\rightarrow \Qud(A)$ kanonisch und sei $\varphi:A\rightarrow K$ ein injektiver Ring-Homomorphismus wobei $K$ ein Körper.\\
+	Dann existiert genau ein Homomorphismus von Körpern $\tilde{\varphi}:\Qud(A)\rightarrow K$.
+\end{satz}
+%TODO. Beweis?
+\subsection*{(B) Lokale Ringe und Restklassenkörper}
+\begin{definition}
+	Ein Ring $A$ heißt \underline{lokal} wenn er genau ein Maximales Ideal besitzt.\\
+	Dann bezeichnet $\mathfrak m_A$ dieses Maximales Ideal.\\
+	Der Körper $\kappa(A):=A/\mathfrak m_A$ heißt \underline{Restklassenkörper von $A$}.
+\end{definition}
+\begin{exm}
+	\begin{itemize}
+		\item Jeder Körper ist ein lokaler Ring.
+		\item Ein Hauptidealring $A$ ist genau dann lokal, wenn bis auf Multiplikation mit Einheiten genau ein irreduzibles Element existiert.\\
+		Oder wenn $A$ Körper ist
+	\end{itemize}
+\end{exm}
+\begin{definition}
+	Ein lokaler Hauptideal Ring der kein Körper ist, heißt \underline{diskreter Bewertungsring}.
+\end{definition}
+\begin{exm}
+	Sei $\mathfrak p\subset A$ Primideal, $S:=A\backslash \mathfrak p$ multiplikative Teilmenge, $A_{\mathfrak p}:=S^{-1}A$.
+	\[\{\text{Primideals in $A-\mathfrak p$}\}\leftrightarrow\{\text{Primideals $q\subset A$ mit $q\subseteq \mathfrak p$}\}\]
+	(mit $\ref{4104}$).\\ 
+	Also ist $A_{\mathfrak p}$ ein lokaler Ring mit maximalem Ideal $S^{-1}\mathfrak p$.\\
+	Der Körper $\kappa(\mathfrak p):=A/S^{-1}\mathfrak p$ heißt \underline{Restklassenkörper in $\mathfrak p$}.
+\end{exm}
+\begin{bem}
+	Seien $q\subseteq\mathfrak p\subset A$ Primideale.\begin{enumerate}
+		\item \begin{align*}
+		\{\text{Primideale in $A_{\mathfrak p}$}\}&=\{\text{Primideale in $A$, die in $\mathfrak p$ enthalten sind}\}\\
+		\{\text{Primideal in $A/q$}\}&=\{\text{Primideal in $A$, die $q$ enthalten.}\}
+		\end{align*}
+		\item  Sei $S:=S\backsim\mathfrak p$. Dann ist $S^{-1}(A/q)=S^{-1} A/S^{-1}q$ und
+		\[\{\text{Primideal in $S^{-1}(A/q)$}\}=\{\text{Primideals in $A$ die zwischen $q$ und $\mathfrak p$ liegen}\}\]
+		\item Speziell für $q=\mathfrak p$:
+		\begin{align*}
+		S^{-1}(A/\mathfrak p)&=\kappa(\mathfrak p)\\
+		&=\Qud(A/\mathfrak p)
+		\end{align*}
+	\end{enumerate}
+\end{bem}
+\subsection*{(C)Spektren}
+\begin{rem}
+	Ein \underline{Topologischer Raum} ist ein Paar $(X;\mathfrak T)$ wobei $X$ eine Menge, $\mathfrak T\subseteq \mathscr P(X)$, sodass gilt:
+	\begin{enumerate}
+		\item $\emptyset \in\mathfrak T,X\in\mathfrak T$
+		\item Sei $(U_i)_{i\in I}$ eine Familie von Mengen $U_i\in\mathfrak T$ dann gilt $\forall i\in I:\bigcup_{i\in I}U_i\in\mathfrak T$
+		\item $U,V\in\mathfrak T$, dann $U\cap V\in\mathfrak T$
+	\end{enumerate}
+Die Mengen in $\mathfrak T$ heißen \underline{offen}.
+\end{rem}
+\begin{rem}
+	Seine $X,Y$ topologische Räume. Eine Abbildung $f:X\rightarrow Y$ heißt \ul{stetig}, falls $f^{-1}(V)\subseteq X$ ist offen für alle offenen $V\subseteq Y$.
+\end{rem}
+\begin{rem}
+	Sei $(X,\mathfrak T)$ ein topologischer Raum $B\subseteq \mathfrak T$ heißt \ul{Basis der Topologie}, falls jeder offenen Teilmenge Vereinigung von Menge aus $B$ ist.
+\end{rem}
+\begin{exm}
+	Sei $(X,d)$ eien metrischer Raum, dann heißt $U\subseteq X$ offen, falls \[\forall x\in U\exists\epsilon>0:B_\epsilon(x)\{y\in X\mid M(x,y)<\epsilon\}\subseteq U\]Basis der Topologie: $\{B_\epsilon(x)\mid\epsilon\in \R^{>0},x\in X\}$
+\end{exm}
+\begin{definition}
+	Sein topologischer Raum $X$ heißt \underline{Hausdorffsch}, falls $\forall x,y\in X$ mit $x\neq y$ existieren $x\in U\subseteq X$, $y\in V\subseteq X$ offen, sodass $U\cap V=\emptyset$.
+	Metrische Räume sind Hausdorffsch.
+\end{definition}
+\begin{definition}
+	Ein topologischer Raum $X$ heißt \ul{quasikompakt}, falls jede offene Überdeckung $(U_i)_{i\in I}$ von $X$ (d.h. $U_i\subseteq X$ offen für alle $i\in I$ mit $\bigcup_{i\in I}U_i=X$) eine endliche Teilüberdeckung besitzt.
+	(d.h. $\exists J\subseteq I$ endliche Teilmenge, sodass $\bigcup_{i\in I}U_i=X$.)
+\end{definition}
 \end{document}
