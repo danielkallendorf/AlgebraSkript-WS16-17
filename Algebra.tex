@@ -30,22 +30,25 @@
 \newcommand{\Img}{\ensuremath{\operatorname{Im}}}
 \newcommand{\Qud}{\text{Qud}}
 \newcommand{\inj}{\xrightarrow{\sim}}
+\newcommand{\Spec}{\ensuremath{\operatorname{Spec}}}
 
 \newenvironment{sumup}{\begin{framed}\textbf{Zusammenfassung:}\\}{\end{framed}}
 
+
+\newcounter{thm}[section]
 \theoremstyle{definition}
-\newtheorem{definition}[subsection]{Definition}
-\newtheorem{satz}[subsection]{Satz}
-\newtheorem{prop}[subsection]{Proposition}
+\newtheorem{definition}[thm]{Definition}
+\newtheorem{satz}[thm]{Satz}
+\newtheorem{prop}[thm]{Proposition}
 
 \theoremstyle{plain}
-\newtheorem{lem}[subsection]{Lemma}
-\newtheorem{kor}[subsection]{Korollar}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{kor}[thm]{Korollar}
 
 \theoremstyle{remark}
-\newtheorem{bem}[subsection]{Bemerkung}
-\newtheorem{rem}[subsection]{Erinnerung}
-\newtheorem{exm}[subsection]{Beispiel}
+\newtheorem{bem}[thm]{Bemerkung}
+\newtheorem{rem}[thm]{Erinnerung}
+\newtheorem{exm}[thm]{Beispiel}
 
 
 \author{Prof Wedhorn, Mitschrift von Daniel Kallendorf}
@@ -695,4 +698,162 @@ Die Mengen in $\mathfrak T$ heißen \underline{offen}.
 	Ein topologischer Raum $X$ heißt \ul{quasikompakt}, falls jede offene Überdeckung $(U_i)_{i\in I}$ von $X$ (d.h. $U_i\subseteq X$ offen für alle $i\in I$ mit $\bigcup_{i\in I}U_i=X$) eine endliche Teilüberdeckung besitzt.
 	(d.h. $\exists J\subseteq I$ endliche Teilmenge, sodass $\bigcup_{i\in I}U_i=X$.)
 \end{definition}
+%VL 14.11.2016
+\subsection{Spielzeugmodell (der Funktionalanalysis)}
+Sei $X$ ein kompakter topologischer Raum,
+\[A:=A_X:=\xi (X,\C):=\{f:X\to \C\text{ stetig}\}\]
+Sei $x\in X$, dann betrachte
+\[\mathfrak M_x:=\{f\in A\mid f(x)=0\}\subseteq A\]
+Dies ist ein Minimales Ideal, denn
+\[A/\mathfrak M_x\inj \C, \ol{f}\mapsto f(x)\]
+\begin{satz}
+	Die Abbildung 
+\begin{align*}
+	X&\rightarrow \operatorname{Max}(A):=\{\mathfrak M\subset A\mid \text{maximales Ideal}\}\\
+	x&\mapsto\mathfrak M_x
+\end{align*}
+	ist bijektiv.
+\end{satz}
+\begin{kor}
+	Sei $f\in A$ und für $\mathfrak M_x\in\operatorname{Max}(A)$ sie $f(x)=$ Bild von $f$ in $A/\mathfrak M_x=\C$.
+	\begin{align*}
+	D(f)&=\{\mathfrak M\in \operatorname{Max}(A)\mid \text{$\ol{f}$ in $A/\mathfrak M$ ist $\neq 0$}\}\\
+	&=\{\mathfrak M\in\operatorname{Max}(A)\mid f\notin\mathfrak M\}\\
+	&=\sigma(\{x\in X\mid f(x)\neq 0\})
+	\end{align*}
+\end{kor}
+\begin{definition}
+	$U\subseteq\operatorname{Max}(A)$ heißt \textbf{offen}, falls $\exists F\subseteq\operatorname{Max}(A)$ mit
+	\[U=\bigcup_{f\in F}D(f)\]
+	Dies ist die Topologie uf $\operatorname{Max}(A)$.\\
+	(Bemerke: $D(f)\cap D(g)=D(fg)$)
+\end{definition}
+\begin{satz}
+	$\sigma$ ist Homomorphismus
+\end{satz}
+Seien $X,Y$ kompakte topologische Räume, $F:X\rightarrow Y$ stetig.\\
+Mann erhält den $\C-$Algebra-Homomorphismus:
+\begin{align*}
+\varphi:A_Y&\rightarrow A_x\\
+f&\mapsto f\circ F
+\end{align*}
+Habe Kommutierendes Diagramm
+\[\xymatrix{
+	X\ar[r]^F\ar[d]_\sigma^\sim& Y\ar[d]_\sigma^\sim\\
+	\operatorname{Max}(A_x)\ar[r]_{\vspace{0.5cm} \mathfrak M\mapsto\varphi^{-1}(\mathfrak M)}&\operatorname{Max}(A_Y)
+	}\]
+Es folgt $\forall \mathfrak M\subset A_x$ maximal, sodass $\varphi^{-1}(\mathfrak M)\subset A$ maximal ist.\\
+%TODO Kommentar
+\begin{def}
+	\label{satz414}
+	Sei $A$ ein Ring. Setze $X=\Spec(A):=\{y\subset A\mid\text{Primideal con $A$}\}$ als das \textbf{Spektrum von $A$}.\\
+	Für $x\in X$ bezeichne $y_x\subset A$ das korrespondierene Primideal.
+	Sei $f\in A$, $x\in X$. Dann definiere
+	\[f(x):=\text{Bild von $f$ unter}A\rightarrow A/y_x\hookrightarrow\Qud(A/y_x)=\kappa(x)\]
+\end{def}
+\begin{bem}
+	$f$ ist keine Funktion $X\rightarrow ?$.\\
+	Seetze
+	\begin{align*}
+	D(f):&=\{x\in X\mid f(x)\neq 0\}\\
+	&=\{x\in X\mid f\notin y_x\}
+	\end{align*}
+\end{bem}
+\begin{definition}
+	Eine Teilmenge $U\subseteq X=\Spec(A)$ heißt \textbf{offen}, falls $F\subseteq A$ Teilmenge existiert, sodass $U=\bigcup_{f\in F}D(f)$.\\
+	Wir erhalten die sogenannte \textbf{Zanski-Topologie}.
+	Dabie
+	\begin{align*}
+	D(f)\cap D(g)&=D(fg)\\
+	\emptyset&=D(0)\\
+	x&=D(x)
+	\end{align*} 
+\end{definition}
+\begin{kor}[$D(f)$ als Spektrum]
+	Sei $f\in A$ und sei $S_f:=\{1,f,f^2,...,\}$. Dann ist\begin{align*}
+	\Spec(S^{-1}_fA)&=\{y\in\Spec(A)\mid y\cap S_f=\emptyset\}\\
+	\{y\in\Spec(A)\mid f\notin y\}\\
+	&=D(f)
+	\end{align*}
+\end{kor}
+\begin{satz}[Abgeschlossenen Teilmengen]
+	Sei $X=\Spec(A)$, $Y\subseteq X$ Teilmenge. Dann
+	\[\text{$Y\subseteq X$ abgeschlossen}
+	\Leftrightarrow \text{$X\setminus Y\subseteq X$ offen}
+	\Leftrightarrow \exists F\subseteq A:X\setminus Y=\bigcup_{f\in f}D(f)\]
+	Genau dann wenn
+	\begin{align*}
+	&\exists F\subseteq A&Y&=\bigcap_{f\in F}(X\setminus D(f))\\
+	&&&=\bigcap_{f\in F}\{y\in A\mid f\in y\}\\
+	&&&=\{y\in A\text{ Primideal}\mid(F)\subseteq y\}\\
+	\Leftrightarrow&\exists\mathfrak a\subseteq A\text{ Ideal}&Y&=\{y\in A\text{ Primiedeal}\mid\mathfrak a\subseteq y\}\\
+	&&&=\Spec(A/\mathfrak a)
+	\end{align*}
+\end{satz}
+\begin{satz}[Funktorialität]
+	\label{satz420}
+	Sei $\varphi
+	A\rightarrow  B$ ein Homomorphismus on Ringen.\\
+	Dann ist $\varphi\Spec B\to\Spec(A),q\mapsto \varphi^{-1}(q)$ stetig.
+\end{satz}
+\begin{proof}
+	Für $f\in A$ gilt
+	\begin{align*}
+	\varphi^{-1}(D(f))&=\{y\in\Spec(B)\mid\varphi(y)\in D(f)\}\\
+	&=\{q\subset B\text{ Primideal}\mid\varphi^{-1}(q)\in D(f)\}\\
+	&=\{q\subset B\text{ Primideal}\mid f\in \varphi^{-1}(q)\}\\
+	&=\{q\subset B\text{ Primideal}\mid\varphi(f)\notin q\}\\
+	&=D(\varphi(f))\subseteq\Spec(B)\text{ offen.}
+	\end{align*}
+\end{proof}
+\subsection{(D) Lemma von Nokagama???}
+\begin{definition}
+	Sei $u:M\rightarrow N$ ein Homomorphismus von $A$-Moduln und sei $(m_1,...,m_r)$ ein Erzeugendensystem von $M$ und $(n_1,...,n_s)$ von N.\\
+	Dann exitsiert
+	\[T=(t_{ij})_{\substack{1\le i\le s\\ 1\le j\le r}}\in M_{s\times r}(A)\]
+	sodass
+	\[n(m_j)=\sum_{i=1}^{s}t_{ij}n_i\]
+	Dann heißt $T$ eine \textbf{Matrix von $U$ bezüglich $(m_1,...,m_r)$ und $(n_1,...,n_s)$}.
+\end{definition}
+\begin{bem}
+	\begin{enumerate}
+		\item T ist nicht eindeutig duch $u$ bestimmt\\
+		(es sei denn $(n_1,...,n_s)$ ist Basis)
+		\item Nicht jede Matrix in $M_{s\times r}(A)$ ist eine Matrix von $u$ bezüglich $(m_1,...,m_r)$ und $(n_1,...,n_s)$.\\
+		(Es sei denn $m_1,...,m_r$ ist Basis von $M$)
+	\end{enumerate}
+\end{bem}
+\begin{rem}
+	Sei $T\in M_n(A)=A^{n\times m}$, $n\in \N$.\\
+	Dann existiert $S\in M_n(A)$, sodass $TS=ST=\det TI_m$. Dann ist $S=(s_{ij})$
+	\[s_{ij}=(-1)^{i+j}\det(T_{ji})\]
+	($T$ mit $j$-ter Spalte und $i-$ter Spalte gestrichen.)\\
+	$S$ heißt die Adjunkte von $T$.
+\end{rem}
+\begin{satz}[Cayley-Hamilton]
+	\label{423CayHam}
+	Sei $M$ ein $A$-Modul, $(m_1,...,m_n)$ ein Erzeugendensystem und sei $u:m\rightarrow M$ eine $A$-Lineare Abbildung. Sei $T\in M_r(A)$ eine Matrix von $u$ bezüglich $(m_1,...,m_r)$.\\
+	Setze
+	\[\chi_T:=\det\underbrace{(X I_r-A)}_{\in M_r(A[x])}=X^r+a_1X^{r-1}+...+a_{r-1}X+a_r\]
+	Dann gilt
+	\[\chi_T(u)=u^r+a_1u^{r-1}+...+a_{r-1}+a_r\operatorname{Id}_M=0\in\operatorname{End}_A(M)\]
+	\begin{enumerate}
+		\item Seo $\mathfrak a\subseteq A$ Idela, sod ass $u(M)\subseteq\mathfrak aM$. Dann $a_i\in\mathfrak a^i\forall i=1,...,r$.
+	\end{enumerate}
+\end{satz}
+\begin{proof}
+	$u(M)\subseteq\mathfrak aM$. Es folgt, dass die Koeffizienten von $T$ in $\mathfrak a$ liegen.\\
+	$a_i$ ist Summe von $i$-fachen Produkten von Koeffizienten von $T$.\\
+	Also $a\in\mathfrak a^i\forall i=1,...,r$.\\
+	Sei nun $T^T=(t_{ji})_{i\le i,j\le r}$ aber $u(m_j)=\sum_{i}t_{ji}m_i$.\\
+	Dann gilt
+	\[\sum_i(u\delta_{ji})-t_{ji}m_i=0\]
+	Sei nun
+	\[C:=(X\delta_{ji}-t_{ji})_{ji}\in M_r(A[X])\]
+	wobei $\chi_T=\det(C)$.\\
+	Sei
+	\[D:=(d_{jk})_{jk}\]
+	Die Adjungte von $C$, also
+	\[CD=\chi_TI_r\in M_r(A[X])\]
+\end{proof}
 \end{document}
