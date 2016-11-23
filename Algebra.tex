@@ -9,7 +9,7 @@
 \usepackage{tikz,pgf}
 \usepackage{mathrsfs}
 \usepackage{framed}
-\usepackage{hyperref}
+\usepackage[hidelinks]{hyperref}
 \usepackage[all]{xy}
 
 \newcommand{\N}{\ensuremath{\mathbb{N}}}
@@ -25,17 +25,30 @@
 \newcommand{\norm}[1]{\|#1\|}
 \newcommand{\Hlb}{\ensuremath{\mathscr H}}
 \newcommand{\surjfunc}{\ensuremath{\xrightarrow{\sim}}}
-\newcommand{\Hom}{\text{Hom}}
+\newcommand{\Hom}{\operatorname{Hom}}
+\newcommand{\End}{\operatorname{Hom}}
 \newcommand{\Ker}{\ensuremath{\operatorname{Ker}}}
 \newcommand{\Img}{\ensuremath{\operatorname{Im}}}
-\newcommand{\Qud}{\text{Qud}}
+\newcommand{\Qud}{\operatorname{Qud}}
 \newcommand{\inj}{\xrightarrow{\sim}}
+\newcommand{\isomorph}{\ensuremath{\overset{\sim}{=}}}
 \newcommand{\Spec}{\ensuremath{\operatorname{Spec}}}
+\newcommand{\id}{\operatorname{id}}
+\newcommand{\Jac}{\operatorname{Jac}}
+\newcommand{\CoKer}{\operatorname{CoKer}}
+
 
 \newenvironment{sumup}{\begin{framed}\textbf{Zusammenfassung:}\\}{\end{framed}}
 
 
 \newcounter{thm}[section]
+\renewcommand{\thethm}{\arabic{section}.\arabic{thm}}
+\renewcommand{\thesubsubsection}{\arabic{section}.\arabic{thm}}
+\renewcommand{\thesubsection}{\arabic{section}\Alph{subsection}}
+
+\let\oldsubsubsection\subsubsection
+\renewcommand{\subsubsection}{\stepcounter{thm}\oldsubsubsection}
+
 \theoremstyle{definition}
 \newtheorem{definition}[thm]{Definition}
 \newtheorem{satz}[thm]{Satz}
@@ -468,7 +481,8 @@
 	ist nicht injektiv.
 \end{exm}
 \section{Lokalisierung}
-\subsection*{A) Lokalisierung von Ringen und Moduln}
+\subsection{Lokalisierung von Ringen und Moduln}
+
 \begin{definition}
 	Eine Teilmenge $S\subseteq A$ heißt \underline{multiplikativ}, falls $1\in S$ uns $s,t\in S\Rightarrow st\in A$.
 \end{definition}
@@ -633,7 +647,7 @@
 	Dann existiert genau ein Homomorphismus von Körpern $\tilde{\varphi}:\Qud(A)\rightarrow K$.
 \end{satz}
 %TODO. Beweis?
-\subsection*{(B) Lokale Ringe und Restklassenkörper}
+\subsection{Lokale Ringe und Restklassenkörper}
 \begin{definition}
 	Ein Ring $A$ heißt \underline{lokal} wenn er genau ein Maximales Ideal besitzt.\\
 	Dann bezeichnet $\mathfrak m_A$ dieses Maximales Ideal.\\
@@ -671,7 +685,7 @@
 		\end{align*}
 	\end{enumerate}
 \end{bem}
-\subsection*{(C)Spektren}
+\subsection{Spektren}
 \begin{rem}
 	Ein \underline{Topologischer Raum} ist ein Paar $(X;\mathfrak T)$ wobei $X$ eine Menge, $\mathfrak T\subseteq \mathscr P(X)$, sodass gilt:
 	\begin{enumerate}
@@ -699,7 +713,7 @@ Die Mengen in $\mathfrak T$ heißen \underline{offen}.
 	(d.h. $\exists J\subseteq I$ endliche Teilmenge, sodass $\bigcup_{i\in I}U_i=X$.)
 \end{definition}
 %VL 14.11.2016
-\subsection{Spielzeugmodell (der Funktionalanalysis)}
+\subsubsection{Spielzeugmodell (der Funktionalanalysis)}
 Sei $X$ ein kompakter topologischer Raum,
 \[A:=A_X:=\xi (X,\C):=\{f:X\to \C\text{ stetig}\}\]
 Sei $x\in X$, dann betrachte
@@ -806,7 +820,7 @@ Es folgt $\forall \mathfrak M\subset A_x$ maximal, sodass $\varphi^{-1}(\mathfra
 	&=D(\varphi(f))\subseteq\Spec(B)\text{ offen.}
 	\end{align*}
 \end{proof}
-\subsection{(D) Lemma von Nokagama???}
+\subsection{Lemma von Nokagama???}
 \begin{definition}
 	Sei $u:M\rightarrow N$ ein Homomorphismus von $A$-Moduln und sei $(m_1,...,m_r)$ ein Erzeugendensystem von $M$ und $(n_1,...,n_s)$ von N.\\
 	Dann exitsiert
@@ -854,6 +868,263 @@ Es folgt $\forall \mathfrak M\subset A_x$ maximal, sodass $\varphi^{-1}(\mathfra
 	Sei
 	\[D:=(d_{jk})_{jk}\]
 	Die Adjungte von $C$, also
-	\[CD=\chi_TI_r\in M_r(A[X])\]
+	\[CD=\chi_TI_r\in M_r(A[X])\tag{$\star\star$}\]
+	%VL 16.11.2016
+	Betrachte den Homomorphismus $u\in\End_A(A)$
+	\[A[X]\xrightarrow[f\mapsto f(u)]{}A[u]=\{f(u)\mid f\in A[x] \}\]
+	$A[u]$ ist nun eine kommutative $A$-Algebra. Erhalte
+	\begin{align*}
+	C(u)&=(u\delta_{ij}-t_{ji})_{i,j}\in M_r(A[u])\\
+	C(u)&=(\delta_{kj}(u))_{k,j}
+	\end{align*}
+	Multipliziere $(\star)$ mit $\delta_{kj}(u)$.
+	\[0=\sum_{i=1}^{r}\underbrace{\sum_{j=1}^{r}\delta_{kj}(u)(u\delta_{ji}-t_{ji})}_{\substack{\text{k-te Koeffizienten von}\\DC(u)=\chi_T(u)\delta_{ki}}}m_i\]
+	Also ...
+	%TODO
+\end{proof}
+\begin{lem}[Lemma von Nakogama (1. Version)]
+	\label{424Nakayana1}
+	Sei $M$ eine endlich erzeugter $A-$Modul, $\mathfrak a\subseteq A$ ein Ideal, sodass $M=\mathfrak aM$.\\
+	Dann existerit $f\in1+\mathfrak a=\{1+x\mid x\in \mathfrak a\}$, sodass $fM=0$
+\end{lem}
+\begin{proof}
+	Wende \ref{423CayHam} auf $u=\id_M:$
+	Mit \ref{423CayHam}.1 Gilt
+	\[u^r+a_1u^{r-1}+...+a_{r-1}u+a_r\id=0\]
+	mit $a_i\in\mathfrak a^i=\mathfrak a$.\\
+	Also ist $f\id_M=0$, wobei
+	\[f=1+a_1+a_2+...+a_r\in 1+\mathfrak a\]
+	sodass $fM=0$
+\end{proof}
+\begin{bem}
+	%Bild: \Spec(A/\mathfrak a)\subset D(f)\subset Spec(A)\subset M
+	(Einschränkung von $A$ auf $\Spec(A/\mathfrak a)$)
+	\[...=A/\mathfrak a\otimes_AM=M/\mathfrak aM=0\]
+	Da $f\in 1+\mathfrak a$ folgt
+	\[\Spec(A/\mathfrak a)\subseteq^{(\star)}D(f)=\Spec(S_{g}^{-1}A)\]
+	wobei $S_f=\{1,f,f^2,...\}$, sodass
+	\[(\text{Einschränkung von $M$ aus $D_f$})=S_f^{-1}A\otimes_AM=S_f^{-1}M\overset{(\star\star)}{=}0\]
+	Zu $(\star)$: Sei $x\in\Spec(A)$.
+	\[x\in\Spec(A/\mathfrak a)\Leftrightarrow g(\la)=0\forall g\in\mathfrak a \]
+	Also gilt für $f=1+g,g\in\mathfrak a$ und $x\in\Spec(A/\mathfrak a)$:
+	\[f(x)=1+g(x)=1\neq 0\]
+	\[\Rightarrow \Spec(A/\mathfrak a)\subseteq \{x|f(x)\neq 0\}=D(f)\]
+	Zu $(\star\star)$: Sei $M$ endlich erzeugt.\\
+	Dann $S^{-1}_fM=0$ genau dann wenn $\exists g\in S_f:gM=0$.\\
+	$\Leftrightarrow \exists n\in \N: f^nM=0\Leftrightarrow fM=0$
+\end{bem}
+\begin{lem}[Lemma von Nakagana (2.Version)]
+	\label{425Nakagana2}
+	Sei $M$ ein endlich erzeugter $A$-Modul, $\mathfrak a\subseteq\Jac(A)$ ein Ideal mit $M=\mathfrak aM$. Dann $M=0$.
+\end{lem}
+\begin{proof}
+	Sei $\mathfrak a\subseteq \Jac(A)\overset{\ref{(118)}}\Rightarrow1\mathfrak a\subseteq A^\times\overset{\ref{424Nakayana1}}\Rightarrow$
+		...%TODO... 
+\end{proof}
+... %TODO
+\begin{exm}
+	Sei $A=\Z$, $M=\Z$. Dann ist die $\Z$-lineare Abbildung $M\xrightarrow{\cdot 2}\Z$ injektiv aber nicht bijektiv.
+\end{exm}
+\begin{satz}
+	\label{427}Sei $M$ ein endlich erzeugter A-Modul und sein $U:M\rightarrow M$ eine surjektive A-lineare Abbildung.\\
+	Dann ist $u$ ein Isomorphismus.
+\end{satz}
+\begin{proof}
+	Fass $(M,u)$ als $A[X]$ Modul auf durch $X\cdot m:=u(m)$ für $m\in M$.\\
+	Dann ist $u$ genau dann surjektiv, wenn $X\cdot M=M$ ist.\\
+	Es folgt durch $\ref{424Nakayana1}$ mit $\mathfrak a=(X)$, dass es ein $g\in A[X]$ gibt, sodass $(a+gX)(M)=0$.\\
+	Sei $m\in\Ker(u)$, dann
+	\[u=(1+gX)(m)=m+\underbrace{g(u)(m)u(m)}_{=0}=m\]
+	Also ist $u$ injektiv.
+\end{proof}
+\section{Noethersche und Artinsche Ringe}
+\subsection{Noethersche und Artinsche Moduln}
+\begin{lem}
+	...%TODO
+\end{lem}
+\begin{proof}
+	... %TODO
+\end{proof}
+\begin{definition}
+	Ein $A$-Modul heißt \textbf{noethersch}, falls die folgenden äquivalenten Bedingungen erfüllt sind:
+	\begin{enumerate}
+		\item Jede Aufsteigende Kette von Untermoduln von $M$
+		\[N_2\subseteq N_2\subseteq...\subseteq M\]
+		wird stationär
+		\item Jede Nichtleere Menge von Untermoduln von $M$ beseitzt ein Maximales Element
+	\end{enumerate}
+	Ein $A$-Modul heißt \textbf{artinsch}, falls die folgenden äquivalenten Bedingungen erfüllt sind:
+	\begin{enumerate}
+		\item Jede absteigende Kette von Untermoduln von $M$
+		\[N_2\supseteq N_2\supseteq...\]
+		wird stationär.
+		\item Jede Nichtleere Menge von Untermoduln von $M$ beseitzt ein minimales Element.
+	\end{enumerate}
+\end{definition}
+\begin{definition}
+	Der Ring $A$ heißt \textbf{noethersch}, wenn er als $A$-Modul noethersch ist.
+	Äquivalent dazu sind:
+	\begin{enumerate}
+		\item Jede aufsteigende Kette von Idealen in $A$ wird stationär.
+		\item Jede nichtleere Menge von Idealen in $A$ besitzt eine maximales Element.
+	\end{enumerate}
+	Der Ring $A$ heißt \textbf{artinsch}, wenn er als $A$-Modul artinsch ist.
+	Äquivalent dazu sind:
+	\begin{enumerate}
+		\item Jede absteigende Kette von Idealen in $A$ wird stationär
+		\item Jede nichtleere Menge von Idealen in $A$ besitzt eine minimales Element.
+	\end{enumerate}
+\end{definition}
+\begin{exm}
+	\begin{enumerate}
+		\setcounter{enumi}{-2}
+		\item $0$  ist noethersch und artinsch.
+		\item Jeder Körper ist noethersch und artinsch.
+		\item $\Z$ ist noethersch:\\
+		Sei $\mathfrak a_1\subseteq \mathfrak a_2\subseteq...\quad (\star)$ eine aufsteigende Kette. \\
+		Dann $\mathfrak a_1=(x_1)$, $x_1=p_1^{l_1}\cdot...\cdot p_r^{l_r}$.
+		\[\{\text{Idealis die $\mathfrak a_1$ enthalten}\}\underset{1:1}{\leftrightarrow}\{\text{Teiler von $x_1$}\}/\{\text{Einheiten}\}\]
+		Diese Mengen sind endlich also wird $(\star)$ stationär.\\
+		$\Z$ ist nicht artinsch:\\
+		Sei $x\in\Z$ $x\neq 0,1,-1$. Dann\\
+		\[(x)\supsetneqq(x^2)\supsetneqq(x^^3)\supsetneqq...\]
+		ist absteigenden Kette die nicht stationär wird.
+		\item Sei $p\in\Z$ eine Primzahl. Dann ist der $\Z$-Modul
+		\[\{x\in\Q/\Z\mid \exists n\in\N:p^nx=0\}\]
+		artinsch aber nicht noethersch.
+		(Wir werden zeigen: $A$ artinscher Ring $\Rightarrow$ noethersch)
+		\item Sei $\kappa$ Körper, dann ist $\kappa[T_1,T_2,...]$ nciht noethersch:
+		\[(T_1)\subsetneqq(T_1,T_2)\subsetneqq(T_1,T_2,T_3)\subsetneqq...\]
+	\end{enumerate}
+\end{exm}
+%VL 21.11.2016
+%Korrektur der COunter bis zum ergänzen der VL
+\setcounter{subsection}{2}
+\setcounter{thm}{14}
+%VL 23.11.2016
+
+$M=M_0\supsetneqq M_1\supsetneqq...\supsetneqq M_r=0$.\\
+Dann ist $r$ die Länge der Jordan-Hölder Reihe, falls $M_{i-1}/M_i$ einfach ist.
+\begin{satz} %5.14
+	Je zwei JH-Reihen habe die selbe Läge.\\
+	$l(M):=$ Länge einer JH-Reihe. $=\infty$, falls keine JH-Reihe existiert.\\
+	Falls $l(M)<\infty$, so kann jede Kompositions-Reihe zu einer JH-Reihe ergänzt werden.
+\end{satz}
+\begin{proof}
+	(für Moduln, für Gruppen analog)\\
+	Sei $M$ ein $R$-Modul. Setze $l(M):=\inf\{\text{Längen von JH-Reihene von $M$}\}\in \N_0\cup\{\infty\}$
+	\begin{enumerate}
+		\item $N\subseteq M$ Untermodul $\Rightarrow$ $l(N)\leq l(M)$.\\
+		Falls $l(M)=\infty$.\\
+		Man kann also annehmen, dass $M$ eine JH-Reihe $M=M_0\supsetneqq M_1\supsetneqq...\supsetneqq M_r=0$ beitzt mit $r=l(M)$.\\
+		Sei $N_i:=N\cap M_i$, $\forall i=0,...,r$.\\
+		Die Einbettung $N_{i-1}/N_i\hookrightarrow M_{i-1}/M_i$ ist injektiv, da $M_i\cap N_{i-1}=N_i$.\\
+		Daraus folgt (da $M_{i-1}/M_i$ einfach ist), dass $N_{i-1}/N_i$ entweder einfach oder $=0$ ist.\\
+		Dann kann die Reihe $N=N_0\supseteq N_1\supseteq..\supseteq N_r=0$ durch weglassen einger Terme zu einer JH-Reihe werden.\\
+		Dann gilt $l(N)\leq l(M)$.
+		
+		\item Aus $N\subseteq M$ Untermodul mit $l(N)=l(M)<\infty$ folgt $N=M$:\\
+		Wie in $1)$ gilt $M_{i-1}/M_i\isomorph N_{i-1}/N_i$, da $l(N)=l(M)$.\\
+		Aus $M_r=N_r=0$ folgt $M_{r-1}=N_{r-1}$ und da $N_{r-2}/N_{r-1}=M_{r-2}/M_{r-1}$ folgt auch $N_{r-2}=M_{r-2}$.\\
+		Induktiv gilt damit $N_0=N=M_0=M$
+		\item Jede Kompositions Reihe von $M$ besitzte Länge $\leq l(M)$:\\
+		($\Rightarrow$ Alle JH-Riehen haben die selbe Länge)\\
+		Sei $M=M_0\supsetneqq M_1\supsetneqq...\supsetneqq M_r=0$ eine Kompositions-Reihe.\\
+		Aus $1),2)$ folgt $l(M_i)\leq l(M_{i-1})$ für alle $i=1,...,r$. Daraus folgt $s\leq l(M)$.
+		
+		\item Sei $M=M_0\supsetneqq M_1\supsetneqq...\supsetneqq M_s=0$ eine Kompositions-Reihe, $l(M)<\infty$:\\
+		Wenn $s=l(M)$, dann ist $(M_i)$ JH-Reihe. Wenn $s<l(M)$, dann ist $(M_i)$ keine JH-Reihe und die Kompositions-Reihe kann ergänzt werden.
+	\end{enumerate}
+\end{proof}
+\begin{satz} %5.16
+	Sei $0\rightarrow M'\xrightarrow{u} M\xrightarrow{v} M''\rightarrow 0$ eine exakte Sequenz von $R$-Moduln. (Dabei ist $R$ nicht notwendiger weise kommutativ) Dann ist $l(M)=l(M')+l(M'')$.\\
+	(Insbesondere ist $l(M)<\infty$ genau dann wenn $l(M'),l(M'')<\infty$)\\
+	Für Gruppen ergibt sich ein anderes Resultat.
+\end{satz}
+\begin{proof}
+	 Sei $M=M_0\supsetneqq M_1\supsetneqq...\supsetneqq M_r=0$ eine Kompositions-Reihe von $M'$.\\
+	 Dann ist $M\supsetneqq u(M')=u(M_0')\supsetneqq...\supsetneqq u(M_r')=0$ eine Kompositions-Reihe und $(M_i'')$ ist eine Kompositionsreihe von $M''$. Dann folgt duch $v^{-1}$, dass es auch eine Kompositionsreihe von $M$.\\
+	 Insbesondere folgt aus $l(M')=\infty $ oder $l(M'')=0$, dass $l(M)=\infty$.\\
+	 Sei $l(M'),l(M'')<\infty$ und sei
+	 $M'=M_0'\supsetneqq M_1'\supsetneqq...\supsetneqq M_r'=0$die JH-Reieh von $M'$ und $M''=M_0''\supsetneqq M_1''\supsetneqq...\supsetneqq M_r''=0$ von $M''$.\\
+	 Dann ist
+	 \[M=v^{-1}(M_0'')\supsetneqq ...\supsetneqq v^{-1}(M_s'')=\Ker(v)=u(M')\supsetneqq u(M_1')\supsetneqq...\supsetneqq u(M_r')=0\]
+	 eine Kompositions-Reihe mit einfachen Subquotienten, also eine JH-Reihe.\\
+	 Diese hat Länge $r+s=l(M')+l(M'')$.
+\end{proof}
+\begin{satz}
+	Sei $M$ ein $A$-Modul ($A$ ist kommutativer Ring). Dann ist äquivalent:\begin{enumerate}
+		\item $l(M)<\infty$ \label{517i}
+		\item $M$ ist artinsch und noethersch.\label{517ii}
+	\end{enumerate}
+\end{satz}
+\begin{proof}
+	$\ref{517i}\Rightarrow\ref{517ii}$: \\
+	Aus$l(My\infty)$ folgt , dass jede nicht stationäre Kette endlich ist und damit $\ref{517ii}$.\\
+	$\ref{517ii}\Rightarrow\ref{517i}$: \\
+	Sei o.E. $M\neq 0$, $M$ noethersch.\\
+	Dann folgt, dass $\{N\subsetneqq M\text{Untermodul}\}$ besitzt maximale Elemente, etwas $M_1$.\\
+	Induktiv gilt $M=M_0\subsetneqq M_1\subsetneqq M_2\subsetneqq ...$, woebi $M_{i-1}/M$ ist einfach.\\
+	Da $M$ artinsch ist folgt, dass es ein $r\in\N_0$ gibt, sodass $M_r=0$.
+\end{proof}
+\begin{exm}
+	Sei $K$ Körper, $V$ ein $K$-Vektorraum. Dann sind äquivalent:\begin{enumerate}
+		\item $\dim_K(V)y\infty$
+		\item $l_k(V)y\infty$
+		\item $V$ ist noethersch
+		\item $V$ ist artinsch
+	\end{enumerate}
+	Es folgt auch, dass $\dim V=l(V)$.
+\end{exm}
+
+
+
+
+\subsection{Noethersche Ringe}
+Wenn $A$noethersch, so ist auch $A/\mathfrak a$ noethersch für alle $\mathfrak a\subseteq A$ Ideal und es auch $S^{-1}A$ noethersch für alle $S\subseteq A$ multiplikativ.
+
+\begin{definition}
+	Sei $\varphi: A\rightarrow B$ eine $A-$Algebra.\\
+	\begin{enumerate}
+		\item Die $A$-Algebra $B$ heißt \textbf{endlich erzeugt} oder \textbf{von endlichem Typ}(v.e.T.), wenn $b_1,...,b_n\in B$ existierne, die $B$ erzeugen.\\
+		(Äquivalent: $B\isomorph A[X-1,...,X_n]/\mathfrak a$ für $\mathfrak a\subseteq A[X-1,...,_n]$ Ideal.)
+		
+		\item Die $A-$Algebra $B$ heißt \textbf{endlich}, falls $B$ als $A$-Modul endlich erzeugt ist.
+	\end{enumerate}
+\end{definition}
+\begin{bem}
+	Sei $\varphi:A\rightarrow B$ eine $A-$Algebra\begin{enumerate}
+		\item $B$ endliche $A$-Algebra,s o folgt, dass $B$ eine $A$-Algebra v.e.T.
+		\item Sei $A=K$ Körper, dann ist $K[X]$ eine $K$-Algebra v.e.T., aber $K[X]$ ist nicht endliche $K$-Algebra, da $\dim_K(K[X])=\infty$.
+	\end{enumerate}
+\end{bem}
+\begin{satz}[Hilbertscher Basissatz]
+	Sei $\varphi:A\rightarrow B$ eine $A$-Algebra v.e.T. und sei $A$ noethersch.\\
+	Dann ist $B$ noethersch.
+\end{satz}
+\begin{proof}
+	\begin{enumerate}
+		\item Es gilt $B$ ist genau dann v.e.T. wenn $B\isomorph A[X-1,,...,X_n]/\mathfrak a$.\\
+		Also ist o.E. $B=A[X-1,...,X_n]=(A[X-1,...,X_{n-1}])[X_n]$.\\
+		Induktiv folgt o.E. $B=A[X]$.
+		
+		\item Sei $\mathfrak a\subseteq A[X]$ Ideal und sei \\
+		$I=\{a\in A\mid\exists f\in\mathfrak a\text{ mit }f=aX^d+(\text{Terme niederen Grades})\}$.\\
+		Da $\mathfrak a$ Ideal folgt, dass $I$ Ideal und da $A$ noethersch auch, dass $I$ endlich erzeugt (etwa von $a_1,...,a_n$).\\
+		Wähle nun $f_1,...,f_n\in\mathfrak a$, sodass $f_i=a_iX^{r_i}+(\text{Terme niederer Ordnung})$.\\
+		Sei nun $\mathfrak a':=(f_1,...,f_n)\subseteq \mathfrak a$ und $r:=\max\{r_i\mid i=1,...,n\}$
+		
+		\item \label{521iii}Für alle $f\in \mathfrak a$ existiert $g\in\mathfrak a'$, so dass $\deg(f-g)<r$:\\
+		Sei $f=aX^m+(\text{Terme niedere Ordnung})$, $s\in I$.\\
+		Im Fall $m<r$ folgt die Behauptung.\\
+		Falls $m\geq r$ Setze $a=b_1a_+...+b_na_n$ mit $b_i\in A$. Dann hat
+		\[f-\underbrace{\sum_{i=1}^{n}b_if_iX^{m-r_r}}_{\in\mathfrak a}\]
+		Grad $<m$.\\
+		Induktiv folgt die Behauptung.
+		
+		\item Sei $M=A+AX+...+AX^{n-1}$ eine endlich erzeugter $A$-Modul.\\
+		\ref{521iii} bedeutet, dass $\mathfrak a=\mathfrak a'+(\mathfrak a\cap M)$, sodass (da $A$ noethersch) $\mathfrak a\cap M$ als $A$-Modul endlich erzeugt von $g_1,...,g_r$.\\
+		Dann ist $\mathfrak a=(f_1,...,f_n,g_1,...,g_r)$.
+	\end{enumerate}
 \end{proof}
 \end{document}
