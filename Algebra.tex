@@ -60,6 +60,7 @@
 
 \theoremstyle{remark}
 \newtheorem{bem}[thm]{Bemerkung}
+\newtheorem*{bem*}{Bemerkung}
 \newtheorem{rem}[thm]{Erinnerung}
 \newtheorem{exm}[thm]{Beispiel}
 
@@ -70,8 +71,10 @@
 \begin{document}
 	\maketitle
 	\tableofcontents
+	%VL 19.10.2016/24.10.2016
+	%VL 26.10.2016
 	\setcounter{section}{2}
-%	\setcounter{theorem}{6}
+	\setcounter{thm}{7}
 	\begin{bem}
 		$A[X_1,...,X_n]$ ist ein freier $A$-Modul, wobei die Monome eine Basis bilden.
 	\end{bem}
@@ -961,6 +964,12 @@ Es folgt $\forall \mathfrak M\subset A_x$ maximal, sodass $\varphi^{-1}(\mathfra
 		\item Jede Nichtleere Menge von Untermoduln von $M$ beseitzt ein minimales Element.
 	\end{enumerate}
 \end{definition}
+
+%Zerlegung in zwei Definitionen,
+%Synchronisation mit VL Nummerierung
+\addtocounter{thm}{-1}
+
+
 \begin{definition}
 	Der Ring $A$ heißt \textbf{noethersch}, wenn er als $A$-Modul noethersch ist.
 	Äquivalent dazu sind:
@@ -998,21 +1007,163 @@ Es folgt $\forall \mathfrak M\subset A_x$ maximal, sodass $\varphi^{-1}(\mathfra
 	\end{enumerate}
 \end{exm}
 %VL 21.11.2016
-%Korrektur der COunter bis zum ergänzen der VL
-\setcounter{subsection}{2}
-\setcounter{thm}{14}
-%VL 23.11.2016
-
-$M=M_0\supsetneqq M_1\supsetneqq...\supsetneqq M_r=0$.\\
-Dann ist $r$ die Länge der Jordan-Hölder Reihe, falls $M_{i-1}/M_i$ einfach ist.
-\begin{satz} %5.14
-	Je zwei JH-Reihen habe die selbe Läge.\\
-	$l(M):=$ Länge einer JH-Reihe. $=\infty$, falls keine JH-Reihe existiert.\\
-	Falls $l(M)<\infty$, so kann jede Kompositions-Reihe zu einer JH-Reihe ergänzt werden.
+\begin{satz}
+	Sei $M$ ein $A$-Modul.\\
+	Dann ist $M$ genau dann noethersch, wenn jeder $A$-Untermodul von $M$ endlich erzeugt ist. (Dann ist auch $M$ endlich erzeugt).\\
+	Insbesondere ist $M$ genau dann noethersch, wenn jedes Ideal von $A$ endlich erzeugt ist.
 \end{satz}
+\begin{kor}
+	Jeder Hauptidealring ist noethersch.
+\end{kor}
+\begin{prop}
+	\label{506Prop}
+	Sei $0\rightarrow M'\xrightarrow{u}M\xrightarrow{v}M''\rightarrow 0$ eine Exakte Sequenz von $A$-Moduln.\\
+	Dann gilt
+	\begin{enumerate}
+		\item $M$ ist genau dann noethersch, wenn $M',M''$ noethersch.
+		\item $M$ ist genau dann artinsch, wenn $M',M''$ artinsch.
+	\end{enumerate}
+\end{prop}
+\begin{proof}
+	\begin{enumerate}
+		\item ''$\Rightarrow$``:
+			Es gilt $M'\isomorph u(M')\subseteq M$. Es folgt $M'$ ist noethersch.\\
+			\\
+			Sei $N_1\subseteq N_2\subseteq ...\subseteq M''$ eine aufsteigende Kette von Untermoduln von $M''$. Da $M$ noethersch ist, gibt es ein $r\in\N$, sodass $v^{-1}(N_r)=v^{-1}(N_{r+1})=...$.\\
+			Da $v$ surjektiv ist gilt dann
+			\[n_r=v(v^{-1}(N_r))=v(v^{-1}(N_{r+1}))=N_{r+1}\]
+			Also wird $N_1\subseteq N_2\subseteq...$ stationär.\\
+			\\
+		''$\Leftarrow$``: 
+			Sei $M_1\subseteq M_2\subseteq...\subseteq M$ eine aufsteigende Kette von Untermoduln in $M$.\\
+			Dann sind auch $u^{-1}(M_1)\subseteq u^{-1}(M_2)\subseteq...\subseteq M'$ und $v(M_1)\subseteq v(M_2)\subseteq...\subseteq M''$ aufsteigende Ketten.\\
+			Da $M_,M''$ gibt es $r\in\N$, sodass $u^{-1}(M_r)=u^{-1}(M_{r+1})=...$ und $v(M_r)=v(M_{r+1})=...$.\\
+			Dies ist äquivalent ($\star$) dazu, dass $M_r=M_{r+1}=...$. Also ist $M$ noethersch.\\
+			\\
+		Beweis von $(\star)$:\\
+		Seien $P\subseteq Q\subseteq M$ Untermoduln mit $u^{-1}(P)=u^{-1}(Q)$ und $v(P)=v(Q)$, sei $q\in Q$.\\
+		Dann existiert ein $p\in P$ mir $v(p)=v(q)$. Dann gilt $v(p-q)=0$, also $p-q\in\Img(u)$.\\
+		Dann existier auch $m'\in u^{-1}(Q)=u^{-1}(P)$ mit $u(m')=p-q$ und es gilt $u(m')\in P$, also $q\in P$, also $q=P-u(m')$.\\
+		Es folgt, dass $P=Q$.
+		\item analoge
+	\end{enumerate}
+\end{proof}
+\begin{kor}
+	\label{507Kor}
+	Seien $_1,...,M_r$ $A$-Moduln und sei $r\in\N$. Dann gilt
+	\begin{enumerate}
+		\item $\bigoplus_{i=1}^rM_r$ ist genau dann noethersch, wenn $M_i$ noethersch für alle $i=1,...,r$.
+		\item $\bigoplus_{i=1}^rM_r$ ist genau dann artinsch, wenn $M_i$ artinsch für alle $i=1,...,r$.
+	\end{enumerate}
+\end{kor}
+\begin{proof}
+	Induktion nach $r$:\\
+	Der Fall $r=1$ ist klar. Für $r>1$ betrachte die Sequenz
+	
+	\[\begin{array}{rcl}
+		0\rightarrow M_r &\rightarrow& \bigoplus_{i=1}^{r}M_i\rightarrow 0\\
+		             m_r &\mapsto    & (0,...,0,m_r)                      \\
+		                 &           & (m_1,...,m_r)         \mapsto      (m_1,...,m_{r-1})
+	\end{array}\]
+	Mit Proposition \ref{506Prop} folgt die Behauptung.
+\end{proof}
+\begin{kor}
+	Ein Ring $A$ ist genau dann noethersch bzw artinsch, wenn jeder erzeugte $A$-Modul noethersch bzw. artinsch ist.
+\end{kor}
+\begin{proof}
+	Sei $A$ noethersch bzw. artinsch und sei $M$ ein endlich erzeugter $A$-Modul. Dann gilt $M\isomorph A^n/N$ für $n\in\N$ und $N\subseteq A^n$ Untermodul. Dann ist die Sequnez $0\rightarrow N\rightarrow A^n\rightarrow M\rightarrow 0$ exakt.\\
+	Mit \ref{507Kor} folgt daraus dass $A$ noethersch ist auch dass $A^n$ noethersch ist.\\
+	Mit \ref{506Prop} folgt dann dass auch $M$ noethersch ist.
+\end{proof}
+\begin{kor}
+	\label{509Kor}
+	Sei $A$ noethersch bzw artinsch und $\mathfrak a\subseteq A$ ein Ideal, dann ist $A/\mathfrak a$ noethersch bzw artinsch.
+\end{kor}
+\begin{bem}
+	Sei $A$ noethersch bzw artinsch und $S$  eine $A$ multiplikative Teilmenge.\\
+	Dann ist $S^{-1}A$ noethersch bzw artinsch.
+\end{bem}
+\begin{proof}
+	%TODO Beweis aus Übung
+	Beweis in Übung.
+\end{proof}
+
+
+\subsection{Länge von Moduln}
+
+\begin{definition}
+	Sei $G$ eine Gruppe und sei $R$ ein (nicht notwendig kommutativer) Ring, sei $M$ ein $R-$(links-)Modul.\begin{enumerate}
+		\item Eine \textbf{Kompositionsreihe von $G$} (bzw \textbf{von M}) ist eine Folge $G=G_0\supsetneqq G_1\supsetneqq...\supsetneqq G_r=1$ von Untergruppen, sodass für alle $i=1,...,r$ die Gruppe $G$ ein Normalteiler von $G_{i-1}$ ist.\\
+		(Analog für die Folge $m=M_0\supsetneqq M_1\supsetneqq...\supsetneqq M_r=0$ von $R$-Untermoduln)\\
+		Dann heißt $r\in \N_0$ die \textbf{Länge der Kompositionsreihe}.
+		\item $G$ heißt \textbf{einfach} falls $G\neq\{0\}$ und falls $\{0\}$ und $G$ die einzigen Normalteiler sind.\\
+		$M$ heißt \textbf{einfach}, falls $M\neq 0$ und falls $0$ und $M$ die einzigen Untermoduln sind.
+		\item Eine Kompositionsreihe heißt \textbf{maximal} oder \textbf{Jordan-Hölder Reihe} falls keine echten Normalteiler (bzw. Untermoduln) eingefügt werden können.\\
+		(Äquivalent: $G_{i+1}/G_1$ bzw. $m_{i+1}/M_i$ sind einfach für alle $i=1,...,r$)
+	\end{enumerate}
+\end{definition}
+\begin{bem}
+	\begin{enumerate}
+		\item Normalerweise existiert keine Jordan-Hölder-Reihe
+		\item Sei $R=K$ Körper und sei $V$ ein $K$-Vektorraum. Dann ist $V$ genau dann einfach, wenn $\dim_K(v)=0$.\\
+		Sei $(v_1,...,v_r)$ eine Basis von $V$, dann ist $V=\langle v_1,...,v_r\rangle\supsetneqq\langle v_1,...,v_{r-1}\rangle\supsetneqq...\supsetneqq \langle v_1\rangle \supsetneqq 0$ eine JH-Reihe.
+		\item Jede Endliche Gruppe besitzt eine JH-Reihe.
+	\end{enumerate}
+\end{bem}
+
+%Synchronisation mit VL Nummerierung
+\addtocounter{thm}{-1}
+%Ausgliedern des Bsp
+\begin{exm}
+	Sei $R=\Z=M$ dann kann man in jede Folge $\Z=n_o\Z\supsetneqq n_1\Z\supsetneqq...\supsetneqq n_r\Z=0$ mit $n_0=1, n_1>1,n_r=0$ zwischen $n_{r-1}\Z$ und $n_r\Z$ die Untergruppe $2n_{r-1}\Z$ einfügen.
+\end{exm}
+
+\begin{prop}
+	Sei $A$ kein kommutativer Ring, $M$ ein A-Modul, dann gilt $M$ ist genau dann ein einfacher $A$-Modul wenn $M\isomorph A/m$ für maximales Ideal $m\subset A$.
+\end{prop}
+
+\begin{proof}
+	''$\Leftarrow$``: gilt, da $A/m$ Körper.\\
+	''$\Rightarrow$``: Sei $M$ einfach ,$x\in M$, $x\neq 0$. Dann ist $Ax=M$ also ist $u:A\rightarrow M,x\mapsto ax$ surjektiv. Damit ist für $\mathfrak a=\Ker(u)$, dass $M\isomorph A/\mathfrak a$. Da
+	\[\{\text{Untermoduln von $A/\mathfrak a$}\}\underset{1:1}{\leftrightarrow} \{\text{Ideale $b\subseteq A$ mit $b\supseteq \mathfrak a$}\}\]
+	muss $\mathfrak a$ maximal sein.
+\end{proof}
+
+\begin{satz}[Satz von Jordan-Hölder (simple Variante)]
+	Sei $G$ eine Gruppe (bzw. $R$ ein nicht notwendig kommutativer Ring und $M$ ein $R$-Modul). Dann besitzen je zwei JH-Reihen von $G$ bzw. $M$ dieselbe Länge.\\
+	In diesem Fall kann jede Kompositionsreihe zu einer JH-reihe ergänzt werden.
+\end{satz}
+
+\begin{bem*}[Satz von Hölder (genaue Variante)]
+	Seien $G=G_0\supsetneqq\supsetneqq G_1\supsetneqq ...\supsetneqq G_r=1$ und $G=G_0'=\supsetneqq\supsetneqq G_1'\supsetneqq ...\supsetneqq G_s'=1$ JH-Reihen.\\
+	Dann ist $r=s$ und es existieren Permutationen $\sigma\in S_r$, sodass $G_{i-1}/G_i\isomorph G'_{\sigma(i)-1}/G'_{\sigma(i)}$.
+\end{bem*}
+
+\begin{definition}
+	Sei $G$ eine Gruppe. Dann heißt
+	\[l(G):=\begin{cases}
+	\infty&\text{$G$ beseitzt keine JH-Reihe}\\
+	r&\text{$G$ beseitzt eine JH-Reihe der Länge $r$}
+	\end{cases}\]
+	die \textbf{Länge von $G$}.\\
+	\\
+	Sei $M$ eine $R$-Modul. Dann heißt
+	\[l(M):=\begin{cases}
+	\infty&\text{$M$ beseitzt keine JH-Reihe}\\
+	r&\text{$M$ beseitzt eine JH-Reihe der Länge $r$}
+	\end{cases}\]
+	die \textbf{Länge von $M$}.
+\end{definition}
+
+\begin{bem*}
+	Dabei ist $l(M)=1$ genau dann wenn $M$ einfach und $l(M)=0$ genau dann wenn $M=0$.
+\end{bem*}
+
+%VL 23.11.2016
 \begin{proof}
 	(für Moduln, für Gruppen analog)\\
-	Sei $M$ ein $R$-Modul. Setze $l(M):=\inf\{\text{Längen von JH-Reihene von $M$}\}\in \N_0\cup\{\infty\}$
+	Sei $M$ ein $R$-Modul.\\
+	Setze $l(M):=\inf\{\text{Längen von JH-Reihene von $M$}\}\in \N_0\cup\{\infty\}$
 	\begin{enumerate}
 		\item $N\subseteq M$ Untermodul $\Rightarrow$ $l(N)\leq l(M)$.\\
 		Falls $l(M)=\infty$.\\
