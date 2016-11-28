@@ -36,6 +36,7 @@
 \newcommand{\id}{\operatorname{id}}
 \newcommand{\Jac}{\operatorname{Jac}}
 \newcommand{\CoKer}{\operatorname{CoKer}}
+\newcommand{\Nil}{\ensuremath{\operatorname{Nil}}}
 
 
 \newenvironment{sumup}{\begin{framed}\textbf{Zusammenfassung:}\\}{\end{framed}}
@@ -51,18 +52,20 @@
 
 \theoremstyle{definition}
 \newtheorem{definition}[thm]{Definition}
-\newtheorem{satz}[thm]{Satz}
 \newtheorem{prop}[thm]{Proposition}
 
 \theoremstyle{plain}
 \newtheorem{lem}[thm]{Lemma}
 \newtheorem{kor}[thm]{Korollar}
+\newtheorem{satz}[thm]{Satz}
+\newtheorem{theorem}[thm]{Theorem}
 
 \theoremstyle{remark}
 \newtheorem{bem}[thm]{Bemerkung}
 \newtheorem*{bem*}{Bemerkung}
 \newtheorem{rem}[thm]{Erinnerung}
 \newtheorem{exm}[thm]{Beispiel}
+\newtheorem*{exm*}{Beispiel}
 
 
 \author{Prof Wedhorn, Mitschrift von Daniel Kallendorf}
@@ -1203,7 +1206,7 @@ Es folgt $\forall \mathfrak M\subset A_x$ maximal, sodass $\varphi^{-1}(\mathfra
 	 eine Kompositions-Reihe mit einfachen Subquotienten, also eine JH-Reihe.\\
 	 Diese hat Länge $r+s=l(M')+l(M'')$.
 \end{proof}
-\begin{satz}
+\begin{satz}\label{517Satz}
 	Sei $M$ ein $A$-Modul ($A$ ist kommutativer Ring). Dann ist äquivalent:\begin{enumerate}
 		\item $l(M)<\infty$ \label{517i}
 		\item $M$ ist artinsch und noethersch.\label{517ii}
@@ -1278,4 +1281,157 @@ Wenn $A$noethersch, so ist auch $A/\mathfrak a$ noethersch für alle $\mathfrak 
 		Dann ist $\mathfrak a=(f_1,...,f_n,g_1,...,g_r)$.
 	\end{enumerate}
 \end{proof}
+
+%VL 28.11.2016
+\begin{kor}\label{522kor}
+	Sei $K$ Körper. Dann ist $K[X_1,...,X_n]$ noethersch.
+\end{kor}
+
+
+
+\subsection{Artin-Ringe}
+\begin{lem}\label{523lem}
+	In einem Artinring $A$ ist jedes Primideal ein maximales Ideal.
+\end{lem}
+\begin{proof}
+	Sei $\mathfrak p\subset A$ Primiedeal, dann ist $B:=A/\mathfrak p$ eine nullteilerfreier Artinring.\\
+	Behauptung: $B$ ist Körper ($\mathfrak p$ ist maximal).\\
+	Sei $x\in B,0\neq x$. Betraahte die Kette $(x)\supseteq(x^2)\supseteq....$.\\
+	Da $B$ Artinring ist gibt es ein $n\in\N$,sodass $(x^n)=x^{n+1}$, also $x^n=yx^{n+1}$ für ein $y\in B$.\\
+	Daraus folgt (da $x$ kein Nullteiler) dass $1=xy$, also $y\in B^\times$.
+\end{proof}
+\begin{satz}\label{524Satz}
+	Jeder Artinring beseitzt nur endlich viele Primideale.
+\end{satz}
+\begin{proof}
+	Sei $\Sigma:=\{m_1\cap...\cap m_r\mid r\ge 0mm_i\subset A\text{ maximale Ideale}\}$. Dann folgt aus $A\in\Sigma$, dass $\sigma\neq \emptyset$.\\
+	Da $A$ artinsch folgt, dass $\Sigma$ ein minimales Element beseitzt (etwa $m_1\cap...\cap m_n$).\\
+	Sei $m\subset A$ ein maximales Ideal. Dann ist $m\cap m_1\cap...\cap m_n=m_1\cap...\cap m_n$.\\
+	Dann ist $m\supset m_1\cap...\cap m_n=m_1\cdot ...\cdot m_n$. Dann gibt es mit \ref{111} ein $i$, sodass $m\supseteq m_i$. Da $m_i$ minimal folgt, dass es sogar ein $i$ gibt mit $m=m_i$.\\
+	Also gilt $\{m\subset A\text{maximales Ideal}\}=\{m_1,...,m_n\}$.\\
+	Dann folgt, mit \ref{523lem} die Behauptung.
+\end{proof}
+
+\begin{lem}\label{525lem}
+	Sei $A$ Artinring, dann exitsiert $k\in N$, sodass $(\Nil(A))^k=0$.
+\end{lem}
+\begin{proof}
+	Da $A$ artinsch, wird $\Nil(A)\supseteq\Nil(A)^2\supseteq...$ stationär.\\
+	Also exitsiert ein $k\in\N$, sodass $\Nil(A)^k=\Nil(A)^{k+1}=...=:\mathfrak a$.\\
+	Annahme: $\mathfrak a\neq 0$.\\
+	Sei $\Sigma=\{\text{$b\supseteq A$ Ideal}\mid b\mathfrak a\neq 0\}$. Dann gtil $A\in\Sigma$. Da $A$ artinsch gibt es ein maximales elemetn $b_0\in\Sigma$.\\
+	Sei nun $x\in b_0$ mit $x\mathfrak a\neq 0$. Dann ist $(x)\mathfrak a\neq 0$ und es folgt (da $(x)\subseteq b_0$), dass $(x)=b_0$.\\
+	Da auch $(x\mathfrak a)\mathfrak a=x\mathfrak a^2=x\mathfrak a\neq 0$ gilt (da $x\mathfrak a\subseteq(x)$), dass $x\mathfrak a=(x)$.\\
+	Also ist $x=xy$ für ein $y\in\mathfrak a=\Nil(A)^k\subseteq\Nil(A)$.\\
+	Aber mit $x=xy=xy^2=...$ da $y$ nilpotent folgt $x=0$.
+\end{proof}
+\begin{theorem}
+	Sei $A$ ein Ring dann sind äquivalent\begin{enumerate}
+		\item $A$ ist artinsch
+		\item $A$ ist noethersch und jedes Primiedeal ist maximal
+		\item $l_A(A)<\infty$.
+	\end{enumerate}
+\end{theorem}
+\begin{proof}
+	$3)\Rightarrow 1)$: gilt mit \ref{517Satz}\\
+	$3)\Rightarrow 2)$: ??? \\%TODO
+	$1)\Rightarrow 3)$: Aus \ref{524Satz} folgt, dass es endlich viele maximale Ideale gibt, etwa $m_1\cap...\cap m_n=m_1\cdot...m\cdot m_n$.\\
+	Mit \ref{525lem} folgt, dass es ein $k\in\N$ gibt, sodass $m_1^km_2^k\cdot...\cdot m_n^k=\Nil(A)^k=(0)$. Schriebe $(0)=M_1M_2...M_s$ mit $M_i\subset A$ maximal.\\
+	Behauptung: Für $j=0,...,s$ gilt $l_A(M_1M_1,...,M_j)<\infty$:\\
+	Für $j=s$ gilt die Behauptung.\\
+	Für $j\leq s$ ist 
+	\[0\rightarrow \underbrace{M_1...M_jM_{j+1}}_{\text{Länge $<\infty$}}
+	\rightarrow M_1...M_j
+	\rightarrow \underbrace{(M_1...M_j/M_1...M_{j+1})}_{
+		\substack{A/M_{j+1}-VR\\
+		\text{ist artinsch}\\
+		\text{(\ref{518} hat endliche Länge}}}
+	\rightarrow 0\]
+	Es folgt, dass $l_A(M_1...M_j)<\infty$.\\
+	$2)\Rightarrow 3)$: Sei $l_A(A)=\infty$ und Sei $\Sigma:=\{\mathfrak a\subseteq A\mid l_A(A/\mathfrak a)=\infty\}$ mit $(0)\in\Sigma$.\\
+	Dann folgt, da $A$ noethersch, dass $\Sigma$ maximales Element $\mathfrak a_0$ besitzt.\\
+	Behauptung: $\mathfrak a_0$ ist Primideal.\\
+	Sei $a,b\in A:ab\in\mathfrak a_0, a\notin\mathfrak a_0$.\\
+	Betrachte nun die exakte Sequenz
+	\[0\rightarrow A/\underbrace{\{x\in A\mid xa\in \mathfrak a_0\}}_{=:\mathfrak a'}\xrightarrow{\cdot a}A/\mathfrak a_0\rightarrow \underbrace{A/(\mathfrak a_0+(a))}_{l_A(\cdot)<\infty}\]
+Dann folgt $l_A(A/\mathfrak a')=\infty$.\\
+Wähle $b\neq \mathfrak a_0$. $\mathfrak '\geq \mathfrak a_0+(b)\supsetneqq \mathfrak a_0$.\\
+Dann folgt $l(A/\mathfrak a')<l(A/\mathfrak a_0+(b))<\infty$, da $\mathfrak a_0$ maximal mit $l(A/\mathfrak a_0)=\infty$.\\
+Aus dem Wiederspuch folgt,dass $\mathfrak a_0$ ein maximales ideal ist, \\
+sodass $l(A/\mathfrak a_0)=1\neq \infty$. Widerspruch!
+\end{proof}
+\begin{kor}\label{527Kor}
+	Sei $A$ ein lokaler Artinring.\\
+	Dann $\Spec(A)=\{m\}$m $m=\Nil(A)$ und es gibt ein $k$, sodass $m^k=0$, $A\backslash m=A^\times$.
+\end{kor}
+\begin{exm*}
+	Sei $A$ ein lokaler noetherscher Ring und $m\subset A$ maximal.\\
+	Dann gilt für alle $n\ge 1$, dass $A/m^n$ ein lokaler Artinring ist.\\
+	Man kann zeigen, dass $\bigcap_{n\ge 1}m^n=\{0\}$.\\
+	Definiere eine Metrik auf $A$: $0<\rho 1$,$\rho\in \R$  mit $d(x,y):=\rho ^n$, falls $x-y\in m^n\backslash m^{n+1}$.\\
+	Approximation von 
+	\[\hat A:=\text{Vervollstädnigung  von $A$ bezüglich $d$ durch $A/m^n$}\]
+\end{exm*}
+\begin{exm*}
+	Sei $\Z(p):=\{\frac{a}{b}\in\Q\mid \text{$p$ teilt nicht $b$}\}$ für $p$ Primzahl.
+	%TODO "Märchengeschichte"
+\end{exm*}
+\begin{satz}[Struktursatz für Artinringe]\label{528Struktursatz}
+	Jeder Artinring $A$ ist Produkt von endlichen lokalen Artinringen.
+\end{satz}
+\begin{proof}
+	Seien $m_1,...,m_n\subset A$ die maximalen Ideal.\\
+	Dann existier ein $k\in \N$, sodass 0=$m_1^k...m_n^k=m_1^k\cap...\cap m_2^k$.
+	Mit derm Chinisischen Restsatz folge, dass
+	\[A\surjfunc \prod_{i=1}^{n}\underbrace{A/m_i^k}_{\substack{\text{lokale}\\\text{Artin-Ringe}}}\]
+	ist ein Isomorphismus.
+\end{proof}
+
+
+
+
+\section{Ganzheit}
+
+\subsection{Ganze Ring-Homomorphismen}
+
+
+\begin{definition}
+	Sei $\varphi:A\rightarrow B$ ein Ring Homomorphismus:
+	\begin{enumerate}
+		\item Ein Element $b\in B$ heißt \textbf{ganz über $A$} falls ein normiertes Polynom $f\in A[X]$ exitsiert, sodass $f(b)=b^n+\varphi(a_{n-1})b^{n-1}+...+\varphi(a_0)=0$.
+		\item $\varphi$ heißt \textbf{ganz}, falls jedes Elemtn $b\in B$ ganz über $A$ ist.
+	\end{enumerate}
+\end{definition}
+\begin{bem}
+	\begin{enumerate}
+		\item Sei $\varphi:A\rightarrow B$ ein surjektiver Ring Homomorphismus.\\
+		Dann ist $\varphi$ ganz:\\
+		Sei $b\in B$. Wähle $a\in A$ mit $\varphi(a)=b$.\\
+		Dann $f(b)=0$, wobei $f=X-a$.
+		\item Sei $\varphi:A\rightarrow B$ ein Ring-Homomorphismus, $b\in B$.\\
+		Dann ist $b$ ganz über $A$ genau dann wenn $b$ ganz über $\varphi(A)$.
+	\end{enumerate}
+\end{bem}
+\begin{exm}
+	Sei $A$ ein faktorieller Ring, $K=\Qud(A)$. Dann ist $x\in K$ ganz über $A$ genau dann wenn $x\in A$.
+\end{exm}
+\begin{proof}
+	$\Rightarrow$ Sei $x=\frac{1}{b}$ mit $a,b\in A, b\neq 0$, sodass kein Primielement $a$ und $b$ teilt.\\
+	Da $x$ ganz ist folgt
+	\[\left(\frac{a}{b}\right)^n+a_{n-1}\left(\frac{a}{b}\right)^{n-1}+...+a_1\frac{a}{b}+a_0=0\]
+	für $a_0,...,a_{n-1}\in A$:
+	Multiplikaiton mit $b^n$ ergibt:
+	\[a^n+ba_{n-1}a^{n-1}+...+b^{n-1} a_1a+b^na_0=0\]
+	Sei $p$ ein Primteiler von $b$, also $p$ teilt $a^n$. Dann teilt $p$ auch $a$. Widerspruch!\\
+	Also $b\in A^\times$, also $x\in A$.
+\end{proof}
+
+
+\begin{exm*}
+	Sei $A=\Z$, $x=\frac{1}{2}$, $f(x)=0$ mit $f=2X-1$
+\end{exm*}
+\begin{bem*}[Anwendung]
+	Sei $f=X^n+a_{n-1}X^{n-1}+...+a_0\in \Z[X]$.\\
+	Falls $f(x)=0$ für $x\in\Q$, dann $x\in\Z$ und $x$ Teiler von $a_0$.
+\end{bem*}
 \end{document}
