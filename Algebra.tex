@@ -24,14 +24,13 @@
 \newcommand{\ul}[1]{\underline{#1}}
 \newcommand{\norm}[1]{\|#1\|}
 \newcommand{\Hlb}{\ensuremath{\mathscr H}}
-\newcommand{\surjfunc}{\ensuremath{\xrightarrow{\sim}}}
+\newcommand{\isomfunc}{\ensuremath{\xrightarrow{\sim}}}
+\newcommand{\isomorph}{\ensuremath{\overset{\sim}{=}}}
 \newcommand{\Hom}{\operatorname{Hom}}
 \newcommand{\End}{\operatorname{Hom}}
 \newcommand{\Ker}{\ensuremath{\operatorname{Ker}}}
 \newcommand{\Img}{\ensuremath{\operatorname{Im}}}
 \newcommand{\Qud}{\operatorname{Qud}}
-\newcommand{\inj}{\xrightarrow{\sim}}
-\newcommand{\isomorph}{\ensuremath{\overset{\sim}{=}}}
 \newcommand{\Spec}{\ensuremath{\operatorname{Spec}}}
 \newcommand{\id}{\operatorname{id}}
 \newcommand{\Jac}{\operatorname{Jac}}
@@ -72,58 +71,188 @@
 \title{Algebra SS16}
 
 \begin{document}
-	\maketitle
-	\tableofcontents
-	%VL 19.10.2016/24.10.2016
-	%VL 26.10.2016
-	\setcounter{section}{2}
-	\setcounter{thm}{7}
-	\begin{bem}
-		$A[X_1,...,X_n]$ ist ein freier $A$-Modul, wobei die Monome eine Basis bilden.
-	\end{bem}
-	\begin{satz}[Universaleigenschaft des Polynomrings]
-		Sei $\phi:A\rightarrow B$ eine $A$-Algebra und seine $b_1,...,b_n\in B$ Elemente. Dann existiert genau ein $A$-Algebra-Homomorphismus $\psi:A[X_1,...,X_n]\rightarrow B$, so dass $\psi(x_i)=b_i$ für alle $i=1,..,n$, nämlich
-		\[\psi\underbrace{\left(\sum_{i_1,...,i_n\ge 0}a_{i_1,...,i_n}X_1^{i_1}\cdot...\cdot X_n^{i_1}\right)}_{=:f}=\underbrace{\sum_{i_1,...,i_n\ge 0}\phi(a_{i_1,...,i_n})b_1^{i_1}\cdot...\cdot b_n^{i_n}}_{=f(b_1,...,b_n)}\]
-	\end{satz}
-	\begin{bem}
+\maketitle
+\tableofcontents
+
+
+%VL 19.10.2016/24.10.2016
+\section{Erinnerung: Ringe und Ideale}
+\subsection{Ideale, Primideal, maximale Ideale und Ring-Homomorphismen}
+\setcounter{thm}{-10}
+	\begin{definition}
+		Man nennt $(A,+,\cdot)$ einen \textbf{Ring}(in dieser VL=kommutativer Ring), wenn
+		\begin{enumerate}
+			\item $(A,+)$ abelsch
+			\item Es gibt ein neutrales Element der Multiplikation $1\in A:1a=a\forall a\in A$
+			\item Die Multiplikation ist $\cdot$ assoziativ und kommutativ
+			\item Distributivität
+		\end{enumerate}
+	\end{definition}
+	\begin{definition}
+		Seien $A,B$ Ringe. Eine Abbildung $\varphi:A\rightarrow B$ heißt \textbf{Ringhomomorphismus}, falls
+		\begin{enumerate}
+			\item $\varphi(a+a')=\varphi(a)+\varphi(a')$ für alle $a,a'\in A$
+			\item $\varphi(aa')=\varphi(a)\varphi(a')$ für alle $a,a'\in A$
+			\item $\varphi(1)=1$
+		\end{enumerate}
+	\end{definition}
+	\begin{definition}
+		Ein $A$-Modul mit $A$-bilinearer, kommutativer und assoziativer Multiplikation und neutralem Element heißt \textbf{$A$-Algebra}
+	\end{definition}
+	\begin{kor}
+		$B$ ist $A-$Algebra genau dann wenn $\varphi:A\rightarrow B$ ein Ringhomomporhismus ist.
+	\end{kor}
+\begin{definition}
+	Man nennt $\mathfrak a\subseteq A$ \textbf{Ideal}, falls
+	\begin{enumerate}
+		\item $\mathfrak a\subseteq (A,+)$ Untergruppe
+		\item $a\in A,b\in\mathfrak a\Rightarrow ab\in\mathfrak a$.
+	\end{enumerate}
+	Sei $S\subseteq A$, dann ist
+	\[AS=SA=(S):=\left\{\sum_{i=1}^{n}a_iS_i\mid n\in\N_0,a_i\in A,s\in S\right\}\]
+	das \textbf{Kleinste Ideal} von $A$ das $S$ enthält.
+\end{definition}
+
+\begin{kor}
+	Sei $\mathfrak a\subseteq A$. Es gilt $1\in\mathfrak a$ genau dann wenn $\mathfrak A$.
+\end{kor}
+
+\begin{definition}
+	Sei $A$ Ring. $A$ heißt \textbf{nullteilerfrei}, falls $A\neq\{0\}$ und für $a,b\in A$ mit $a,b\neq 0$ auch $ab\neq0$ gilt.
+\end{definition}
+\begin{exm}
+	\begin{itemize}
+		\item Körper sind Nullteilerfrei
+		
+		\item $\Z$ ist Nullteilerfrei
+		\item $\Z$ ist HIR
+	\end{itemize}
+\end{exm}
+
+
+\begin{definition}
+	Sei $A$ Ring. $A$ heißt \textbf{Hauptidealring}(HIR), falls $A$ nullteilrefrei ist und jeds Ideal $\mathfrak a\subset A$ von einem Element erzeugt wird.\\
+	(d.h. $\mathfrak a=As=\{as\mid a\in A\}$ für ein $s\in A$)
+\end{definition}
+\begin{exm}
+	\item Körper sind Hauptidealringe (Ideale in einem Körper $K$ sind nur $(0)=\{0\}$ und $(1)=K$)
+	\item  $\Z,K[X]$ sind HIR
+	\item $Z[X]$ ist nicht HIR $(p,X)$ ist für $p\in\text{Prim}$ nicht von einem Ideal erzeugt.
+\end{exm}
+\begin{rem}
+	Sei $\varphi:A\rightarrow B$ ein Homomorphismus von Ringen
+	\begin{enumerate}
+		\item $\varphi(A)\subset B$ ist Unterring.\\
+		($0,1\in\varphi(A)$, $a,a'\in\varphi(A)\Rightarrow a+a',aa'\in \varphi(A)$)\\
+		$\Ker(\varphi)=\{a\in A\mid\varphi(A)=0\}\subseteq A$ ist Ideal\\
+		$A/\Ker(\varphi)\isomfunc\varphi(A),\ol{a}\mapsto \varphi(a)$ ist ein Ring Homomorphismus.
+		\item Sei $\mathfrak b\in B$ Ideal, dann $\varphi^{-1}(\mathfrak b)=\{y\in A\mid\varphi(a)\in b\}\subseteq A$ Ideal und $\varphi$ induziert einene injektiven Ring-Homomorphismus:
+		\[\ol{\varphi}:A/\varphi^{-1}(\mathfrak b)\leftrightarrow B/\mathfrak b, \quad \ol{a}\mapsto\varphi(a)\]
+		(wende 1) an auf $A\rightarrow B\rightarrow B/\mathfrak b$)\\
+		Falls $\varphi$ surjektiv ist, ist $\varphi$ ein Ring-Homomorphismus.
+		\item Sei $\varphi$ surjektiv. Dann sind die Abbildungen
 		\begin{align*}
-		\operatorname{Im}(\psi)&=\text{kleinste $A$-Unteralgebra die $b_1,...,b_n$ enthält}\\
-		&=A[b_1,...,b_n]\subset B
+		\{\text{$\mathfrak a\subseteq A$ Ideal mit $\Ker(\varphi)\subseteq\mathfrak a$}\}&\leftrightarrow \{\text{$\mathfrak b\in B$ Ideal}\}\\
+		\varphi^{-1(a)}&\leftrightarrow \mathfrak b\\
+		\mathfrak a&\leftrightarrow \varphi(a)
 		\end{align*}
-	\end{bem}
-	\begin{exm}
-		Sei $\phi:A\rightarrow B$ eien $A$-Algebra, $b\in B$. Es existiere ein $g\in A[X]$ mit $g(b)=0$. Sei $g$ nomriert. Dann gilt\\
-		\[A[b]=\{f(b)|f\in A[x],\deg(f)<\deg (g)\}\]
-	\end{exm}
-	\begin{exm}
-		Sei $A=\Q\hookrightarrow\C$,$i\in \C$. \\
-		Dann gilt $g(i)=0$ wobei $g=X^3+X=X(X^2+1)$. Es folgt:
-		\begin{align*}
-		\Q[i]&=\{a_0+q_1i+a_2i^2|a_0,a_1,a_2\in\Q\}\\
-		\Q[i]&=\operatorname{Im}(\Q[X]\xrightarrow[X\mapsto i, f\mapsto f(i)]{\psi}\C)
-		\end{align*}
-		Dann $\tilde{g}\in\Q[X]: \psi(\tilde{g})=0\Leftrightarrow \tilde{g}(i)=0$.\\
-		Also $g\in\operatorname{Ker}(\psi)\Rightarrow (g)\subseteq\operatorname{Ker}(\psi)$.\\
-	In diesem Fall $\operatorname{Ker}\psi=(X^2+1)$.\\
-	\end{exm}
-	Begründung von 2.8:
-	\[(g)\subseteq\operatorname{Ker}\left(A[X]\xrightarrow[f\mapsto f(b)]{\psi}B\right)\]
-	Also $\psi$ faktorisiert:
-	\[A[X]/(g)\xrightarrow{\ol{\psi}}A[b]\subseteq B\]
-	mit $\ol{\psi}$ surjektiv.
-	\begin{prop}
-		Sei $g\in A[X]$ normiert. Dann ist\[\{f\in A[X],\deg(f)<\deg(g)\}\hookrightarrow A[X]\rightarrow A[X]/(g)\]
-		bijektiv.
-	\end{prop}
-	\begin{proof}
-		Gilt, da für alle $f\in A[X]$ genau ein $r\in A[X]$ exitiert mit $\deg(r)<\deg(g)$ mit $f\in r+(g)$
-		%TODO
-	\end{proof}
+		zueinander Inverse Bijketionen.
+	\end{enumerate}
+\end{rem}
+
+\begin{definition}
+	Sei $A$ Ring
+	\begin{enumerate}
+		\item Das Ideal $\mathfrak p\subseteq A$ heißt \textbf{Primideal} falls $A/g$ Nullteilerfrei ist.\\
+		(Äquivalent: $\mathfrak p\subsetneq A$ und für alle $a,b\notin\mathfrak p$ gilt $ab\notin\mathfrak p$)
+		\item Das Ideal $m\subseteq A$ heißt \textbf{maximales Ideal}, falls $A/m$ ein Körper ist.\\
+		(Äquivalent: Es gibt kein Ideal $\mathfrak a$, sodass $m\subsetneqq\mathfrak m\subsetneqq A$).
+	\end{enumerate}
+	Jedes Maximale Ideal ist Primideal.
+\end{definition}
+
+\begin{satz}
+	Sei $A$ Ring, $\mathfrak a\subsetneqq A$ Ideal.\\
+	Dann existiert ein maximales Ideal $m\subset A$ mit $\mathfrak a\subseteq m$.
+\end{satz}
+\begin{proof}
+	Sei $(I,\leq)=\left(\{\text{$\mathfrak b\subsetneqq A$ Ideal}\mid\mathfrak a\subseteq b\},\leq \right)$\\
+	Zu zeigen: $(I,\leq)$ besitzt maximale Elemente:
+	\begin{itemize}
+		\item $\mathfrak a\in I\Rightarrow I\neq \emptyset$ erfüllt.
+		\item Sei $S\subseteq I$ total geordnet und sei $\mathfrak a_0=\bigcup_{\mathfrak b\in S}\mathfrak b\subseteq A$.\\
+		Seien $x,y\in\mathfrak a_0$, also existieren $\mathfrak b,\mathfrak b'\in S$, sodass $x\in \mathfrak b,y\in\mathfrak b'$.\\
+		Sei O.E. $\mathfrak b\subseteq\mathfrak b'$, dann gilt, da $S$ total geordnet ist, dass $x,y$
+	\end{itemize}
+\end{proof}
+
+
+\begin{lem}[Lemma von Zorn]\label{104LemZorn}
+	Sei $(I,\leq)$ eine partielle geordnete Menge.\\
+	Für jede total geordnete Teilmenge $S\subseteq I$  eine obere Schranke (d.h. $\exists i\in I$ mit $s\leq i\forall s\in S$).\\
+	Dann beseitzt $(I,\leq)$ maximale Elemente (d.h. Elemente, sodass für Elemente $i\in I$ gilt, dass $i_0\leq i,i\neq i_0$).
+\end{lem}
+\begin{exm*}
+	????
+\end{exm*}
+
+%VL 26.10.2016
+\setcounter{section}{2}
+\setcounter{thm}{7}
+
+
+\begin{bem}
+	$A[X_1,...,X_n]$ ist ein freier $A$-Modul, wobei die Monome eine Basis bilden.
+\end{bem}
+\begin{satz}[Universaleigenschaft des Polynomrings]
+	Sei $\phi:A\rightarrow B$ eine $A$-Algebra und seine $b_1,...,b_n\in B$ Elemente. Dann existiert genau ein $A$-Algebra-Homomorphismus $\psi:A[X_1,...,X_n]\rightarrow B$, so dass $\psi(x_i)=b_i$ für alle $i=1,..,n$, nämlich
+	\[\psi\underbrace{\left(\sum_{i_1,...,i_n\ge 0}a_{i_1,...,i_n}X_1^{i_1}\cdot...\cdot X_n^{i_1}\right)}_{=:f}=\underbrace{\sum_{i_1,...,i_n\ge 0}\phi(a_{i_1,...,i_n})b_1^{i_1}\cdot...\cdot b_n^{i_n}}_{=f(b_1,...,b_n)}\]
+\end{satz}
+\begin{bem}
+	\begin{align*}
+	\operatorname{Im}(\psi)&=\text{kleinste $A$-Unteralgebra die $b_1,...,b_n$ enthält}\\
+	&=A[b_1,...,b_n]\subset B
+	\end{align*}
+\end{bem}
+\begin{exm}
+	Sei $\phi:A\rightarrow B$ eien $A$-Algebra, $b\in B$. Es existiere ein $g\in A[X]$ mit $g(b)=0$. Sei $g$ nomriert. Dann gilt\\
+	\[A[b]=\{f(b)|f\in A[x],\deg(f)<\deg (g)\}\]
+\end{exm}
+\begin{exm}
+	Sei $A=\Q\hookrightarrow\C$,$i\in \C$. \\
+	Dann gilt $g(i)=0$ wobei $g=X^3+X=X(X^2+1)$. Es folgt:
+	\begin{align*}
+	\Q[i]&=\{a_0+q_1i+a_2i^2|a_0,a_1,a_2\in\Q\}\\
+	\Q[i]&=\operatorname{Im}(\Q[X]\xrightarrow[X\mapsto i, f\mapsto f(i)]{\psi}\C)
+	\end{align*}
+	Dann $\tilde{g}\in\Q[X]: \psi(\tilde{g})=0\Leftrightarrow \tilde{g}(i)=0$.\\
+	Also $g\in\operatorname{Ker}(\psi)\Rightarrow (g)\subseteq\operatorname{Ker}(\psi)$.\\
+In diesem Fall $\operatorname{Ker}\psi=(X^2+1)$.\\
+\end{exm}
+Begründung von 2.8:
+\[(g)\subseteq\operatorname{Ker}\left(A[X]\xrightarrow[f\mapsto f(b)]{\psi}B\right)\]
+Also $\psi$ faktorisiert:
+\[A[X]/(g)\xrightarrow{\ol{\psi}}A[b]\subseteq B\]
+mit $\ol{\psi}$ surjektiv.
+\begin{prop}
+	Sei $g\in A[X]$ normiert. Dann ist\[\{f\in A[X],\deg(f)<\deg(g)\}\hookrightarrow A[X]\rightarrow A[X]/(g)\]
+	bijektiv.
+\end{prop}
+\begin{proof}
+	Gilt, da für alle $f\in A[X]$ genau ein $r\in A[X]$ exitiert mit $\deg(r)<\deg(g)$ mit $f\in r+(g)$
+	%TODO
+\end{proof}
+
+
 \section{Tensorprodukte}
-(A) Tensorprodukte von Moduln\\
-(B) Tensorprodukte von Algebren und Basiswechsel\\
-(C) Exaktheitseigenschaften des Tensorprodukts\\
+	(A) Tensorprodukte von Moduln\\
+	(B) Tensorprodukte von Algebren und Basiswechsel\\
+	(C) Exaktheitseigenschaften des Tensorprodukts\\
+	
+	
 \subsection{Erinnerung}
+
+
 \begin{definition}
 	$A$-Modul$:=(M,+,\cdot)$ wobei $(M,+)$ abelsche Gruppe und $\cdot:A\times X\rightarrow M$ ein Skalarprodukt.
 \end{definition}
@@ -578,7 +707,7 @@
 \begin{prop}
 	Sei $M$ ein A-Modul, $S\subseteq A$ eine multiplikative Teilmenge, dann ist
 	\begin{align*}
-	u:S^{-1}A\otimes_A M&\inj S^{-1 M}\\
+	u:S^{-1}A\otimes_A M&\isomfunc S^{-1 M}\\
 	\frac{a}{s}\otimes m\mapsto \frac{am}{s}
 	\end{align*}
 	ist Homomorphismus von $S^{-1}A$-Moduln.
@@ -725,7 +854,7 @@ Sei $X$ ein kompakter topologischer Raum,
 Sei $x\in X$, dann betrachte
 \[\mathfrak M_x:=\{f\in A\mid f(x)=0\}\subseteq A\]
 Dies ist ein Minimales Ideal, denn
-\[A/\mathfrak M_x\inj \C, \ol{f}\mapsto f(x)\]
+\[A/\mathfrak M_x\isomfunc \C, \ol{f}\mapsto f(x)\]
 \begin{satz}
 	Die Abbildung 
 \begin{align*}
@@ -1383,7 +1512,7 @@ sodass $l(A/\mathfrak a_0)=1\neq \infty$. Widerspruch!
 	Seien $m_1,...,m_n\subset A$ die maximalen Ideal.\\
 	Dann existier ein $k\in \N$, sodass 0=$m_1^k...m_n^k=m_1^k\cap...\cap m_2^k$.
 	Mit derm Chinisischen Restsatz folge, dass
-	\[A\surjfunc \prod_{i=1}^{n}\underbrace{A/m_i^k}_{\substack{\text{lokale}\\\text{Artin-Ringe}}}\]
+	\[A\isomfunc \prod_{i=1}^{n}\underbrace{A/m_i^k}_{\substack{\text{lokale}\\\text{Artin-Ringe}}}\]
 	ist ein Isomorphismus.
 \end{proof}
 
