@@ -1527,7 +1527,7 @@ sodass $l(A/\mathfrak a_0)=1\neq \infty$. Widerspruch!
 \begin{definition}
 	Sei $\varphi:A\rightarrow B$ ein Ring Homomorphismus:
 	\begin{enumerate}
-		\item Ein Element $b\in B$ heißt \textbf{ganz über $A$} falls ein normiertes Polynom $f\in A[X]$ exitsiert, sodass $f(b)=b^n+\varphi(a_{n-1})b^{n-1}+...+\varphi(a_0)=0$.
+		\item Ein Element $b\in B$ heißt \textbf{ganz über $A$}(bezüglich $\varphi$) falls ein normiertes Polynom $f\in A[X]$ exitsiert, sodass $f(b)=b^n+\varphi(a_{n-1})b^{n-1}+...+\varphi(a_0)=0$.
 		\item $\varphi$ heißt \textbf{ganz}, falls jedes Elemtn $b\in B$ ganz über $A$ ist.
 	\end{enumerate}
 \end{definition}
@@ -1541,7 +1541,7 @@ sodass $l(A/\mathfrak a_0)=1\neq \infty$. Widerspruch!
 		Dann ist $b$ ganz über $A$ genau dann wenn $b$ ganz über $\varphi(A)$.
 	\end{enumerate}
 \end{bem}
-\begin{exm}
+\begin{exm}\label{603Exm}
 	Sei $A$ ein faktorieller Ring, $K=\Qud(A)$. Dann ist $x\in K$ ganz über $A$ genau dann wenn $x\in A$.
 \end{exm}
 \begin{proof}
@@ -1563,4 +1563,145 @@ sodass $l(A/\mathfrak a_0)=1\neq \infty$. Widerspruch!
 	Sei $f=X^n+a_{n-1}X^{n-1}+...+a_0\in \Z[X]$.\\
 	Falls $f(x)=0$ für $x\in\Q$, dann $x\in\Z$ und $x$ Teiler von $a_0$.
 \end{bem*}
+
+%VL 30.11.2016
+\begin{satz}\label{604Satz}
+	Sei $\varphi:A\rightarrow B$ ei Ring-Homomorphismus und $b\in B$. Dann ist äquivalent:
+	\begin{enumerate}
+		\item $b$ ist ganz über $A$.
+		\item $A[b]=\{f(b)\mid f\in A[T]\}=\{\sum_{i=1}^{n}\varphi(a_i)b^i\mid a_i\in A,n\in\N \}$ ist eine endliche $A$-Algebra (d.h. $A[b]$ ist als $A$-Modul endlich erzeugt)
+		\item $A[b]$ ist in einem Unterring $C\subseteq B$ enthalten, sodass $C$ eine endliche $A$-Algebra ist.
+	\end{enumerate}
+\end{satz}
+\begin{proof}
+	\begin{itemize}
+		\item 1)$\Rightarrow$2): $b$ ist ganz über $A$, also gibt es $a_i\in A$, sodass $b^n=-(\varphi(a_{n-1})b^{n-1}+...+\varphi(a_0))$. Dann auch
+		\[b^{n+r}=-(\varphi(a_{n-1})b^{n-1+r}+...+\varphi(a_0)b^r)\]
+		für alle $r\ge 0$. Dann ist $A[b]$ der $A$-Modul, der von $1,b,...,b^{r-1}$ erzeugt wird.
+		\item $2)\Rightarrow3)$: $C=A[b]$.
+		\item $3)\Rightarrow1)$: Sei $U:C\rightarrow C,c\mapsto bc$. Mit \ref{423CayHam} folgt, dass es $a_i\in A$ gibt, sodass $u^n+a_{n-1}u^{n-1}+...+a_0=0\in\End_A(C)$. Dann ist aber (mit $b=u(1)$)
+		\[b^n+\varphi(a_{n-1})b^{n-1}+...+\varphi(a_0)=0\]
+	\end{itemize}
+\end{proof}
+
+\begin{satz}\label{605Satz}
+	Sei $\varphi:A\rightarrow B$ ein Ring Homomorphismus. Dann sind äquivalent:
+	\begin{enumerate}
+		\item $\varphi$ endlich
+		\item $\varphi$ ist von endlichem Typ und ganz
+		\item Es gibt $b_1,...,b_n\in B$, sodass $b_i$ ganz über $A$ ist und $B=A[b_1,...,b_n]$
+	\end{enumerate}
+\end{satz}
+\begin{proof} durch Ringschluss:
+	\begin{itemize}
+		\item $1)\Rightarrow 2)$: nach \ref{604Satz}
+		\item $2)\Rightarrow 3)$: Betrachte die Abbildung $A[T_1,...,T_n]\isomfunc B$, wobei $b_i:=\psi(T)$.
+		\item $3)\Rightarrow 1)$: Sei $B=A[b_1,...,b_n]$ mit $b_i$ ganz über A.\\
+		Wir wissen, dass $A[b_1]$ eine endliche $A$-Algebra ist.\\
+		Sei nun $A_k:=A[b_1,...,b_k]$ für $k\leq n$.\\
+		Dann ist $A_k=A_{k-1}[b_k]$ 
+		%TODO ende des Bew
+	\end{itemize}
+\end{proof}
+
+
+\begin{satz}\label{606Satz}
+	Seien die Ring-Homomorphismen $\varphi:A\rightarrow B$, $\psi:B\rightarrow C$ ganz.\\
+	Dann ist auch $\psi\circ\varphi$ ganz.
+\end{satz}
+\begin{proof}
+	OE (referenz auf bem) $A\subseteq B\subseteq C$. Sei $x\in C$, also existieren $b_0,...,b_{n-1}\in B$ sodass $x^n+b_{n-1}x^{n-1}+...+b_0=0$.\\
+	Betrachte nun $B'=A[b_0,...,b_{n-1}]$. Dann ist $B'$ ein endlich erzeugter $A$-Modul und $B'[x]$ ist ein endlich erzeugter $B'$-Modul.\\
+	(d.h. es gibt surjektive Abbildungen $A^r\rightarrow B',(B')^k\rightarrow B'[x]$, also auch surjektives $B^{rk}\rightarrow B'[x]$)\\
+	Also ist $B'[x]$ ein endlich erzeugter $A$-Modul und damit ist nach \ref{604Satz} $x$ ganz über $A$.
+\end{proof}
+
+\subsection{Ganzer Abschluss}
+\begin{kor}\label{607Kor}
+	Sei $\varphi:A\rightarrow B$ ein Ring-Homomorphismus. Dann ist
+	\[C:=\{b\in B\mid\text{$b$ ist ganu über $A$}\}\label{6071Eq}\tag{\ref{607Kor}.1}\]
+	ein Unterring von $B$.
+\end{kor}
+\begin{proof}
+	Sei $x,y\in C$. Betrachte $A[x,y]$ (ist nach \ref{605Satz} endliche $A$-Algebra).\\
+	Dann ist mit \ref{605Satz} die Abbildung $A\rightarrow A[x,y]$ ganz.\\
+	Insbesondere sind $x\cdot y,x\pm y\in A[x,y]$ ganz über $A$.
+\end{proof}
+
+\begin{definition}
+	\begin{enumerate}
+		\item Sei $\varphi A\rightarrow B$ ein Ring-Homomorphismus. Der Unterring $C$ (aus \ref{6071Eq}) wird der \textbf{ganze Abschluss von $A$ in $B$} genannt.
+		\item $A$ heißt \textbf{ganz abgeschlossen}, falls $C=\varphi(A)$.
+	\end{enumerate}
+\end{definition}
+
+\begin{kor}
+	Sei $\varphi:A\rightarrow B$ ein Ring,Homomorphismus und sei $C$ der ganze Abschluss von $A$ in $B$, dann ist $C$ ganz abgeschlossen.
+\end{kor}
+
+\begin{proof}
+	Sei $b\in B$ und $b$ ganz über $C$ (bezüglich der Inklusion $C\subseteq B$). Da $C$ ganz über $A$ist, ist auch $b$ ganz über $A$ (vgl \ref{606Satz}). Also ist $b\in C$.
+\end{proof}
+
+\begin{bem}
+	Sei $\varphi:A\rightarrow B$ ein ganzer Ring-Homomorphismus, $\mathfrak b\subseteq B$ ein ideal. Dann ist\[A/\varphi^{-1}(\mathfrak b)\rightarrow B/\mathfrak b\]
+	auch ganz.
+\end{bem}
+
+\begin{satz}\label{611Satz}
+	Sei $\varphi:A\rightarrow B$ ein Ring-Homomorphismus, $C\subseteq B$ der Ganze Abschluss von $A$ in $B$ und sei $S\subseteq A$ ein multiplikative Teilmenge.\\
+	Dann ist $\varphi(S)^{-1}C$ der ganze Abschluss von $S^{-1}A$ in $\varphi(S)^{-1}B$.\\
+	Insbesondere ist $ \varphi(S)^{-1}B $ ganz über $S^{-1}A$, falls $\varphi$ ganz ist.
+\end{satz}
+\begin{proof}
+	OE $A\subseteq B\subseteq C$. Wir zeigen zuerst, dass $S^{-1}C$ ganz über $S^{-1}A$.\\
+	Sei dazu $\frac{c}{s}\in S^{-1 C}$. Es existieren $a_i$, sodass $c^na_{n-1}c^{n-1}+...+a_0=0$. Dann ist
+	\[\left(\frac{c}{s}\right)^n+\left(\frac{c}{s}\right)^{n-1}\underbrace{\left(\frac{a_{n-1}}{s}\right)}_{\in S^{-1}A}+...+\frac{a_0}{s^n}\]
+	ist Ganzheitsgleichung für $\frac{c}{s}$ über $S^{-1}A$, also ist $\frac{c}{s}$ ganz  über $S^{-1}A$.\\
+	Sei nun $\frac{b}{s}\sin S^{-1}B$ ganz über $S^{-1}A$, d.h. es gibt $a_i\in A,s_i\in S$, sodass
+	\[\tag{$\star$}\left(\frac{b}{s}\right)^n+\frac{a_{n-1}}{s_{n-1}}\left(\frac{b}{s}\right)^{n-1}+...+\frac{a_0}{s_0}=0\]
+	Sei $t=s_0\cdot...\cdot s_{n-1}$. Multipliziere ($\star$) mit $(ts)^n$, dann ist
+	\[(tb)^n+a_{n-1}x_1(tb)^{n-1}+...+x_n=0\]
+	(wobei $x_1,...,x_n\in A$)Ganzheitsgleichung von $t\cdot B$ über $A$.
+\end{proof}
+
+\begin{definition}
+	Ein Nullteiler freie Ring heißt \textbf{ganz Abgeschlossen}(ohne Spezifizierung worin) oder \textbf{normal}, falls $A$ ganz abegschlossen in $\Qud(A)$.
+\end{definition}
+
+\begin{satz}
+	Jeder faktorielle Ring ist normal
+\end{satz}
+\begin{proof}
+	in Beispiel \ref{603Exm}.
+\end{proof}
+
+
+
+\subsection{Going-Up}
+
+\begin{satz}\label{614Satz}
+	Sei $B$ ein nulltieiler freier Ring und $A\subseteq B$ ein Unterring und sei $B$ ganz über $A$.\\
+	Dann ist $A$ genau dann ein Körper wenn $B$ ein Körper ist.
+\end{satz}
+\begin{proof}
+	\begin{itemize}
+		\item Sei $A$ Körper und $y\in B$ mit $y\neq 0$. Nehem Ganzheitsgleichung von $y$ über $A$ mit minimalem Grad:\\
+		\[y^n+a_{n-1}y^{n-1}+...+a_0=0\]
+		Da $B$ nullteilerfrei ist, gilt $a_0\neq 0$.\\
+		(Nehme an , dass $a_0=0$, dann $y(y^{n-1+a_{n-1}y^{n-2}+...+a_1})=0$ also Grad nciht minimal)\\
+		Sei $\delta:=-a_0^{-1}(y^{n-1}+a_{n-1}y^{n-2}+...+a_1)\in B$ mit $\delta y=1.$ Also ist $B$ Körper.
+		\item Sei nun $B$ Körper, $x\in A\backslash\{0\}$. Es gilt $x^{-1}\in B$, also ganz über $A$.\\
+		Also finden wir zur Gleichung $x^{-m}+a_{m-1}x^{-m+1}+...+a_0=0$ durch Multiplikation mit $x^{m-1}$
+		\[x^{-1}+\underbrace{a_{m-1}+a_{m-2}+...+a_0x^{m-1}}_{\in A}=0\]
+		Also liegt $x^{-1}\in A$.
+	\end{itemize}
+\end{proof}
+
+\begin{kor}
+	Sei $\varphi: A\rightarrow B$ eine ganzer RIng-Homomorphismus. Sei $q\subseteq B$ Primideal, $p:=\varphi^{-1}(q)$. Damit ist $q$ maximal gdw $p$ maximal.
+\end{kor}
+\begin{proof}
+	Es gilt $A/p\rightarrow B/q$ ist ganz. Satz \ref{614Satz} gibt uns, dass $A/p$ genau dann Körper ist, wenn $B/q$ Körper ist. Es folgt die Behauptung
+\end{proof}
 \end{document}
