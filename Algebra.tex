@@ -1,5 +1,6 @@
 \documentclass[10pt,a4paper]{article}
 \usepackage[utf8]{inputenc}
+\usepackage{fontenc}
 \usepackage[german]{babel}
 \usepackage{amsmath}
 \usepackage{amsfonts}
@@ -25,12 +26,12 @@
 \newcommand{\norm}[1]{\|#1\|}
 \newcommand{\Hlb}{\ensuremath{\mathscr H}}
 \newcommand{\isomfunc}{\ensuremath{\xrightarrow{\sim}}}
-\newcommand{\isomorph}{\ensuremath{\overset{\sim}{=}}}
+\newcommand{\isomorph}{\ensuremath{\tilde{=}}}
 \newcommand{\Hom}{\operatorname{Hom}}
 \newcommand{\End}{\operatorname{Hom}}
 \newcommand{\Ker}{\ensuremath{\operatorname{Ker}}}
 \newcommand{\Img}{\ensuremath{\operatorname{Im}}}
-\newcommand{\Qud}{\operatorname{Qud}}
+\newcommand{\Quot}{\operatorname{Quot}}
 \newcommand{\Spec}{\ensuremath{\operatorname{Spec}}}
 \newcommand{\id}{\operatorname{id}}
 \newcommand{\Jac}{\operatorname{Jac}}
@@ -778,8 +779,8 @@ mit $\ol{\psi}$ surjektiv.
 \end{proof}
 %TODO 4.10, 4.11
 \begin{satz}[Universelle Eigenschaft des Quotientenkörpers]
-	Sei $\iota:A\rightarrow \Qud(A)$ kanonisch und sei $\varphi:A\rightarrow K$ ein injektiver Ring-Homomorphismus wobei $K$ ein Körper.\\
-	Dann existiert genau ein Homomorphismus von Körpern $\tilde{\varphi}:\Qud(A)\rightarrow K$.
+	Sei $\iota:A\rightarrow \Quot(A)$ kanonisch und sei $\varphi:A\rightarrow K$ ein injektiver Ring-Homomorphismus wobei $K$ ein Körper.\\
+	Dann existiert genau ein Homomorphismus von Körpern $\tilde{\varphi}:\Quot(A)\rightarrow K$.
 \end{satz}
 %TODO. Beweis?
 \subsection{Lokale Ringe und Restklassenkörper}
@@ -816,7 +817,7 @@ mit $\ol{\psi}$ surjektiv.
 		\item Speziell für $q=\mathfrak p$:
 		\begin{align*}
 		S^{-1}(A/\mathfrak p)&=\kappa(\mathfrak p)\\
-		&=\Qud(A/\mathfrak p)
+		&=\Quot(A/\mathfrak p)
 		\end{align*}
 	\end{enumerate}
 \end{bem}
@@ -898,7 +899,7 @@ Es folgt $\forall \mathfrak M\subset A_x$ maximal, sodass $\varphi^{-1}(\mathfra
 	Sei $A$ ein Ring. Setze $X=\Spec(A):=\{y\subset A\mid\text{Primideal con $A$}\}$ als das \textbf{Spektrum von $A$}.\\
 	Für $x\in X$ bezeichne $y_x\subset A$ das korrespondierene Primideal.
 	Sei $f\in A$, $x\in X$. Dann definiere
-	\[f(x):=\text{Bild von $f$ unter}A\rightarrow A/y_x\hookrightarrow\Qud(A/y_x)=\kappa(x)\]
+	\[f(x):=\text{Bild von $f$ unter}A\rightarrow A/y_x\hookrightarrow\Quot(A/y_x)=\kappa(x)\]
 \end{def}
 \begin{bem}
 	$f$ ist keine Funktion $X\rightarrow ?$.\\
@@ -1074,7 +1075,7 @@ Es folgt $\forall \mathfrak M\subset A_x$ maximal, sodass $\varphi^{-1}(\mathfra
 \end{proof}
 \section{Noethersche und Artinsche Ringe}
 \subsection{Noethersche und Artinsche Moduln}
-\begin{lem}
+\begin{lem}\label{501lem}
 	...%TODO
 \end{lem}
 \begin{proof}
@@ -1542,7 +1543,7 @@ sodass $l(A/\mathfrak a_0)=1\neq \infty$. Widerspruch!
 	\end{enumerate}
 \end{bem}
 \begin{exm}\label{603Exm}
-	Sei $A$ ein faktorieller Ring, $K=\Qud(A)$. Dann ist $x\in K$ ganz über $A$ genau dann wenn $x\in A$.
+	Sei $A$ ein faktorieller Ring, $K=\Quot(A)$. Dann ist $x\in K$ ganz über $A$ genau dann wenn $x\in A$.
 \end{exm}
 \begin{proof}
 	$\Rightarrow$ Sei $x=\frac{1}{b}$ mit $a,b\in A, b\neq 0$, sodass kein Primielement $a$ und $b$ teilt.\\
@@ -1666,7 +1667,7 @@ sodass $l(A/\mathfrak a_0)=1\neq \infty$. Widerspruch!
 \end{proof}
 
 \begin{definition}
-	Ein Nullteiler freie Ring heißt \textbf{ganz Abgeschlossen}(ohne Spezifizierung worin) oder \textbf{normal}, falls $A$ ganz abegschlossen in $\Qud(A)$.
+	Ein Nullteiler freie Ring heißt \textbf{ganz Abgeschlossen}(ohne Spezifizierung worin) oder \textbf{normal}, falls $A$ ganz abegschlossen in $\Quot(A)$.
 \end{definition}
 
 \begin{satz}
@@ -1698,10 +1699,232 @@ sodass $l(A/\mathfrak a_0)=1\neq \infty$. Widerspruch!
 	\end{itemize}
 \end{proof}
 
-\begin{kor}
+\begin{kor}\label{615Kor}
 	Sei $\varphi: A\rightarrow B$ eine ganzer RIng-Homomorphismus. Sei $q\subseteq B$ Primideal, $p:=\varphi^{-1}(q)$. Damit ist $q$ maximal gdw $p$ maximal.
 \end{kor}
 \begin{proof}
 	Es gilt $A/p\rightarrow B/q$ ist ganz. Satz \ref{614Satz} gibt uns, dass $A/p$ genau dann Körper ist, wenn $B/q$ Körper ist. Es folgt die Behauptung
 \end{proof}
+
+
+%VL 05.12.2016
+\begin{kor}
+	Sei $\varphi:A\rightarrow B$ ein ganzer Ring-Homomorphismus, seien $q\subseteq q'\subset B$ Primideale, so dass $p:=\varphi^{-1}(q)=\varphi^{-1}(q')$. Dann gilt $q=q'$
+\end{kor}
+\begin{proof}
+	In $A_p=S^{-1}A,S=A\backslash p$ ist $pA_p$ maximal. Betrachte
+	\[\xymatrix{
+		A\ar[r]^\varphi \ar[d]_{a\mapsto\frac{a}{1}} &B\ar[d]^{b\mapsto\frac{b}{1}}\\
+		A_p\ar[r]^{\psi=S^{-1}\varphi}& B_p
+	}
+	\]
+	Wobei $pA_p\subset A_p$ und $qB_p\subseteq B_p=\varphi^{-1}SB$ und auch $qB_p\subseteq qB_p$ Primideal.\\
+	Mit \ref{611Satz} folgt $\psi$ ist ganz.\\
+	Also gilt OE $p\subset A$ ist maximal, sodass mit \ref{615Kor} folgt, dass $q,q'$ maximal sind und da $q\subseteq q'$ gilt $q=q'$.
+\end{proof}
+
+\begin{satz}\label{617Satz}
+	Sei $\varphi:A\rightarrow B$ ein injektiver ganzer Ring Homomorphismus. Dann existiert für jedes Primideal $p\subset A$ ein Primideal $q\in B$ mit $\varphi^{-1}(q)=p$.\\
+	(D.h. $\Spec(B)\rightarrow \Spec(A),q\mapsto \varphi^{-1}(q)$ ist surjektiv.)
+\end{satz}
+\begin{proof}
+	Ersetze $A$ durch $A_p$, dann gilt OE, dass $p\subset A$ maximal und $A$ lokal ist.\\
+	Da $\varphi$ injketiv ist folgt $B\neq 0$.\\
+	Also existiert ein maximales Ideal $q\subseteq B$ und mit \ref{615Kor} ist $\varphi^{-1}(q)$ maximal, also $\varphi^{-1}(q)=p$.
+\end{proof}
+
+\begin{theorem}[Going Up]\label{618ThmGoingUp}
+	Sei $\varphi:A\rightarrow B$ ein ganzer injektiver Ring-Homomorphismus und seien $n\geq m\geq 0$ ganze Zahlen. Sei $p_i\subsetneqq...\subsetneqq p_m\subsetneqq...\subsetneqq p_n\subset A$ eine Kette von Primidealen und sei $q_1\subseteq...\subseteq q_n\subset B$ eine Kette von Primidealen mit $\varphi(q_i)=p_i$ für $i=1,...,m$.\\
+	Dann gilt $q_1\subsetneqq...\subsetneqq q_m$ und es existiert eine Kette von Primidealen $q_1\subsetneqq...\subsetneqq q_m\subsetneqq q_{m+1}\subsetneqq...\subsetneqq q_n\subset B$ mit $\varphi^{-1}(q)=p_i$ für alle $i=1,...,n$.
+\end{theorem}
+\begin{proof}
+	Sei OE $n>m$, $n_1=1,m=0$. Dann folgt mit \ref{617Satz}, dass $q_1\subsetneqq...\subsetneqq q_m$:\\
+	Vollständige Induktion: Sei OE $m=1,n=2$. Betrachte
+	\[\xymatrix{
+	A\ar[r]^\varphi\ar[d]&B\ar[d]\\
+	A/p_1\ar[r]^{\ol{\varphi}}&B/q
+	}
+	\]
+	Wobei $\ol\varphi$ ganz und injektiv ist, da $\varphi^{-1}(q_i)=p_1$ und $p_2/p_1\subseteq A/p_1$.\\
+	Dann folgt mit \ref{617Satz}, dass es das Primideal $\ol{q_2}\subset B/q_i$ gibt mit $\ol{\varphi}^{-1}(\ol{q_2})=p_2/p_1$.\\
+	Dass ist $\ol{q_2}\isomorph q_2\subset B$, wobei $q_2$ Primideal mir $q_2\supseteq q_1$ und $\varphi^{-1}(q_2)p_2$. 
+\end{proof}
+
+
+
+\section{Irreduziblität}
+\subsection{Satz von Gauß}
+
+\begin{rem}\label{701rem}
+\begin{enumerate}
+	\item Sei $A$ ein nullteilerfreier Ring. Ein Element $p\in A$ heißt
+		\begin{enumerate}
+			\item \textbf{irrefuzibel}, falls $0\neq p\notin A^\times$ und falls $p=ab$ mit $a,b\in A$, so gilt $a\in A^\times$ oder $b\in A^\times$.
+			\item \textbf{Primelelement}, falls $p\neq 0$ und $(p)$ ist Primideal.\\
+		\end{enumerate}
+		Es gilt, wenn $p$ Primelement ist, so ist $p$ irreduzibel.
+	\item $A$ heißt \textbf{faktoriell}, falls er die folgenden äquivalenten Bedingung erfüllt:
+	\begin{enumerate}
+		\item Jedes $0\neq a\notin A^\times$ ist Produkt von irreduziblen Elemente und diese Zerlegung ist eindeutig bis auf Reihenfolge und Multiplikation mit Einheiten.
+		\item Jedes Elemente $o\neq a\notin A^\times$ ist Produkt von Primelemten.
+		\item Jedes Irreduzible Element ist ein Primelement und jede aufsteigende Kette von Hauptidealen wird stationär.
+	\end{enumerate} 
+\end{enumerate}
+\end{rem}
+\begin{proof}
+	\begin{itemize}
+		\item b)$\Rightarrow$a): Einführung in die Algebra (Beweis HIR sind faktoriell)
+		\item a)$\Rightarrow$c): 
+		\begin{enumerate}
+			\item Sei $p\in A$ irreduzibel. Seien $a,b\in A$ mit $ab\in(p)$.\\
+			Setze $ab=dp$ mit $d\in A$. Seien $a=p_1...p_r$, $b=q_1...q_s$ und $d=l_1...l_t$ irreduzible Zerlegungen. Dann
+			\[p_1..p_rq_1...q_s=pl_1...l_t\]
+			Aus der eindeutigkeit folg, dass es ein $i$ gibt sodass $(p)=(p_i)$ oder ein $j$, sodass $(p)=(q_j)$.\\
+			Daraus folgt, $p$ teilt $a$ oder $b$.
+			\item gibt, dass jdese Elemente $\neq0$ hat nur endlich viele Teiler. (Bis auf Multiplikation mit Einheiten).\\
+		\end{enumerate}
+		Mit Anderen Worten: Für jedes Hauptideal $\mathfrak a\neq 0$ existieren nur endlich viele Hauptideal, die $\mathfrak a$ enthalten.\\
+		$\Rightarrow$ Jede aufsteigende Kette von Hauptidealen wird stationär.
+		
+		\item c)$\Rightarrow$ b): Sei $\Sigma:=\{(a)\mid\text{$0\neq a\in A^\times$} und $a$ ist nicht Produkt von irreduziblen Elementen \}$.\\
+		Angenommen $\Sigma\neq 0$:\\
+		Dann folgt mit $\ref{501lem}$ %TODO
+	\end{itemize}
+\end{proof}
+
+\begin{exm}
+	Jeder Hauptidealring ist faktoriell. Insbesondere auch $\Z,K[X]$
+\end{exm}
+\begin{definition}
+	Sei $A$ ein Ring, $f=a_mX^m+...+a_1X+a_0\in A[X]$ heißt \textbf{primitiv}, falls $(a_1,...,a_n)=A$.
+\end{definition}
+\begin{exm*}
+	\begin{enumerate}
+		\item Sei $A$ faktoriell. Dann ist $f$ genau dann Primitiv, wenn kein Primelement alle $a_i$ teilt.
+		\item Seien $f,g\in A[X]$. Dann sind $f,g$ genau dann primitv, falls $fg$ primitiv.
+	\end{enumerate}
+\end{exm*}
+
+%Synchronisation. ()
+\addtocounter{thm}{-1}
+\begin{definition}
+	Sei $A$ faktoriell. Ein $c(f)\in A$ heißt \textbf{Inhalt von $f$}, falls $c(f)$ ein größter gemeinsammer Teiler von $a_1,...,a_0$ ist.\\
+\end{definition}
+\begin{bem*}
+	Also ist $g$ genau dann primitav, falls $c(f)\in A^\times$.\\
+	Für $f\in A[X]$ gilt, dass $f=c(f)\tilde{f}$ mit $\tilde{f}$ primitv.
+\end{bem*}
+\begin{bem*}
+	Sei $f=3X^{1000}+30X^7+21X+27$, dann $c(f)=3$ oder $-3$.\\
+	Dann $f=3\tilde{f}$, also $\tilde{f}=X^{1000}+10X^7+7X+9$.
+\end{bem*}
+
+\begin{theorem}[Satz von Gauß]\label{704Gauss}
+	Sei $A$ ein faktorieller Ring. Dann ist auch $A[X]$ faktoriell.\\
+	Die irreduziblen Elemente von $A[X]$ sind:
+	\begin{enumerate}
+		\item $p\in A$ irreduzibel und
+		\item $f\in A[X]$ primitv, sodass $f\in \Quot(A)[X]$ irreduzibel ist.
+	\end{enumerate}
+\end{theorem}
+\begin{exm*}
+	Sei $A=\Z$, 
+	\begin{itemize}
+		\item $2X+4\in\Z[X]$ ist reduzibel, da $2X+4=2(X+2)$
+		\item $X^3-5\in\Z[X]$ ist primitv und irreduzibel in $\Q[X]$
+	\end{itemize}
+\end{exm*}
+
+%VL 07.12.2016
+\begin{proof}
+	\begin{enumerate}
+		\item Seien $f,g\in K[X]\setminus\{0\}$. Schreibe $f=c(f)\tilde{f}$, $g=c(g)\tilde{g}$ mit $\tilde{f},\tilde{g}$ primitiv. Dann $fg=c(f)c(g)\tilde{g}\tilde f$, sodass $c(fg)=c(f)=c(g)$ gilt.
+		\item Behauptung:$p\in A$ ist irreduzibel, dann ist $p\in A[X]$ Primelement:\\
+		\[A[X]/pA[X]=(A/p)[X]\]
+		ist nullteilerfrei (da $A/p$ nullteilerfrei ist).
+		Dann ist $p\in A$ prim.
+		\item Sei $q\in A[X]$ primitiv, $q\in K[X]$ irreduzibel.\\
+		Behauptung: $qK[X]\cap A[X]=qA[X]$:
+		\begin{itemize}
+			\item ``$\supseteq$'' ist klar
+			\item ``$\subseteq$``: Sei $f\in K[X]$ mit $qf\in A[X]$, sei $f=c(f)\tilde f$ mit $\tilde f$ primitv. Dann gilt $c(qf)\in A$ und $c(qf)=c(q)c(f)$ wobei $c(q)\in A\times$.\\
+			Dann folgt, dass $c(q)c(f)=c(f)$ und damit $f\in A[X]$.\\
+		\end{itemize}
+		Die Behauptung gilt also genau dann wenn $A[X]/qA[X]\rightarrow K[X]/qK[X]$ injektiv ist.\\
+		Also ist $q\in A[X]$ Primelemnt.
+		\item Jedes $f\in A[X]$ mit $0\neq f\notin A^\times$ ist Produkt der Primelemente von $(a)$ und $(b)$.\\
+		Schrieeb $f=c(f)\tilde f$, $c(f)$ ist Produkt von Primelementen in $(a)$ und $\tilde{f}$ ist primitv.\\
+		Sei $\tilde{f}=g_1,...,g_r$ mit $g_i\in K[X]$ irreduzibel, $g_i=c_i\tilde{g}_i$, $c_i\in K^\times$, $\tilde g_i$ primitiv.\\
+		Es folgt, dass $\tilde f=c_1...c_r\tilde g_1...\tilde g_r$.\\
+		Da $c(\tilde f)\in A^\times$ und $c(\tilde g_1...\tilde g_r)\in A^\times$ ist auch $c_1...c_r\in A^\times$.\\
+		Mit \ref{701rem} folgt die Aussage.
+	\end{enumerate}
+\end{proof}
+
+\begin{kor}
+	Sei $A$ ein faktorieller Ring. Dann ist $A[X_1,...,X_n]$ faktoriell. \\
+	Insbesondere folgt dies wenn $A$ Körper.
+\end{kor}
+
+\subsection{Irreduziblitätskriterien}
+Sei $K$ Körper, $f\in K[X]$, $f\neq 0$.
+\begin{enumerate}
+	\setcounter{enumi}{-1}
+	\item Sei $\deg(f)=0$, dann $f$ nicht irreduzibel in $K[X]$, da $f\in K[X]^\times=K^\times$.
+	\item Sei $\deg(f)=1$, dann ist $f$ immer irreduzibel in $K[X]$.
+	\item Sei $\deg(f)=2$ oder $\deg(f)=3$, dann ist $f$ genau dann reduzibel, wenn $f$ eine Nullstelle hat.
+	\item Sei $\deg(f)>1$ und $f$ habe eine Nullstelle, dann ist $f$ reduzibel
+\end{enumerate}
+
+\begin{satz}[Reduziblitätskriterium]
+	Sei $A$ ein faktorieller Ring, $K=\Quot(A)$, $f=a_nX^n+...+a_1X+a_0\in A[X]$, zu $p\in A$ Primelement mit $p$ teilt nicht $a_n$.\\
+	Sei $\ol f\in A/p[X]$ das Bild von $f$.\\
+	Dann folgt aus $\ol f$ irreduzibel in  $A/p[X]$, dass $f$ in $K[X]$ irreduzibel ist.
+\end{satz}
+\begin{proof}
+	Betrachte zuerst $f$ primitiv:\\
+	Sei $f\in K[X]$ reduzibel, dann folgt mit \ref{704Gauss}, dass $f$ in $A[X]$ reduzibel ist.\\
+	Also gibt es $g,h\in A[X]$, mit $\deg(g),\deg(g)\geq 1$, sodass $f=gh$.\\
+	Da der Führende Koeffizient von $f$ nach Voraussetzung nicht durch $p$ teilbar ist, sind auch die Führenden Koeffizienten von  $g,h$ nicht durch $p$ teilbar.\\
+	Da $\deg(\ol g)=\deg(g)\geq 1$ und $\deg(\ol h)=\deg(h)\geq 1$ folgt, dass $\ol f=\ol g\ol h$ reduzibel ist.\\
+	\\
+	Allgemeiner Fall: Schriebe $f=c(f)\tilde f$ mit $c(f)\in A\setminus\{0\}$ und $\tilde f$ primitiv.\\
+	$f$ ist genau dann in $K[X]$ reduzibel, wenn $\tilde f$ in $K[X]$ reduzibel ist.\\
+	Im gezeigten Spezialfall folgt aus $\tilde{ f}$ ist reduzibel in $A/p[X]$, dass $\ol f=\ol{c(f)}\ol{\tilde{f}}$ reduzibel ist.
+\end{proof}
+
+\begin{exm*}
+	\begin{enumerate}
+		\item Sei $f=3X^4+2X^2+7X^2+X-5\in \Z[X]$. Dann gilt $\mod 2$:
+		\[f=X^4+X^3+X^2+X+1\in\mathbb{F}_2[X]\]
+		Betrachte nun die Reduziblen Polynome mit $\deg=2$:
+		$\{X^2+X+1,X^2+1,X^2\}$, wobei deren Quadrate keien Teiler von $f$ sind.\\
+		Also ist $f$ irreduzibel.
+		\item Sei $f=X+Y^2+YX-2Y+3\in\Q[X,Y]$ ist gleich $XY^2+(X-2)Y+3\in(\Q[X])[X]$ modulo $X-2$ gilt:\\
+		$2Y^2+3\in Q[Y]=\Q[X,Y]/(X-2)$ ist irreduzibel, also ist $f$ irreduzibel.
+	\end{enumerate}
+\end{exm*}
+
+
+\begin{satz}[Eisensteinkriterium]
+	Sei $A$ faktoriell, $f=a_nX^n+...+a_1X+a_0\in A[X]$ primitiv und es existiert ein Primelement $p\in A$, sodass
+	\begin{enumerate}
+		\item $p$ teilt nicht $a_n$
+		\item $p$ teil $a_i$ für alle $i=0,...,n-1$
+		\item $p^2$ teilt nicht $a_0$
+	\end{enumerate}
+	Dann ist $f$ irreduzibel in $\Quot(A)[X]$.
+\end{satz}
+\begin{proof}
+	Sei $f$ reduzibel in $A[X]$,$f=gh$ für $g,h\in A[X]$ mit $\deg(g),\deg(f)\geq 1$ (und $<n$).\\
+	Modulo $p$ gilt: $\ol a_nX^n=\ol f=\ol g\ol h\in A/p[X]$ und $a_n\neq 0$.\\
+	Da die irreduzible Zerlegung Eindeutig in $\Quot(A/p)[X]$ ist:\\
+	$\ol g=uX^m$, $\ol h=vX^r$, mit $u,v\neq 0$ und $m,r>0$.\\
+	Dann sind die Absoluten Koeffizienten von $g,h$ duch $p$ Teilbar, was einen Widerspruch zu 3) darstellt.
+\end{proof}
+
+\begin{exm}
+	Sei $A$ faktorielle $p\in A$ prim, $n\geq 1$.\\
+	Dann ist $X^n-p$ irreduzibel.
+\end{exm}
 \end{document}
