@@ -8,6 +8,7 @@
 \usepackage{amsthm}
 \usepackage{graphicx}
 \usepackage{tikz,pgf}
+\usepackage{tikz-cd}
 \usepackage{mathrsfs}
 \usepackage{framed}
 \usepackage[hidelinks]{hyperref}
@@ -1716,8 +1717,7 @@ sodass $l(A/\mathfrak a_0)=1\neq \infty$. Widerspruch!
 	\[\xymatrix{
 		A\ar[r]^\varphi \ar[d]_{a\mapsto\frac{a}{1}} &B\ar[d]^{b\mapsto\frac{b}{1}}\\
 		A_p\ar[r]^{\psi=S^{-1}\varphi}& B_p
-	}
-	\]
+	}\]
 	Wobei $pA_p\subset A_p$ und $qB_p\subseteq B_p=\varphi^{-1}SB$ und auch $qB_p\subseteq qB_p$ Primideal.\\
 	Mit \ref{611Satz} folgt $\psi$ ist ganz.\\
 	Also gilt OE $p\subset A$ ist maximal, sodass mit \ref{615Kor} folgt, dass $q,q'$ maximal sind und da $q\subseteq q'$ gilt $q=q'$.
@@ -1906,7 +1906,7 @@ Sei $K$ Körper, $f\in K[X]$, $f\neq 0$.
 \end{exm*}
 
 
-\begin{satz}[Eisensteinkriterium]
+\begin{satz}[Eisensteinkriterium]\label{707Eisenstein}
 	Sei $A$ faktoriell, $f=a_nX^n+...+a_1X+a_0\in A[X]$ primitiv und es existiert ein Primelement $p\in A$, sodass
 	\begin{enumerate}
 		\item $p$ teilt nicht $a_n$
@@ -1926,5 +1926,297 @@ Sei $K$ Körper, $f\in K[X]$, $f\neq 0$.
 \begin{exm}
 	Sei $A$ faktorielle $p\in A$ prim, $n\geq 1$.\\
 	Dann ist $X^n-p$ irreduzibel.
+\end{exm}
+
+%VL 12.12.2016
+\section{Algebraische Körpererweiterungen}
+\subsection{Körpererweiterungen}
+
+\begin{definition}
+	Eine $K$-Algebra $\iota:K\hookleftarrow L$ heißst \textbf{Körpererweiterung}, falls $L$ Körper ist. (Also $K\to L$ injektiv).\\
+	Eine \textbf{Teilerweiterung} ist ein Unterkörper $M$ von $L$, sodass $\iota(K)\subset M$.
+\end{definition}
+
+
+
+%VL 14.12.2016
+\setcounter{subsection}{4}
+\setcounter{thm}{16}
+
+
+\begin{definition}
+	Sei $A$ eine $K$-Algebra, $a\in A$ algebraisch. Betrachte den $K$-Algebra Homomorphismus $\varphi:K[X]\rightarrow A$, $f\mapsto f(a)$.
+	Dann ist $\mu_{a,K}\in K[X]$ das \textbf{Minimalpolynom von $a$ über $K$}, wenn $\Ker(\varphi)=(\mu_{a,K})$.
+\end{definition}
+\begin{bem*}
+	Sei $A$ eine $K$-Algebra, $a\in A$. Betrachte den $K$-Algebra Homomorphismus $\varphi:K[X]\rightarrow A$, $f\mapsto f(a)$. Dann ist
+	\[\Img\varphi=\{f(a)\in A\mid f\in K[X]\}=K[a]\]
+	und es sind äquivalent:
+	\begin{enumerate}
+		\item $a$ ist algebraisch
+		\item $\varphi$ ist nicht injektiv
+		\item $\Ker(\varphi)=(\mu_{a,K})$ für ein eindeutiges, normiertes Polynom $\mu_{a,K}\in K[X]$.
+		\item  $[K[a]:K]<\infty$.\\
+		In diesem Fall gilt $[K[a]:K]=\deg(\mu_{a,K})$
+	\end{enumerate}
+\end{bem*}
+\begin{proof}
+	\begin{itemize}
+		\item 1)$\Leftrightarrow$2)$\Leftrightarrow$3) ist klar.
+		\item 3)$\Rightarrow$4): Es gilt, 3) ist äquivalent dazu, dass $K[a]=K[X]/(\mu_{a,K})$ für normierte Polynome $\mu_{a,K}$.\\
+		Es folgt, dass $K[a]$ eine endliche $K$-Algebra ist mit $[K[a]:K]=\deg(\mu_{a,K})$.
+		\item 4)$\Rightarrow$2): gilt, da sonst $K[a]\isomorph K[X]$.
+	\end{itemize}
+	
+\end{proof}
+
+\subsubsection{Bestimmung von $\mu_{a,K}$ I} Sei $A$ eine $K$-Algebra, $a\in A$ algebraisch. Sei $f\in K[X]$ mit $f(a)=0$, dann ist $\mu_{a,K}$ ein Teiler von $f$. Also gilt für $f\in K[X]$:\\
+$\mu_{a,K}$ ist genau dann gleich $f$, wenn $f$ normiert $f(a)=0$ und $\deg(f)\leq [K[a]:K]$.
+
+\begin{exm*}
+	Sei $A=K\times K$, (mit $x\mapsto (x,x)$), sei $a=(1,0)$. Dann ist $\mu_{a,K}=X^2-X=X(X-1)$.
+\end{exm*}
+
+\begin{prop}\label{819Prop}
+	Sei $K\hookrightarrow K$ eine Körpererweiterung, $a\in L$.\\
+	Dann ist $a$ genau dann algebraisch über $K$, wenn $K[a]=K(a)$ ($\Leftrightarrow K[a]$ Körper).
+\end{prop}
+
+\subsection*{Bestimmung von $\mu_{a,K}$ II} Für $f\in K[X]$:\\
+$f=\mu_{a,K}$ genau dann wenn $f$ normiert, $f(a)=0$ und $f$ irreduzibel ist.
+\begin{proof}
+	``$\Rightarrow$``: Sei $a$ algebraisch, dann ist $K[a]\subseteq L$ nullteilerfrei und ganz über $K$.\\
+	Dann folgt mit \ref{813}, dass $K[a]$ ein Körper ist, sodass $K(a)=K[a]$.\\
+	Ferner gilt $K[a]=K[X]/(\mu_{a,K})$ ist genau dann Körper wenn $\mu_{a,K}$ eine maximales Ideal, 
+	was äquivalent dazu ist, dass $\mu_{a,K}$ irreduzibel ist.
+	``$\Leftarrow$``: Sei $a$ transzendent, dann folgt mit \ref{817ii}, dass $K[X]\isomfunc K[a]$, dann ist $K[a]$ kein Körper.
+\end{proof}
+
+
+\begin{exm}
+	Sei $K=\Q$.\begin{enumerate}
+		\item Sei $a=\sqrt 2\in \R$, dann ist $\mu_{a,\Q}=X^2-2$ (da $X^2-2$ irreduzibel, normiert und $(\sqrt{ 2})^2-2=0$ ist.)\\
+		Allgemein: Sei $p$ Primzahl, $a=\sqrt[n]{p}\in\C$. Dann ist $\mu_{a,\Q}=X^n-p$ (da $X^n-p$ mit \ref{707Eisenstein} irreduzibel ist.)
+		\item Sei $a=\sqrt[4]{2}$, dann ist $\mu_{a,\Q[\sqrt{2}]}=X^2-\sqrt{2}\in \Q[\sqrt{2}][X]$.
+		\item Sei $p$ Primzahl, $\zeta\in\C$, $\zeta\neq 1$ mit $\zeta^p=1$.\\
+		(Dann $\zeta=e^{\frac{2\pi i k}{p}}$ für $k=1,...,p-1$)
+		Sei $f=X^p-1$, dann $f(\zeta)=0$ und
+		\[f=(X-1)(X^{p-1}+...+X+1)\]
+		ist irreduzible Zerlegung.\\
+		Da $\zeta\neq 1$, gilt $\mu_{a,K}=X^{p-1}+...+X+1$.\\
+		Also $[\Q[\zeta]:\Q]=p-1$.
+	\end{enumerate}
+\end{exm}
+
+
+\subsection{Algebraische Erweiterungen}
+\begin{definition}
+	Eine $K$-Algebrau $A$ heißt \textbf{algebraisch über $K$}, falls $A$ eine ganze $K$-Algebra ist. (d.h. jedes $a\in A$ ist algebraisch über $K$).
+\end{definition}
+\begin{prop}
+	Sei $A$ eine $K$-Algebra. Dann sind äquivalent:
+	\begin{enumerate}
+		\item $[A:K]<\inf$ (d.h. $A$ ist endliche $K$-Algebra)
+		\item $A$ ist algebraisch und endlich erzeugt $K$-Algebra.
+		\item Es gibt algebraische Elemente $a_1,...,a_n\in A$, sodass $A=K[a_1,...,a_n]$
+	\end{enumerate}
+\end{prop}
+\begin{proof}
+	Siehe \ref{604Satz}
+\end{proof}
+
+ \begin{prop}
+ 	Sei $K\hookrightarrow L$ eine Köerpererweiterung und $L\hookrightarrow A$ ist $L$-Algebra, dann gilt:\\
+ 	$A$ ist algebraisch über $K$ genau dann, wenn $L$ algebraische Erweiterung von $K$ und $A$ algebraisch über $L$.
+ \end{prop}
+\begin{proof}
+	Siehe \ref{606Satz}
+\end{proof}
+
+\subsection{Algebraischer Abschluss}
+
+\begin{definition}
+	Ein Körper $K$ heißt \textbf{algebraisch abgeschlossen}, falls die folgenden äquivalenten Bedingungen erfüllt sind:
+	\begin{enumerate}
+		\item Jedes Polynom $f\in K[X]$ mit $\deg(f)\geq 1$ besitzt eine Nullstelle in $K$.
+		\item Jedes Polynom $f\in K[X]$ mit $\deg(g)\geq 1$ ist Produkt von Polynomen vom Grad 1.
+		\item Jedes irreduzible Polynom in $K[X]$ hat Grad 1.
+		\item Jede algebraische Körpererweiterung von $K$ hat Grad 1.
+	\end{enumerate}
+\end{definition}
+\begin{proof}
+	\begin{itemize}
+		\item 1)$\Leftrightarrow$2)$\Leftrightarrow$3).
+		\item 3)$\Rightarrow$4): Sei $K\hookrightarrow L$ algebraische Körpererweiterung, $a\in L$.\\
+		Dann folgt aus $3)$, dass $\mu_{a,K}$ Grad 1 hat, also $\mu_{a,K}=X-a\in K[X]$. Also $a\in K$.
+		\item 4)$\Rightarrow$3): Sei $f\in K[x]$ irreduzibel.\\
+		Dann ist $K[X]/(f)$ eine endliche Körpererweiterung mit $[K[X]/(f):f]=\deg(f)$.\\
+		Es folgt mit 4), dass $\deg(f)=1$.
+	\end{itemize}
+\end{proof}
+
+\begin{exm}
+	$\C$ ist Algebraisch abgeschlossen.
+\end{exm}
+\begin{definition}
+	Sei $K$ Körper. Eine Algebraische Erweiterung $K\hookrightarrow \ol K$ heißt \textbf{algebraischer Abschluss von $K$}, wenn $\ol K$ abgeschlossen ist.
+\end{definition}
+\begin{exm*}
+	\begin{enumerate}
+		\item $\R\hookrightarrow \C$ ist algebraischer Abschluss.
+		\item $\Q\hookrightarrow \C$ ist kein algebraischer Abschluss.
+	\end{enumerate}
+\end{exm*}
+
+\begin{theorem}
+	Sei $K$ Körper.\\
+	Dann existiert ein algebraischer Abschluss von $K$.
+\end{theorem}
+
+%VL 19.12.2016
+
+\subsection{Fortsetzung von Körperhomomorphismen}
+\begin{bem}
+	Seien $K\hookrightarrow A_1$, $K\hookrightarrow A_2$ $K$-Algebren und sei
+	\[\Hom_{K-\text{Alg}}(A_1A_2)=\{\varphi:A_1\rightarrow A_2|\varphi\text{ist $K-$Algebra-Homomorphismus}\}\]
+	Jedes $\varphi\in\Hom_{K-\text{Algebra}}$ ist $K$-linear.\\
+	Falls $A-1=L$ ein Körper, $A_2\neq 0$, dann ist $\varphi$ injektiv und es gilt
+	\begin{enumerate}
+		\item $[L:K]\leq[A_2:K]$
+		\item Falls $[L:K]=[A_2:K]\leq \infty$, dann ist $\varphi$ ein Homomorphismus von $K$-Algebren.
+	\end{enumerate}
+\end{bem}
+
+\begin{satz}
+	Sei $K\hookrightarrow L$ und $K\hookrightarrow L'$ Körpererweiterungen. Sei $a\in L$ algebraisch über $K$.
+	\begin{enumerate}
+		\item Sei $\varphi:K[a]\to L'$ ein $K-$Algebra-Homomorphismus.\\
+		Dann ist $\varphi(a)\in L'$ algebraisch und $\mu_{\varphi(a),K}=\mu_{a,K}$.
+		\item Es gibt die Bijektion
+		\begin{align*}
+		Inhalt\Hom_{K-\text{Algebra}}(K[a],L')&\rightarrow \{a'\in L'|\mu_{a,K}=0\}\\
+		\varphi&\mapsto\varphi(a)
+		\end{align*}
+		Insbesondere gilt 
+		\[\deg(\mu_{a,K})=[K[a]:K]\geq \#\Hom_{K-\text{Algebra}}(K[a],L')\]
+		mit Gleichheit genau dann wenn $\mu_{1,K}$in $L'$ vollständig in Linearfaktoren zerfällt und alle Nullstellen von $\mu_{a,K}$ in $L'$ paarweise verschieden sind.
+	\end{enumerate}
+\end{satz}
+\begin{proof}
+	Sei $\varphi:K[a]\rightarrow L'$ ein K-Algebra-Homomorphismus.\\
+	Dann ist $\mu_{a,K}=0$, denn:\\
+	Sei $\mu_{a,K}=X^+\la_{n-1}X^{n-1}+...+\la_0\in K[X]$.
+	\begin{align*}
+	\mu_{a,K}(\varphi(a))&=\varphi(a)^n+\la_{n-1}\varphi(a)^{n-1}+...+\la_0\\
+	&=\varphi(a^n)+\varphi\left(\la_{n-1}a^{n-1}\right)+...+\la_0\\
+	&=\varphi\left(a^n+\la_{n-1}+...+\la_0\right)\\
+	&=\varphi(0)=0
+	\end{align*}
+	Also ist $\varphi(a)$ algebraisch und $\mu_{\varphi(a),K}$ teilt $\mu_{a,K}$.\\
+	Da $\mu_{a,K}$ irreduzibel ist folgt, dass $\mu_{\varphi(a),K}=\mu_{a,K}$.\\
+	Dies zeugt (1) und dass die Abbildung $\varphi\mapsto \varphi(a)$ in (2) wohldefiniert ist.\\
+	\\
+	Sei $a'\in L'$ mit $\mu_{a,K}(a)=0$, dann teilt $\mu_{a',K}$ das Polynom $\mu_{a,K}$, also $\mu_{a',K}\mu_{a,K}$.
+	\[K[a]=\Ker[X]/(\mu_{a,K})=K[X]/(\mu_{a',K})=K[a']\subseteq L\]
+	stellen $K$-Algebra Homomorphismen $\varphi:K[a]\rightarrow L'$ mit $\varphi(a)=a'$ dar.\\
+	$\varphi$ ist eindeutig, da die K-Algebra $K[a]$ durch $a$ erzeugt wird.
+\end{proof}
+
+\begin{satz}
+	Sei $K\hookrightarrow L$ eine algebraische Erweiterung und sie $L'$ eine algebraische abgeschlossene Erweiterung von $K$.\begin{enumerate}
+		\item Dass existiert ein $K-$Algebra-Homomorphismus $\varphi:L\hookrightarrow L'$.
+		\item Falls $L$ und $L'$ algebraisch Abschlüssen von $K$ sind, ist $\varphi$ ein Homomorphismus.
+	\end{enumerate}
+\end{satz}
+
+\begin{kor}
+	Sei $\ol K$ und $\ol K'$ algebraische Abschlüsse von $K$. Dann existiert ein $K$-Algebra-Homomorphismus $\ol K_1\isomfunc \ol K_2$.
+\end{kor}
+
+\begin{proof}
+	Sei $\mathfrak F:=\{(Z,\tau)\mid K\hookrightarrow Z \subseteq L\text{ Teilkörper und }\tau:Z\hookrightarrow L' \text{ K-Algebra-Homomorphismen}\}$.\\
+	Für $(Z,\tau).(Z',\tau')$ schreibe 
+	\[(Z,\tau)\leq(Z',\tau'):\Leftrightarrow Z\subset Z',\tau=\tau'|_Z\]
+	Also ist $\leq$ eine partielle Ordnungn auf $\mathfrak F$.\\
+	Und da $(K,K\hookrightarrow L')\in \mathfrak F$ gilt $\mathfrak F\neq \emptyset$.\\
+	Sei nun $\xi\subseteq\mathfrak F$ eine total geordnete Teilmenge, dass ist 
+	\[\left(\bigcup_{(Z,\tau_{Z})\in\xi}Z,\tau\right)\]
+	mit $\tau|Z=\tau$ für alle $(Z,\tau_Z)\in\xi$ eine obere Schranke in $\mathfrak F$.\\
+	Mit \ref{104LemZorn} folgt, dass es ein maximales Element $(Z_0,\tau_0)\in \mathfrak F$ gibt.\\
+	\\
+	Behauptung: $Z_0=L$ (setze dann $\varphi:=\tau_0$)\\
+	Angenommenes existert ein $a\in L\setminus Z_0$. Dann ist $a$ algebraisch über $Z_0$ und 
+	\[\Hom_{Z_0}(Z_0[a],L')\overset{\leftrightarrow}{\ref{829}}\{a'\in L'\mid \mu_{a,Z_0}(a')=0\}\neq \emptyset\]
+	Also existiert ... 
+	%TODO
+\end{proof}
+
+
+\section{Normale und separable Körpererweiterungen}
+\subsection{Zerfällungskörper}
+
+
+\begin{definition}
+	Sei $\mathfrak F\subseteq K[x]$ eine Menge nicht konstanter Polynome. Eine Körpererweiterung $K\hookrightarrow L$ heißt \textbf{Zerfällungskörper} von $\mathfrak F$, falls gilt
+	\begin{enumerate}
+		\item Jedes $f\in\mathfrak F$ zerfällt über $L$ vollstädnig ein Linearfaktoren
+		\item Für $f\in\mathfrak F$ sei $R_f:=\{a\in L|f(a)=0\}$. Dann ist
+		\[L=K\left(\bigcup_{f\in \mathfrak F}R_f\right)\]
+	\end{enumerate}
+\end{definition}
+\begin{bem*}
+	Dann ist $L=K\left[\bigcup_{f\in \mathfrak F}R_f\right]$ eine algebraische Erweiterung von $K$.
+\end{bem*}
+
+\begin{exm}
+	Sei $f\in K[X],\deg(f)\geq 1$ und Sei $\ol K$ ein algebraischer Abschluss von $K$.\\
+	Seien $a_1,...,a_\in \ol K$ die Nullstellen von $F$.\\
+	Dann ist $K[a_1,...,a_n]\subseteq \ol K$ ein Zerfällungskörper von $f$.
+\end{exm}
+
+\begin{prop}
+	Sei $\mathfrak F\subseteq K[X]$ eine Menge nicht konstanter Polynome.
+	\begin{enumerate}
+		\item Dann existiert ein Zerfällungskörper von $\mathfrak F$.
+		\item Seien $L_1$ und $L_2$ Zerfällungskörper von $\mathfrak F$, seien $\ol L_1$ und $\ol L_2$ algebraische Abschlüsse von $L_1$ bzw $L_2$ und sei $\varphi:ol L_1\rightarrow \ol L_2$ ein $K$-Algebra-Homomorphismus.\\
+		Dann ist $\varphi(L_1)=L_2$
+	\end{enumerate}
+\end{prop}
+\begin{proof}
+	\begin{enumerate}
+		\item Sei $\ol K$ ein algebraischer Abschluss und sei $S:=\{a\in \ol K\mid \exists f\in \mathfrak F:f(a)=0\}$.\\
+		Dann ist $K(S)$ Zerfällungskörper von $\mathfrak F$.
+		\item Seien $\ol L_1$ und $\ol L_2$ bereits algebraische Abgeschlüsse von $K$.\\
+		Dann folgt \ref{830}, dass $\varphi$ Homomorphismus ist.\\
+		Sei $S_1:=\{a\in L_1\mid\exists f\in\mathfrak F: f(a)=0 \}$.\\
+		Es folgt, dass $L_1=K(S_1)$.\\
+		Zeige: $\varphi(S_1)\subseteq L_2$. Sei: $f\in\mathfrak F$, $a\in L_1$ Nullstelle von $f$.\\
+		Dann ist $f(\varphi(a))=\varphi(f(a))=0$. Also $\varphi(a)\in\ol L_2$, also Nullstelle von $f$ ist. Es folgt $\varphi(a)\in L_2$.\\
+		Also folgt $\varphi(S_1)\subseteq L_2$, dann ist $\varphi(L_1)\subseteq L_2$.\\
+		Analog für $\varphi^{-1}:$ $\varphi^{-1}(L_2)\subseteq L_1$.\\
+		Zusammen folgt, dass $\varphi(L_1)=L_2$.
+	\end{enumerate}
+\end{proof}
+
+\begin{kor}
+	Sei $\mathfrak F\subseteq K[X]$ eine Menge nicht konstatnert Polyome, sei $\Omega$ Körpererweiterung von $K$ und seien $L_1,L_2\subseteq\Omega$ Zerfällngskörper von $\mathfrak F$. Dann ist $L_1=L_2$.
+\end{kor}
+\begin{proof}
+	Übergang zu einem algebraischen Abschluss  von $\Omega$:\\
+	Sei OE $\Omega$ ein algebraischer Abgeschlossen.\\
+	Dann folgt aus $L_1,L_2$ ist algebraisch über $K$, dass $L_1,L_2\subseteq \{q\in R\mid \text{$a$ algebraisch über $K$}\}$.\\
+	Also ist OE $\Omega$ algebraischer Abschluss von $K$.\\
+	Dann ist $\Omega$ ein algerischer Abschluss von $L_1$ und von $L_2$.\\
+	Wende nun \ref{9032} an auf $\ol L_1=\ol L_2\Omega$ und $\varphi=\id_{\Omega}$
+\end{proof}
+
+\begin{exm}
+	Sei $p\in\N$ Primzahl, sei $f=X^3-p$. (Es folgt $f$ ist irreduzibel über $K=\Q$) und sei $\al=\sqrt[3]{p}\in\R_{>0}$.\\
+	Sei $\zeta:=e^{\frac{2\pi i}{3}}$. Dann sind $\al,\zeta\al,\zeta^2\al\in\C$ die Nullstellen von $f$.\\
+	Der Zerfällungskörper von $f$ ist
+	\[\Q[\al,\zeta\al\zeta^2\al]=\Q[\al,\zeta]\]
+	\begin{tikzpicture}
+	...
+	\end{tikzpicture}
 \end{exm}
 \end{document}
