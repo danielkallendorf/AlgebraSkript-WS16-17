@@ -1,4 +1,8 @@
 \documentclass[10pt,a4paper]{article}
+
+\usepackage{luatex85}
+\def\pgfsysdriver{pgfsys-pdftex.def}
+
 \usepackage[utf8]{inputenc}
 \usepackage{fontenc}
 \usepackage[german]{babel}
@@ -8,11 +12,11 @@
 \usepackage{amsthm}
 \usepackage{graphicx}
 \usepackage{tikz,pgf}
-\usepackage{tikz-cd}
+\usetikzlibrary{cd}
+\usetikzlibrary{babel}
 \usepackage{mathrsfs}
 \usepackage{framed}
 \usepackage[hidelinks]{hyperref}
-\usepackage[all]{xy}
 
 \newcommand{\N}{\ensuremath{\mathbb{N}}}
 \newcommand{\Z}{\ensuremath{\mathbb{Z}}}
@@ -305,18 +309,22 @@ mit $\ol{\psi}$ surjektiv.
 	wobei $P$ ein A-Modul, genau ein A-lineare Abbildung 
 	\[\ol\al:M_1\otimes_A...\otimes_AM_r\rightarrow P\]
 	existiert.
-	$\xymatrix{
-		M_1\times...\times M_r \ar[r]^{\forall\al: \text{r-multilinear}} & P\\
-		M_1\otimes_AM_2\otimes_A...\otimes_AM_r&
-	}$
+	\[
+	\begin{tikzcd}
+		M_1\times...\times M_r \arrow{rr}{\forall\al:\text{r-multilinear}} && P\\
+		M_1\otimes_AM_2\otimes_A...\otimes_A M_r &
+		%TODO
+	\end{tikzcd}
+	\]
+	
 \end{definition}
 %VL 31.10.2016
 \begin{satz}[Eindeutigkeit des Tensorprodukts]
 	Seien $(T,\tau:M_1\times...\times M_r\rightarrow T)$ und $(T',\tau')$ Tensorprodukte:
-	\[\xymatrix{ 
-		M_1\times...\times M_r \ar[d]^{\tau} \ar[dr]^{\tau'}&\\
-		T\ar[r]_{\exists!v}&T'
-	}\]
+	\[\begin{tikzcd}
+		M_1\times...\times M_r \ar{d}{\tau} \ar{dr}{\tau'}&\\
+		T\ar{r}{\exists!v}&T'
+	\end{tikzcd}\]
 	$u$ existiert aufgrund der universellen Eigenschaft von $(T,\tau)$.\\
 	$v$ existiert aufgrund der universellen Eigenschaft von $(T',\tau')$.\\
 	Ferner kommutiert\\
@@ -556,12 +564,10 @@ mit $\ol{\psi}$ surjektiv.
 				\item $\Img(w\mapsto v\circ w)\subseteq\Ker(w'\mapsto u\circ w')$:\\
 				Sei $w\in\Hom_A(P,M)$ mit $v\circ w=0$, sodass $\Img(w)\subseteq\Ker(v)=\Img(u)$.
 			\end{enumerate}
-			\begin{center}
-				\xymatrix{
-				0\ar[r]&M'\ar[r]^u&M\ar[r]^v&M''\\
-				&&P\ar@{..>}[lu]^{w'?}\ar[u]_w\ar[ru]_0&
-				}
-			\end{center}
+			\[\begin{tikzcd}
+				0\ar{r} & M'\ar{r}{u} & M\ar{r}{v} & M''\\
+				&& P \ar[dashed]{lu}{w'?} \ar{u}{w} \ar{ru}{0}&
+			\end{tikzcd}\]
 			``$\Leftarrow$``
 			\begin{enumerate}
 				\item $u$ injektiv: Sie $m'\in M$ mit $u(m')=0$, $P:=<m'>=Am'\subseteq M',w':P\rightarrow M'$ Inklusion.\\
@@ -647,10 +653,12 @@ mit $\ol{\psi}$ surjektiv.
 \begin{satz}[Universelle Eigenschaft]
 	Sei $S\subseteq A$ eine multiplikative Teilmenge und sei $1:A\rightarrow S^{-1}$ kanonisch. Sei $B$ ein Ring, $\varphi:A\rightarrow B$ ein Ring-Homomorphimsmus mit $\varphi(s)\in B^\times=\{b\in B\mid  \exists c\in B: bc=1\}$ für alle $s\in S$. Dann existiert ein eindeutiger RIngHomomorphismus $\tilde{\varphi}S^{-1 A\rightarrow B}$ mit $\tilde{\varphi}\circ 1=\varphi:$.
 	
-	\[\xymatrix{
-		 A\ar[r]^{\forall\varphi:\varphi(s)\subseteq B^\times}\ar[d]^{1}&B\\
-		S^{-1}A\ar[ru]^{\exists!\tilde\varphi}&
-	}\]
+	\[
+		\begin{tikzcd}
+		A\ar{r}{\forall\varphi:\varphi(s)\subseteq B^\times}\ar{d}{1} & B\\
+		S^{-1}A\ar{ru}{\exists!\tilde\varphi} &
+		\end{tikzcd}
+	\]
 \end{satz}
 \begin{proof}
 	\underline{Eindeutigkeit} Für $\frac{a}{s}-in S^{-1}A$ muss für $\tilde{\varphi}$ gilt:
@@ -889,10 +897,11 @@ Mann erhält den $\C-$Algebra-Homomorphismus:
 f&\mapsto f\circ F
 \end{align*}
 Habe Kommutierendes Diagramm
-\[\xymatrix{
-	X\ar[r]^F\ar[d]_\sigma^\sim& Y\ar[d]_\sigma^\sim\\
-	\operatorname{Max}(A_x)\ar[r]_{\vspace{0.5cm} \mathfrak M\mapsto\varphi^{-1}(\mathfrak M)}&\operatorname{Max}(A_Y)
-	}\]
+\[\begin{tikzcd}
+	X \ar[d,"F"] \ar[d,"\sigma"',"\sim"] & & Y\ar[d,"\sigma"',"\sim"]\\
+	\operatorname{Max}(A_x) \ar[rr,"\mathfrak M\mapsto\varphi^{-1}(\mathfrak M)"] && \operatorname{Max}(A_Y)
+\end{tikzcd}\]
+
 Es folgt $\forall \mathfrak M\subset A_x$ maximal, sodass $\varphi^{-1}(\mathfrak M)\subset A$ maximal ist.\\
 %TODO Kommentar
 \begin{def}
@@ -1714,10 +1723,14 @@ sodass $l(A/\mathfrak a_0)=1\neq \infty$. Widerspruch!
 \end{kor}
 \begin{proof}
 	In $A_p=S^{-1}A,S=A\backslash p$ ist $pA_p$ maximal. Betrachte
-	\[\xymatrix{
-		A\ar[r]^\varphi \ar[d]_{a\mapsto\frac{a}{1}} &B\ar[d]^{b\mapsto\frac{b}{1}}\\
-		A_p\ar[r]^{\psi=S^{-1}\varphi}& B_p
-	}\]
+	\[
+		\begin{tikzcd}[row sep=large,column sep=large]
+		A\ar[r,"\varphi"] \ar[d,"a\mapsto\frac{a}{1}"'] 
+			& B \ar[d,"b\mapsto\frac{b}{1}"]\\
+		A_p \ar[r,"\psi=S^{-1}\varphi"'] 
+			& B_p
+		\end{tikzcd}
+	\]
 	Wobei $pA_p\subset A_p$ und $qB_p\subseteq B_p=\varphi^{-1}SB$ und auch $qB_p\subseteq qB_p$ Primideal.\\
 	Mit \ref{611Satz} folgt $\psi$ ist ganz.\\
 	Also gilt OE $p\subset A$ ist maximal, sodass mit \ref{615Kor} folgt, dass $q,q'$ maximal sind und da $q\subseteq q'$ gilt $q=q'$.
@@ -1740,10 +1753,11 @@ sodass $l(A/\mathfrak a_0)=1\neq \infty$. Widerspruch!
 \begin{proof}
 	Sei OE $n>m$, $n_1=1,m=0$. Dann folgt mit \ref{617Satz}, dass $q_1\subsetneqq...\subsetneqq q_m$:\\
 	Vollständige Induktion: Sei OE $m=1,n=2$. Betrachte
-	\[\xymatrix{
-	A\ar[r]^\varphi\ar[d]&B\ar[d]\\
-	A/p_1\ar[r]^{\ol{\varphi}}&B/q
-	}
+	\[
+	\begin{tikzcd}
+	A\ar[r,"\varphi"] \ar[d] & B\ar[d]\\
+	A/p_1 \ar[r,"\ol{\varphi}"] & B/q
+	\end{tikzcd}
 	\]
 	Wobei $\ol\varphi$ ganz und injektiv ist, da $\varphi^{-1}(q_i)=p_1$ und $p_2/p_1\subseteq A/p_1$.\\
 	Dann folgt mit \ref{617Satz}, dass es das Primideal $\ol{q_2}\subset B/q_i$ gibt mit $\ol{\varphi}^{-1}(\ol{q_2})=p_2/p_1$.\\
