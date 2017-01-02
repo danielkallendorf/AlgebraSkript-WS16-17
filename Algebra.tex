@@ -3,8 +3,10 @@
 \usepackage{luatex85}
 \def\pgfsysdriver{pgfsys-pdftex.def}
 
-\usepackage[utf8]{inputenc}
-\usepackage{fontenc}
+%\usepackage[utf8]{inputenc}
+%\usepackage{fontenc}
+\usepackage[utf8]{luainputenc}
+
 \usepackage[german]{babel}
 \usepackage{amsmath}
 \usepackage{amsfonts}
@@ -28,8 +30,8 @@
 \newcommand{\al}{\ensuremath{\alpha}}
 \newcommand{\ol}[1]{\overline{#1}}
 \newcommand{\ul}[1]{\underline{#1}}
-\newcommand{\norm}[1]{\|#1\|}
-\newcommand{\Hlb}{\ensuremath{\mathscr H}}
+\newcommand{\norm}[1]{\left|#1\right|}
+\newcommand{\mapsfrom}{\ensuremath{\mathrel{\reflectbox{\mapsto}}}}
 \newcommand{\isomfunc}{\ensuremath{\xrightarrow{\sim}}}
 \newcommand{\isomorph}{\ensuremath{\tilde{=}}}
 \newcommand{\Hom}{\operatorname{Hom}}
@@ -39,10 +41,10 @@
 \newcommand{\Quot}{\operatorname{Quot}}
 \newcommand{\Spec}{\ensuremath{\operatorname{Spec}}}
 \newcommand{\id}{\operatorname{id}}
-\newcommand{\Jac}{\operatorname{Jac}}
 \newcommand{\CoKer}{\operatorname{CoKer}}
 \newcommand{\Nil}{\ensuremath{\operatorname{Nil}}}
-
+\newcommand{\rad}{\ensuremath{\operatorname{rad}}}
+\newcommand{\Jac}{\ensuremath{\operatorname{Jac}}}
 
 \newenvironment{sumup}{\begin{framed}\textbf{Zusammenfassung:}\\}{\end{framed}}
 
@@ -188,7 +190,9 @@
 		\item $\mathfrak a\in I\Rightarrow I\neq \emptyset$ erfüllt.
 		\item Sei $S\subseteq I$ total geordnet und sei $\mathfrak a_0=\bigcup_{\mathfrak b\in S}\mathfrak b\subseteq A$.\\
 		Seien $x,y\in\mathfrak a_0$, also existieren $\mathfrak b,\mathfrak b'\in S$, sodass $x\in \mathfrak b,y\in\mathfrak b'$.\\
-		Sei O.E. $\mathfrak b\subseteq\mathfrak b'$, dann gilt, da $S$ total geordnet ist, dass $x,y$
+		Sei O.E. $\mathfrak b\subseteq\mathfrak b'$, dann gilt, da $S$ total geordnet ist, dass $x+y\mathfrak b\leq \mathfrak a_0$.\\
+		Es gilt $\mathfrak a_0\neq A$: Angenommen $\mathfrak a_0=A$, dann $1\in \mathfrak a_0$, dann gibt es $b\in S$ mit $1\in\mathfrak b$. dann folgt $b=A$.\\
+		Dann folgt mit \ref{104LemZorn}, dass es ein maximales Elemente gibt, also maximale Ideal die $\mathfrak a_0$ enthalten.
 	\end{itemize}
 \end{proof}
 
@@ -198,18 +202,289 @@
 	Für jede total geordnete Teilmenge $S\subseteq I$  eine obere Schranke (d.h. $\exists i\in I$ mit $s\leq i\forall s\in S$).\\
 	Dann beseitzt $(I,\leq)$ maximale Elemente (d.h. Elemente, sodass für Elemente $i\in I$ gilt, dass $i_0\leq i,i\neq i_0$).
 \end{lem}
-\begin{exm*}
-	????
-\end{exm*}
 
-%VL 26.10.2016
-\setcounter{section}{2}
-\setcounter{thm}{7}
+\begin{exm}
+	Sei $A$ ein Hauptidealring, sei $\mathfrak a\subseteq A$ Ideal mit $\mathfrak a=(a)$f+r $a\in A$.
+	\begin{enumerate}
+		\item $\mathfrak a$ ist genau dann Primideal, wenn $a$ irrduzibel 
+		(d.h. $a\neq 0,a\notin A^\times$ und $a=bc$ für $b,c\in A$, dann muss $b\in A^\times$ oder $c\in A^\times$) 
+		oder $a=0$.
+		\item Sei $\mathfrak a$, dann ist $a$ irreduzibel oder $A$ ist Körper und $a=0$.
+	\end{enumerate}
+\end{exm}
 
+\begin{exm}
+	Sei $A$ ein Ring. Dann ist $A$ genau dann ein Körper, wenn $\{0\}\subseteq A$ maximal ist.
+\end{exm}
 
 \begin{bem}
-	$A[X_1,...,X_n]$ ist ein freier $A$-Modul, wobei die Monome eine Basis bilden.
+	Sei $\varphi:A\to B$ ein Ring-Homomorphimsmus
+	\begin{enumerate}
+		\item Sei $q\subseteq B$ Primideal, dann ist $\varphi^{-1}(q)\subset A$ ein Primideal.
+		\begin{proof}[Beweis 1]
+			Wir wissen, dass $\varphi$ einen injektiven Ring-Homomorphimsmus $A/\varphi^{-1}\to B/q$ induziert.\\
+			Da $B/q$ nullteilerfrei ist, folgt, dass $A/\varphi^{-1}(q)$ nullteilerfrei ist. Dann folgt, dass $\varphi^{-1}(q)$ Primideal ist.
+		\end{proof}
+		\begin{proof}[Beweis 2]
+			InhaltEs gilt $1\notin\varphi^{-1}(q)$. Sei nun $x,y\in A$ mit $x,y\in\varphi^{-1}(q)$, also $\varphi(x),\varphi(y)\notin q$.\\
+			Dann folgt, da $q$ Primideal ist, dass $\varphi(xy)=\varphi(x)\varphi(y)\notin q$, also auch $xy\notin\varphi^{-1}(q)$.
+		\end{proof}
+		\item Sei $\varphi$ surjektiv, dann ist $A/\varphi^{-1}(q)\isomorph B/q$. Also ist
+		\begin{enumerate}
+			\item $q$ genau dann Primideal, wenn $\varphi^{-1}(q)$ Primideal ist.
+			\item $q$ genau dann maximales Ideal, wenn $\varphi^{-1}(q)$ maximales Ideal ist.
+			\item Es gibt zueinander Inverse Bijektionen:
+			\begin{align*}
+			\left\{\substack{\mathfrak a\subseteq A \text{ Primideal/maximales Ideal }\\
+				 \text{mit $\Ker(\varphi)=\mathfrak a$}}\right\}
+			 &\overset{1:1}{\leftrightarrow}
+			 \left\{\substack{\text{Primideal/maximales Ideal}\\
+			 	q\subset B}\right\}\\
+		 	\mathfrak p&\mapsto \varphi(\mathfrak p)\\
+		 	q&\mapsfrom \varphi^{-1}(q)
+			\end{align*}
+		\end{enumerate}
+	\end{enumerate}
 \end{bem}
+
+
+\subsection{Operationen mit Idealen}
+Sei im folgende $A$ ein Ring.
+
+\begin{definition}
+	\begin{enumerate}
+		\item Seien $\mathfrak a,\mathfrak b\subseteq A$ Ideale.\\
+		Dann ist die \textbf{Summe von Idealen}
+		\[\mathfrak{a+b}:=(\mathfrak{a\cup b})\{a+b|a\in\mathfrak a,b\in\mathfrak b\}\]
+		Allgemein für  eine Familie von Idealen $(\mathfrak a_i)_{i\in I}$
+		\[\sum_{i\in I}:=\left(\bigcup_{i\in I}\mathfrak a_i\right)\]
+		Bzw. das Kleinste Ideal $\mathfrak b$ mit $\mathfrak a_i\subseteq \mathfrak b$ für alle $i\in I$.
+		\item Sei $(\mathfrak a_i)_{i\in I}$ eine Familie von Idealen. Dann ist der \textbf{Schnitt von Idealen}
+		\[\bigcap_{i\in I}\mathfrak a_i\subseteq A\]
+		auch ein Ideal.
+		\item Sei $\mathfrak{a,b}\subseteq A$ Ideale.\\
+		Dann ist das \textbf{Produkt von Idealen}
+		\[\mathfrak{a\cdot b}:=(\{a\cdot b\mid a\in\mathfrak a,b\in\mathfrak b\})=\left\{\sum_{i=1}^{n}a_ib_i\mid n\in\N_0,a_i\in\mathfrak a,b_i\in\mathfrak b\right\}\] 
+	\end{enumerate}
+	Es folgt, dass \[\mathfrak a\cdot\mathfrak b\subseteq \mathfrak a\cap\mathfrak b\subseteq \mathfrak a,\mathfrak b\subseteq\mathfrak a+\mathfrak b\]
+\end{definition}
+
+\begin{exm}
+	Sei $A$ ein Hauptidealring, $a,b\in A$ und $a,b\neq 0$.\\
+	Dann ist $a=up_1^{k_1}p_2^{k_2}...p_{r}^{k_r}$ und $b=vp_1^{l_1}p_2^{l_2}...p_{r}^{l_r}$ für $u,v\in A^\times$, $p_i\in A$ irreduzibel, $(p_i)\neq p_l$ für $i\neq l$ und $k_i,l_i\in\N_0$.
+	\begin{enumerate}
+		\item $(b)+(b)=\left(p_1^{\min(k_1,l_1)}...p_{r}^{\min(k_r,l_r)}\right)$\\
+		(Ähnlich dem ggT)
+		\item $(a)\cap(b)=p_i^{\max k_1,l_1}...p_r^{\max(k_rl_r)}$\\
+		(Ähnlich dem kgV)
+		\item $(b)(b)=(ab)$ in jedem Ring.
+	\end{enumerate}
+\end{exm}
+
+\begin{theorem}[Chinesischer Restsatz]
+	Seien $\mathfrak a_1,...\mathfrak a_n\subseteq A$ Ideale, sodass\\
+	$\mathfrak a_i+\mathfrak a_j=A$ für $i\neq j$. Dann gilt
+	\begin{enumerate}
+		\item \[\bigcap_{i=1}^{n}\mathfrak a_i=\prod_{i=1}^{n}\mathfrak a_i\]
+		\item \begin{align*}
+		A/\bigcap_{i=1}^n\mathfrak a_i&\isomfunc \prod_{i=1}^nA/\mathfrak a_i\\
+		\ol{a}&\mapsto(a\mod\mathfrak a_1,...,a\mod\mathfrak a_n)
+		\end{align*}
+	\end{enumerate}
+\end{theorem}
+
+
+\begin{prop}
+	Sei $\mathfrak p\subset A$ Primideal mit $\bigcap_{i=1}^n\mathfrak a_i\subseteq \mathfrak p$ für Ideale $\mathfrak a_i,...,\mathfrak a_n\subseteq A$.\\
+	Dann ist $\mathfrak a_j\subseteq p$ für ein $j$.
+\end{prop}
+\begin{proof}
+	Angenommen für alle $j=1,...,n$ exitsiert $x_j\in\mathfrak a$, sodass $x_j\notin y$. Dann ist $x_1x_2...x_n\in\mathfrak a_1\cap...\cap\mathfrak a_n$.\\
+	Da aber $a_1x_2...x_n\notin\mathfrak p$ da $\mathfrak p$ Primideal. Widerspruch!
+\end{proof}
+%COUNTER
+\addtocounter{thm}{-1}
+\begin{prop}
+	Sei $\mathfrak a$ ein Ideal, $\mathfrak p_1,...,\mathfrak p_n$ Primideale.\\
+	Es gelte $\mathfrak a\not\subseteq \mathfrak p_i$ für alle $i$.\\
+	Dann gilt 
+	\[\mathfrak a\not\subseteq \bigcup_{i=1}^n\mathfrak p_i \]
+	(= kein Ideal)
+\end{prop}
+\begin{proof}
+	Induktion nach $n$:
+	\begin{itemize}
+		\item $n=1$ erfüllt.
+		\item Sei $n>0$.\\
+		Induktionsvoraussetzung für $n-1$: Für alle $i\in\{1,...,n\}$ existiere $x_i\in\mathfrak a_i$, sodass $x_i\notin\bigcup_{j\neq i}\mathfrak p_j$
+		\item Entweder es existiert ein $i$, sodass $x_i\mathfrak p_i$,\\
+		oder für $i$ gilt $x_i\notin\mathfrak p_i$.\\
+		Definiere $y\in \mathfrak a$ mit
+		\[y:=\sum_{i=1}^{n}x_1x_2...x_{i-1}x_{i+1}...x_n\]
+		dann $x\notin\mathfrak p_i$ für alle $i=1,...,n$.
+	\end{itemize}
+\end{proof}
+
+\subsection{Radikal und Jakobson-Radikal}
+Sei $A$ weiterhin ein Ring
+
+\begin{definition}
+	\begin{enumerate}
+		\item $x\in A$ heißt \textbf{nilpotent}, falls es ein $n\in \N$ gibt, sodass $x^n=0$
+		\item $A$ heißt \textbf{reduziert}, wenn er keine nilpotenten Elemente außer $0$ enthält.
+	\end{enumerate}
+\end{definition}
+
+\begin{exm*}
+	\begin{enumerate}
+		\item $\ol 2\in\Z/8\Z$ ist nilpotent.
+		\item nullteilerfreie Ringe sind reduziert.\\
+		Aber: $\Z/6\Z=\Z/3\Z\times \Z/2\Z$ ist reduziert aber nicht nullteilerfrei
+	\end{enumerate}
+\end{exm*}
+
+\begin{definition}
+	Sei $\mathfrak a\subseteq A$ Ideal. Dann heißt das Ideal
+	\[\rad(\mathfrak a):=\sqrt{\mathfrak a}:=\{x\in A|\exists n\in \N_0:x^n\in\mathfrak a\}\]
+	das \textbf{Radikal} von $\mathfrak a$.
+\end{definition}
+
+\begin{bem}
+	Sei $\mathfrak a\subseteq A$ ein Ideal
+	\begin{enumerate}
+		\item $\mathfrak a\subseteq \rad(\mathfrak a)$
+		\item $\mathfrak a=\rad(\mathfrak a)$ genau dann wenn $A/\mathfrak a$ reduziert ist
+	\end{enumerate}
+\end{bem}
+\begin{proof}
+	Es gilt $\mathfrak a=\rad\mathfrak a$ \\
+	genau dann wenn für alle $a\in A$ gilt $0^n\in\mathfrak a$ für ein $n\in\N$. Es folgt $a\in\mathfrak a$.\\
+	Genau dann wenn für alle $a\in A$ gilt $\ol{a}^n:=(a\mod\mathfrak a)^n=0$ für ein $n$. Es folgt $\ol a=0$.\\
+	Ist also äquivalent dazu, dass $A/\mathfrak a$ reduziert ist.
+\end{proof}
+
+\begin{satz}\label{115satz}
+	Sei $\mathfrak a\subseteq A$ Ideal. Dann gilt 
+	\[\rad(\mathfrak a)=\bigcap_{\substack{\mathfrak g\subset A\text{Primideal}\\\mathfrak a\subseteq \mathfrak g}} \mathfrak g\]
+\end{satz}
+\begin{proof}
+	Wir zeigen durch beidseitige Inklusion
+	\begin{itemize}
+		\item [$\subseteq$] Sei $x\in A$ nilpotent. Dann gibt es ein $n\in\N$, sodass $x^n=0\in g$ für alle Primideale $g$\\
+		Dann liegt auch $x\in g$ für alle Primideale $g$.
+		\item [$\supseteq$] Sei $x\in A$ nicht nilpotent
+		\begin{enumerate}
+			\item Zz: Es gibt ein Primideal $\mathfrak g\subset A$, sodass $x\notin \mathfrak g$.\\
+			???...
+			%TODO bew verstehen
+		\end{enumerate}
+	\end{itemize}
+\end{proof}
+
+\begin{definition}
+	$\Nil(A):=\rad(\{0\})=\{x\in A|\text{$x$ ist nilpotent}\}$ heißt das \textbf{Nilradikal} von $A$.\\
+	Mit \ref{115satz} folgt die äquivalente Definition
+	\[\Nil(A)=\bigcap_{\substack{\mathfrak g\subset A\\\text{$\mathfrak g$ Primideal}}}\mathfrak g\]
+\end{definition}
+
+
+\begin{definition}
+	Das \textbf{Jacobson-Radikal} von $A$ ist definiert als
+	\[\Jac(A):=\bigcap_{\substack{m\in A\\\text{$m$ maximales Ideal}}}\]
+\end{definition}
+\begin{exm*}
+	\begin{enumerate}
+		\item $\Jac(\Z)=\{0\}=\Nil(\Z)$
+		\item $\Jac(\Z/8\Z)=2\Z/8\Z$
+	\end{enumerate}
+\end{exm*}
+
+\begin{prop}
+	$\Jac(A)=\{x\in A\mid 1-xy\in A^\times\forall y\in A \}$
+\end{prop}
+\begin{proof}
+	Sei $x\in A$, sodass $y\in A$ existiert mit $1-xy\notin A^\times$ und sei $m\subset A$ maximal, sodass $1-xy\in m$.\\
+	Wäre nun $x\in \Jac(a)\subseteq m$, dann $1=1-xy+xy\in m$. Widerspruch!\\
+	Sei also $x\notin\Jac(a)$, d.h. es existiert $m\subset A$ mit $x\notin m$.\\
+	Dann ist $m+(x)=A$, d.h. es gibt eine Zerlegung der Eins $1=z+yx$.\\
+	Es folgt, dass es ein $y\in A$ gibt, sodass $1-xy\in m$ und damit $1-xy\notin A^\times$.
+\end{proof}
+
+
+
+
+
+\section{Polynomringe}
+
+
+\begin{definition}
+	Sei $A^{(\N_0)}:=\{(a_n)_{n\in\N_0}\mid \text{$a_n\in A$, fast alle $a_n=0$}\}$.\\
+	Addition und Multiplikation:
+	\begin{align*}
+	(a_n)+(b_n)&:=(a_n+b_n)\\
+	(a_n)\cdot(b_n):=\sum_{k=0}^{n}a_kb_{n-k}
+	\end{align*}\\
+	Sei nun $X=(0,1,0,...)$. Dann is nur der $n$-te Eintrag von $X^n=1$.\\
+	Dann gilt
+	\[(a_n)_n=\sum_{n=0}^{\infty}a_nX^n\]\\
+	Wir erhalten einen Kommutativen Ring und bezeichnen $A[X]$ als den \textbf{Polynomring} über $A$ in der Unbestimmten $X$.\\
+	Mit der Abbildung $A\to A[X],a\mapsto a+0X+0X^2+...$ erhält man eine $A$-Algebra.
+\end{definition}
+
+\begin{definition}
+	Sei $f=a_nX^n+...+a_1X+a_0\in A[X]$
+	\begin{enumerate}
+		\item $\deg(f):=\sup\{d\in\N|a_d\neq 0\}$ heißt der \textbf{Grad} von $f$
+		(Es folgt $\deg(0)=-\infty$)
+		\item $f$ heißt \textbf{normiert}, falls $f=X^n+a_{n-1}X^{n-1}+...+a_1X+a_0$.
+		\item $a_0$ heißt \textbf{absoluter Koeffizient} von $f$.
+	\end{enumerate}
+\end{definition}
+
+\begin{bem}
+	Seien $f,g\in A[X]$
+	\begin{enumerate}
+		\item $\deg(f+g)\leq\max(\deg(f),\deg(g))$
+		\item $\deg(fg)\leq\deg(f)+\deg(g)$\\
+		(Da Ringe Nullteiler haben können. Gleichheit bei nullteilerfreien Ringen)
+		\item $A$ ist genau dann nullteilerfrei wenn $A[X]$ nullteilerfrei ist.
+	\end{enumerate}
+\end{bem}
+
+\begin{satz}[Division mit Rest]
+	Sei $g=a_dX^d+...+a_0\in A[X]$ mit $a_d\in A^\times$.\\
+	Dann existieren für alle Polynome $f\in A[X]$ eindeutige $q,r\in A[X]$, sodass $f=qg+r$ mit $\deg(r)<\deg(g)=d$
+\end{satz}
+\begin{proof}
+	\begin{enumerate}
+		\item Da $a_d\in A^\times$ ist gilt $\deg(gs)=\deg(g)+\deg(s)$
+		\item Eindeutigkeit: Sei $f=qg+r=q'g+r'$ mit $\deg(r),\deg(r')<d$.\\
+		Dann folgt, dass $0=(q-q')g+(r-r')$. Und da $\deg(r-r')<d$ muss $q=q'$ und $r=r'$.
+		\item Existenz: Induktion nach $\deg(f)$.\\
+		\begin{itemize}
+			\item [IA] Sei $\deg(f)<d$, dann $f=0g+r$ und $r=f$.
+			\item [IV] Für Polynome $f\in A[X]$ mit $\deg(f)\leq n$ sind $r,q$ eindeutig bestimmt.
+			\item [IS] Sei $\deg(f)\geq d$
+			%TODO
+			...
+		\end{itemize}
+		
+	\end{enumerate}
+\end{proof}
+
+\begin{definition}
+	Definiere rekursiv $A[X_1,...,X_N]:=(A[X_1,...,x_{n-1}])[X_n]$. Also\\
+	\[A[X_1,...,X_n]:=\left\{\sum_{k_1,...,k_n}a_{k_1,...,k_n}X_1^{k_1}\cdot...\cdot X_n^{k_n}\vert a\in A\right\}\]
+	Elemente der Form $X_1^{k_1}\cdot...\cdot X_n^{k_n}$ heißen \textbf{Monome}.
+\end{definition}
+
+
+%VL 26.10.2016
+
+\begin{bem}
+	$A[X_1,...,X_n]$ ist ein freier Modul. Die Monome bilden eine Basis.
+\end{bem}
+
 \begin{satz}[Universaleigenschaft des Polynomrings]
 	Sei $\phi:A\rightarrow B$ eine $A$-Algebra und seine $b_1,...,b_n\in B$ Elemente. Dann existiert genau ein $A$-Algebra-Homomorphismus $\psi:A[X_1,...,X_n]\rightarrow B$, so dass $\psi(x_i)=b_i$ für alle $i=1,..,n$, nämlich
 	\[\psi\underbrace{\left(\sum_{i_1,...,i_n\ge 0}a_{i_1,...,i_n}X_1^{i_1}\cdot...\cdot X_n^{i_1}\right)}_{=:f}=\underbrace{\sum_{i_1,...,i_n\ge 0}\phi(a_{i_1,...,i_n})b_1^{i_1}\cdot...\cdot b_n^{i_n}}_{=f(b_1,...,b_n)}\]
@@ -246,9 +521,7 @@ mit $\ol{\psi}$ surjektiv.
 \end{prop}
 \begin{proof}
 	Gilt, da für alle $f\in A[X]$ genau ein $r\in A[X]$ exitiert mit $\deg(r)<\deg(g)$ mit $f\in r+(g)$
-	%TODO
 \end{proof}
-
 
 \section{Tensorprodukte}
 	(A) Tensorprodukte von Moduln\\
@@ -2136,7 +2409,7 @@ $f=\mu_{a,K}$ genau dann wenn $f$ normiert, $f(a)=0$ und $f$ irreduzibel ist.
 	$\varphi$ ist eindeutig, da die K-Algebra $K[a]$ durch $a$ erzeugt wird.
 \end{proof}
 
-\begin{satz}
+\begin{satz}\label{830Satz}
 	Sei $K\hookrightarrow L$ eine algebraische Erweiterung und sie $L'$ eine algebraische abgeschlossene Erweiterung von $K$.\begin{enumerate}
 		\item Dass existiert ein $K-$Algebra-Homomorphismus $\varphi:L\hookrightarrow L'$.
 		\item Falls $L$ und $L'$ algebraisch Abschlüssen von $K$ sind, ist $\varphi$ ein Homomorphismus.
@@ -2201,7 +2474,7 @@ $f=\mu_{a,K}$ genau dann wenn $f$ normiert, $f(a)=0$ und $f$ irreduzibel ist.
 		\item Sei $\ol K$ ein algebraischer Abschluss und sei $S:=\{a\in \ol K\mid \exists f\in \mathfrak F:f(a)=0\}$.\\
 		Dann ist $K(S)$ Zerfällungskörper von $\mathfrak F$.
 		\item Seien $\ol L_1$ und $\ol L_2$ bereits algebraische Abgeschlüsse von $K$.\\
-		Dann folgt \ref{830}, dass $\varphi$ Homomorphismus ist.\\
+		Dann folgt \ref{830Satz}, dass $\varphi$ Homomorphismus ist.\\
 		Sei $S_1:=\{a\in L_1\mid\exists f\in\mathfrak F: f(a)=0 \}$.\\
 		Es folgt, dass $L_1=K(S_1)$.\\
 		Zeige: $\varphi(S_1)\subseteq L_2$. Sei: $f\in\mathfrak F$, $a\in L_1$ Nullstelle von $f$.\\
@@ -2229,8 +2502,150 @@ $f=\mu_{a,K}$ genau dann wenn $f$ normiert, $f(a)=0$ und $f$ irreduzibel ist.
 	Sei $\zeta:=e^{\frac{2\pi i}{3}}$. Dann sind $\al,\zeta\al,\zeta^2\al\in\C$ die Nullstellen von $f$.\\
 	Der Zerfällungskörper von $f$ ist
 	\[\Q[\al,\zeta\al\zeta^2\al]=\Q[\al,\zeta]\]
-	\begin{tikzpicture}
-	...
-	\end{tikzpicture}
+	\[\begin{tikzcd}[column sep=small]
+		&\Q[\al,\xi]&\\
+		\R\supseteq \Q[\al] \ar[ur,hook,"2"] && \Q[\xi] \ar[ul,hook,"3"]\\
+		& \Q \ar[ul,hook,"3"] \ar[uu,hook,"6"] \ar[ur,hook,"2"] &
+	\end{tikzcd}\] 
 \end{exm}
+
+%VL 21.12.2016
+\subsection{Normale Erweiterungen}
+\begin{definition}\label{906}
+	Eine algebraische Körpererweiterung $K\hookrightarrow L$ heißt \textbf{normal}, falls eine der folgenden äquivalenten Bedingungen erfüllt ist\\
+	\begin{enumerate}
+		\item Es existiert eine Menge $\mathfrak F\subseteq K[X]$ mit konstanten Polynomen, sodass $L$ der Zerfällungskörper von $\mathfrak F$ in $A$ ist.
+		\item Sei $f\in K[X]$ irreduzibel mit Nullstelle in $L$, dann zerfällt $f$ in $L[X]$ vollständig in Linearfaktoren.
+		\item Für jede Körpererweiterung $L'$ von $L$ und für jeden $K$-Algebra-Homomorphismus $\varphi:L\hookrightarrow L'$ gilt $\varphi(L)=L$.
+		\item Für jeden algebraischen Abschluss $\Omega$ von $L$ und für jeden $K$-Algebra-Automorphismus $\varphi:\Omega\rightarrow \Omega$ gilt $\varphi(L)=L$.
+	\end{enumerate}
+\end{definition}
+\begin{proof}
+	\begin{itemize}
+		\item 1)$\Rightarrow$2): Sei $L$ Zerfällungskörper von $\mathfrak F$, dann folgt $\varphi(L)$ ist zerfällungskörper von $\mathfrak F$. Dann folgt mit \ref{904}, dass $\varphi(L)=L$.
+		\item 3)$\Rightarrow$4): Sei $\varphi:\Omega\isomfunc\Omega$ ein $K$-Algebra-Automorphismus.\\
+		Wende 3) auf $\varphi|_L:L\rightarrow \Omega$ an.
+		\item Sei OE $L'$ algebraisch abgeschlossen. Ersetze $L'$ durch
+		\[L'_{\text{alg}}:=\{a\in L'|\text{$a$ ist algebraisch über $K$}\}\]
+		Da $K\subseteq L$ algebraisch ist, folgt, dass $\varphi(L)\subseteq L'_\text{alg}$. Also ist OE $L'$ algebraischer Abschluss von $L$.\\
+		Aus \ref{830Satz} folgt die Exitsnez einer Fortsetzung $\varphi':L'\rightarrow L'$ zu $\varphi$ und $\varphi'$ ist Automorphismus.\\
+		Also $\varphi(L)=\varphi'(L)=L$.\\
+		\item 3)$\Rightarrow$2): Sei $f\in K[X]$ irreduzible, $a\in L$ mit $f(a)=0$.\\
+		Sei $L'$ ein algebraischer Abschluss von $L$, $b\in L'$ mit $f(b)=0$.\\
+		Zu Zeigen: auch $b\in L$.\\
+		Sei OE $f$ normiert. Dann $f=\mu_{a,K}$. Also exitsiert ein eindeutiger $K$-Algebra-Homomorphismus $\ol \varphi:K[a]\rightarrow L'$ mit $\ol{\varphi}(a)=b$.\\
+		Setze nun $\ol \varphi$ fort mit $\varphi:L\rightarrow L'$ (existenz durch \ref{830Satz}).
+		Dann folgt durch 3), dass $\varphi(L)=L$, also $\varphi(a)=b\in L$.
+		\item Sei $S\subseteq L$ Teilmenge und $L=K(S)$. Sei $\mathfrak F:=\{\mu_{a,K}\mid a\in S\}$.\\
+		Aus $2)$ folgt, dass $\mu_{a,K}$ über $L$ für alle $a\in S$ in Linearfaktoren zerfällt.\\
+		Sei $S':=\{b\in L\mid\exists f\in\mathfrak F:f(b)=0 \}\supseteq S$.\\
+		Dann ist $K(s)=L$, $K(s)=\subseteq K(s')\subseteq L$.\\
+		Also $L=K(s')$, d.h. $L$ ist Zerfällungskörper von $\ol f$.
+	\end{itemize}
+\end{proof}
+
+\begin{exm*}
+	Sei $L=K[a]$ normal, dann ist $L$ Zerfällungskörper von $\mu_{a,K}$.
+\end{exm*}
+
+\begin{prop}
+	Sei $K\hookrightarrow L$ eine normale Körpererweiterung. Sei $M\subseteq L$ Teilkörpererweiterung.
+	\begin{enumerate}
+		\item Jeder $K$-Algebra-Homomorphismus $\varphi:M\hookrightarrow L$ kann ein einem $K$-Algebra-Automorphismus $\ol\varphi:L\isomfunc L$ fortgesetzt werden.
+		\item $K\hookrightarrow M$ ist genau dann normal, wen für jeden $K$-Automorphims $\sigma:L\isomfunc L$ gilt $\sigma(M)=M$.
+	\end{enumerate}
+\end{prop}
+\begin{proof}
+	\begin{enumerate}
+		\item Betrachte $\varphi':M\hookrightarrow L\hookrightarrow L'$ und $L'$ ist algebraischer Abschluss von $L$.\\
+		Dann gibt \ref{830Satz} die Existenz einer Fortsetzung $\ol\varphi':L'\isomfunc L'$, die $K$-Algebra-Automorphismus ist.\\
+		Dann folgt mit \ref{906}.3, dass $\ol \varphi'=L$, sodass $\ol \varphi=\ol{\varphi'|_L}$ ein $K$-Algebra-Automorphismus von $L$ ist.
+		
+		\item ``$\Rightarrow$´´ ist durch \ref{906}.3 gegeben.
+		``$\Rightarrow$´´ Sei $L'$ algebraischer Abgeschluss von $L$, $\ol \sigma:L'\isomfunc L'$ Fortsetzung von $\sigma$ und jeder Automorphismus von $L$ ist Einschränkung eines Automorphismus von $L'$.\\
+		Also gilt $\ol \sigma(M)=M$ für alle $\ol \sigma\operatorname{Aut}_{\text{$K$-Algebra}}(L')$.\\
+		Dann folgt mit \ref{906}.3, dass $K\hookrightarrow M$ normal ist.
+		\end{enumerate}
+\end{proof}
+
+\begin{exm}
+	\begin{enumerate}
+		\item Sei $\varphi:K\hookrightarrow L$ Körpererweiterung mit $[L:K]=2$. Dann ist $\varphi$ normal.
+		\begin{proof}
+			Sei $f\in K[X]$ irreduzible, $a\in L$ mit $f(a)=0$. Dann ist $f=\mu_{a,K}$, also $\deg(\mu_{a,K})=[K[a]:K]\leq 2$.
+			Wenn $\deg(\mu_{a,K})=1$, dann $\mu_{a,K}=X-a$ mit $a\in K$.\\
+			Wenn $\deg(\mu_{a,K})=2$ genau dann gilt $a\in L\setminus K$. Dann ist $\mu_{a,K}=(X-a)g$ mit $g\in L[X]$ vom Grad $1$, also $g=X-b\in L[X]$.\\
+			Also sind ie Nullstellen von $\mu_{a,K}$ beide in $L$.\\
+			Dann folgt mit \ref{906}.3, dass $K\hookrightarrow L$ normal ist.
+		\end{proof}
+		\item Sei $K\hookrightarrow \ol K$ ein algebraischer Abschluss. Dann ist $K\hookrightarrow \ol K$ eine normale Erweiterung.\\
+		(z.B. ist $\ol K$ Zerfällungskörper von $\{f\in K[x]\mid\text{$f$ nicht konstant}\}$).
+		\item $\Q\subset \Q[\sqrt[3]{7}]$ ist nicht normal.\\
+		Denn $X^3-7$ hat Nullstelle in $\Q[\sqrt[3]{7}]$, aber nicht jede Nullstelle von $X^3-7$ liegt in $\Q[\sqrt[3]{7}]$:
+		\[\Q\subset \Q[\sqrt[3]{7}]\subset \Q[\sqrt[3]{7},\zeta]\]
+		für $\zeta=e^{\frac{2\pi i}{3}}$.
+	\end{enumerate}
+\end{exm}
+
+\begin{bem}
+	Seien $K\hookrightarrow L\hookrightarrow M$ Körpererweiterungen.
+	\begin{enumerate}
+		\item  Wenn $K\hookrightarrow M$ normal ist, dann ist $L\hookrightarrow M$ normal.\\
+		($M$ ist Zerfälllungskörper von $\mathfrak F\subseteq K[X]\subseteq L[X]$).
+		\item Aus $K\hookrightarrow M$ normal folgt i.A. \textbf{nicht}, dass $K\hookrightarrow L$ normal ist mit \ref{908}.3.
+		\item Aus $K\hookrightarrow L$, $L\hookrightarrow M$ normal folgt i.A. \textbf{nicht}, dass $K\hookrightarrow M$ normal.
+	\end{enumerate}
+\end{bem}
+
+
+
+\subsection{Separabilitätsgrad}
+
+\begin{prop}
+	Sei $A$ ein Ring, sei $E\neq 0$ ein freier $A$-Modul.\\
+	Dann ist die Sequenz $0\to M'\to M''\to 0$ von $A$-Moduln genau dann exakt, wenn
+	\[0\to E\otimes_A M'\to E\otimes_A M\to E\otimes_A M''\to 0\]
+	exakt ist.\\
+	(Insbesondere $E\otimes_A M=0\Leftrightarrow M=0$)
+\end{prop}
+\begin{proof}
+	$E$ ist genau dann frei, wenn $E\isomorph A^{(I)}$ mit $I\neq \emptyset$.\\
+	Man erhält insbesondere die Isomorphismen
+	\[
+	\begin{tikzcd}
+	0 \ar[r] 
+		& E\otimes_A M' \ar[r,"\operatorname{id}_E\otimes u"] \ar[d, leftrightarrow, "\sim"]
+			& E\otimes_A M \ar[r,"\operatorname{id}_E\otimes v"] \ar[d, leftrightarrow, "\sim"]
+				& E\otimes_A M''\ar[r] \ar[d, leftrightarrow, "\sim"]
+					&0\\
+	0 \ar[r] 
+		& (M')^{(I)} \ar[r,"(m_i')_{i\in I}\mapsto (u(m_i'))_{i\in I}"] 
+			& M^{(I)} \ar[r] 
+				& (M'')^{(I)} \ar[r] 
+					&0 
+	\end{tikzcd}
+	\]
+	Es folgt die Behauptung.
+\end{proof}
+
+\begin{bem}
+	Sei $A$ eine endliche $K$-Algebra.
+	Dann folgt mit \ref{813}, dass $A=\prod_{i=1}^{r}A/m_i e_i$, mit $m_1,...,m_r\subset A$ maxmimale Ideale.\\
+	Sei $B$ eine nullteilerfreie $K$-Algebra, sie $\varphi:A\to B$ein $K$-Algebra-Homomorphimsmus.\\
+	Dann ist $\varphi(A)\subseteq B$ nullteilerfrei, oder $\Ker(\varphi)=m_i$ für ein $I\in\{1,...,r\}$.\\
+	Also faktorisiert $\varphi$ in $A\to A/m_i\hookrightarrow B$- Insebsondere:
+	\[\Hom_{K-\text{Algebra}}(A,B)=\dot{\bigcup}_{i=1}^r\Hom_{k-\text{Algebra}}(A/m_i,B)\label{911.1}\]
+\end{bem}
+
+\begin{bem}
+	Sei $K\hookrightarrow A$ eine $K$-Algebra, $K\hookrightarrow K$ eine Körpererweiterung, $L\hookrightarrow B$ ein $L$-Algebra. Dann hat man zueinander inverse Bijektionen:
+	\begin{align*}
+	\Hom_{K\text{-Algebra}}(A,B)&&\overset{1:1}{\leftrightarrow}&&&\Hom_{L\text{-Algebra}}(L\otimes_K A,B)\\
+	\varphi&&\mapsto&&&(l\otimes a\mapsto l\varphi(a))\\
+	(a\mapsto \varphi(1\otimes a))&&\mapsfrom&&&\varphi
+	\end{align*}
+\end{bem}
+
+%TODO
+
 \end{document}
