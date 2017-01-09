@@ -45,6 +45,7 @@
 \newcommand{\Nil}{\ensuremath{\operatorname{Nil}}}
 \newcommand{\rad}{\ensuremath{\operatorname{rad}}}
 \newcommand{\Jac}{\ensuremath{\operatorname{Jac}}}
+\newcommand{\ord}{\ensuremath\operatorname{Ord}}
 
 \newenvironment{sumup}{\begin{framed}\textbf{Zusammenfassung:}\\}{\end{framed}}
 
@@ -83,7 +84,7 @@
 \tableofcontents
 
 
-%VL 19.10.2016/24.10.2016
+%VL 17.10.2017/19.10.2016/24.10.2016
 \section{Erinnerung: Ringe und Ideale}
 \subsection{Ideale, Primideal, maximale Ideale und Ring-Homomorphismen}
 \setcounter{thm}{-10}
@@ -465,7 +466,7 @@ Sei $A$ weiterhin ein Ring
 			\item [IA] Sei $\deg(f)<d$, dann $f=0g+r$ und $r=f$.
 			\item [IV] Für Polynome $f\in A[X]$ mit $\deg(f)\leq n$ sind $r,q$ eindeutig bestimmt.
 			\item [IS] Sei $\deg(f)\geq d$
-			%TODO
+			%TODO bew verstehen
 			...
 		\end{itemize}
 		
@@ -533,12 +534,12 @@ mit $\ol{\psi}$ surjektiv.
 
 
 \begin{definition}
-	$A$-Modul$:=(M,+,\cdot)$ wobei $(M,+)$ abelsche Gruppe und $\cdot:A\times X\rightarrow M$ ein Skalarprodukt.
+	Ein $A$-Modul   ist ein Tripel $(M,+,\cdot)$ wobei $(M,+)$ abelsche Gruppe und $\cdot:A\times X\rightarrow M$ eine Skalare Multiplikation ist.
 \end{definition}
-\begin{bem}
-	$\Z$-Modul=ablesche Gruppe
-\end{bem}
-\begin{exm}
+\begin{bem*}
+	Ein $\Z$-Modul entspricht einer ableschen Gruppe.
+\end{bem*}
+\begin{exm*}
 	Sei $I$ eine Menge
 	\[A^{(I)}=\{(a_i)_{i\in I}|a_i\in A, a_i=0\text{für fast alle $i\in I$}\}\]
 	$A$-Modul mit Addition und Skalarprodukt.\\
@@ -547,35 +548,41 @@ mit $\ol{\psi}$ surjektiv.
 	\text{1 an der i-ten Stelle}\\
 	\text{0 sonst}
 	\end{cases}\]
-\end{exm}
+\end{exm*}
 \begin{definition}
-	Ein $A$-Modul heißt frei, falls $M\approxeq A^{(I)}$ für eine Menge $I$
+	Ein $A$-Modul heißt \textbf{frei}, falls $M\approxeq A^{(I)}$ für eine Menge $I$
 \end{definition}
 \begin{definition}
-	Sei $M,N$ $A$-Modul. Dann heißt $u:M\rightarrow N$ A-linear oder Homomorphismus von $A$-Moduln, falls
+	Sei $M,N$ $A$-Modul. Dann heißt $u:M\rightarrow N$ $A$-\textbf{linear} oder \textbf{Homomorphismus von $A$-Moduln}, falls
 	\[u(am+m')=au(m)+u(m')\forall a\in A,m,m'\in M\]
 \end{definition}
-\begin{bem}
+\begin{bem*}
 	Sei $I$ eine Menge, $M$ ein $A$-Modul $\underline{m}=(m_i)_{i\in I}$ ein Tupel von Elementen $m_i\in M$. Dann Existiert genau eine Abbildung:
 	\[A^{(I)}\xrightarrow{u_{\underline m} }M\]
 	mit $u_{\underline{m}}(e_i)=m_i$.\\
 	$(m_i)_i=\underline{m}$ heißt linear Unabhängig/ Erzeugende-System/ Basis, \\
 	falls $u_{\underline{m}}$ injektiv/ surjektiv / bijektiv ist.
-\end{bem}
-\begin{bem}
-	Der $A$-Modul M ist endlich erzeugt, genau dann wenn ein $n\in \N$und eine $A$-lineare Surjektion $A^m\rightarrow M$ existieren.
-\end{bem}
-\subsection{Multilineare Abbildungen}
+\end{bem*}
+\begin{bem*}
+	Der $A$-Modul M ist endlich erzeugt, genau dann wenn ein $n\in \N$und eine $A$-lineare Surjektion $A^n\rightarrow M$ existieren.
+\end{bem*}
+
 \begin{definition}
 	Sei $r\in \N_0$, $M_1,...,M_r,P$ A-Moduln.\\
-	Eine Abbildung $\al:M_1\times...\times M_r\rightarrow P$ heißt \underline{r-multilinear}, falls sie in jeder Komponente linear ist, d.h. Für alle $i=1,...,r$ gilt:
+	Eine Abbildung $\al:M_1\times...\times M_r\rightarrow P$ heißt $r$-\textbf{multilinear}, falls sie in jeder Komponente linear ist, d.h. Für alle $i=1,...,r$ gilt:
 	\[\al(m_1,...,am_{i}+m_i',m_{i+1},...,m_r)=a\al(m_1,...,m_i,...,m_r)+\al(m_1,...,m_i',...,m_r)\]
-	Für alle $m_j\in M_j,m_i\in M_i,a\in A$.
-	($r=1$: linear, $r=2$: bilinear)
+	Für alle $m_j\in M_j,m_i\in M_i,a\in A$.\\
+	(Insbesondere heißen $r=1$: linear, $r=2$: bilinear)\\
+	\\
+	Wir definieren
+	\[L_a(M_1,...,M_r,P):=\{\al:M_1\times...\times M_r\rightarrow P\mid\text{$\al$ ist $r$-multlinear}\}\]
 \end{definition}
-%TODO Setze...
-\subsection{..}
-\begin{definition}
+
+%COUNTER
+\setcounter{thm}{2}
+
+
+\begin{satz}
 	Sei $r\ge 2$, $M_1,..,M_r$ A-Moduln.\\
 	Dann existiert ein $A$-Modul $M_1\otimes_AM_2\otimes_A...\otimes_AM_r$ und eine $r$-multilineare Abbildung $\tau:M_1\times...\times M_r\rightarrow M_1\otimes_AM_2\otimes_A...\otimes_AM_r$, sodass für jede $r$-multilineaer Abbildung:
 	\[\al M_1\times...\times M_r\rightarrow P\]
@@ -584,54 +591,59 @@ mit $\ol{\psi}$ surjektiv.
 	existiert.
 	\[
 	\begin{tikzcd}
-		M_1\times...\times M_r \arrow{rr}{\forall\al:\text{r-multilinear}} && P\\
-		M_1\otimes_AM_2\otimes_A...\otimes_A M_r &
-		%TODO
+		M_1\times...\times M_r \arrow{rr}{\forall\al:\text{r-multilinear}} \arrow{d}{\tau} && P\\
+		M_1\otimes_AM_2\otimes_A...\otimes_A M_r \arrow[urr,dashed,"\exists!\ol \al"] &
 	\end{tikzcd}
 	\]
-	
+\end{satz}
+
+%COUNTER
+\addtocounter{thm}{-1}
+\begin{definition}
+	Der $A$-Modul $M_1\otimes_AM_2\otimes_A...\otimes_AM_r$ heißt das \textbf{Tensorprodukt} von $M_1,...,M_r$.
 \end{definition}
+
 %VL 31.10.2016
-\begin{satz}[Eindeutigkeit des Tensorprodukts]
-	Seien $(T,\tau:M_1\times...\times M_r\rightarrow T)$ und $(T',\tau')$ Tensorprodukte:
-	\[\begin{tikzcd}
-		M_1\times...\times M_r \ar{d}{\tau} \ar{dr}{\tau'}&\\
-		T\ar{r}{\exists!v}&T'
-	\end{tikzcd}\]
-	$u$ existiert aufgrund der universellen Eigenschaft von $(T,\tau)$.\\
-	$v$ existiert aufgrund der universellen Eigenschaft von $(T',\tau')$.\\
-	Ferner kommutiert\\
-	
-	Die Universelle Eigschaft von $(T,\tau)$ zeigt, dass $v\circ u=id_T$, genauso $u\circ v=id_T$.
-\end{satz}
-\begin{satz}[Existenz des Tensorprodukts]
-	\begin{enumerate}
-		\item Suche einen $A$-Modul $N$ und eine Abbildung $c:M_1\times...\times M_r\rightarrow R$, sodass
-		\[\Hom_A(N,P)\xrightarrow[u\mapsto u\circ\tau]{ }\text{Abb}(M_1\times...\times M_r,P)\]
-		Für alle $A$-Moduln $P$.
-		%TODO
-		\item Wir wollen, dass $(am_1+m_1',m_2,...,m_r)$ und $a(m_1,...,m_r)+(m_1',...,m_r)$ auf das gleiche Element abgebildet werden.\\
-		Sei $Q\subseteq N$ der von
-		\begin{align*}
-		e_{(m_1,...,m_{i-1},am_i+m_i',m_{i+1},...,m_r)}-\left(ae_{(m_1,...,m_i,..,m_r)}+e_{(m_1,...,m_i',...,m_r)}\right)
-		\end{align*}
-		für alle $i=1,...,r$ und $m_i,m_i'\in M_i$ und $a\in A$ erzeugt Untermodul.\\
-		Dann setze $T:=N/Q$. Dann gilt
-		\begin{align*}
-		\Hom_A(T,P)&=\{u\in \Hom(N,P)|u(Q)=0\}\\
-		&=L_A(M_1,...,M_r,P)
-		\end{align*}
-		mit $\tau:M_1\times...\times M_r\rightarrow N\rightarrow N/Q$.
-	\end{enumerate}
-\end{satz}
-\begin{bem}
-	3.4\\
+\begin{proof}
+	\begin{itemize}
+		\item Eindeutigkeit des Tensorprodukts\\
+		Seien $(T,\tau:M_1\times...\times M_r\rightarrow T)$ und $(T',\tau')$ Tensorprodukte:
+		\[\begin{tikzcd}[column sep=tiny]
+			&M_1\times...\times M_r \ar{ld}{\tau} \ar{dr}{\tau'}&\\
+			T \ar[rr,dashed,"\exists!v"] &&T' \ar[ll,dashed,"\exists!u"]
+		\end{tikzcd}\]
+		$u$ existiert aufgrund der universellen Eigenschaft von $(T,\tau)$.\\
+		$v$ existiert aufgrund der universellen Eigenschaft von $(T',\tau')$.\\
+		\\
+		Die Universelle Eigschaft von $(T,\tau)$ zeigt, dass $v\circ u=\id_T$, genauso $u\circ v=\id_T$.
+		\item Existenz des Tensorprodukts\\
+		\begin{enumerate}
+			\item Suche einen $A$-Modul $N$ und eine Abbildung $c:M_1\times...\times M_r\rightarrow R$, sodass
+			\[\Hom_A(N,P)\xrightarrow[u\mapsto u\circ\tau]{ }\text{Abb}(M_1\times...\times M_r,P)\]
+			Für alle $A$-Moduln $P$. Wähle also $N:=A^{(M_1\times...\times M_r)}$ und\\ $l:M_1\times...\times M_r \to N,i\mapsto e_i$.
+				
+			\item Wir wollen, dass $(am_1+m_1',m_2,...,m_r)$ und $a(m_1,...,m_r)+(m_1',...,m_r)$ auf das gleiche Element abgebildet werden.\\
+			Sei $Q\subseteq N$ der von
+			\begin{align*}
+			e_{(m_1,...,m_{i-1},am_i+m_i',m_{i+1},...,m_r)}-\left(ae_{(m_1,...,m_i,..,m_r)}+e_{(m_1,...,m_i',...,m_r)}\right)
+			\end{align*}
+			für alle $i=1,...,r$ und $m_i,m_i'\in M_i$ und $a\in A$ erzeugt Untermodul.\\
+			Dann setze $T:=N/Q$. Dann gilt
+			\begin{align*}
+			\Hom_A(T,P)&=\{u\in \Hom(N,P)|u(Q)=0\}\\
+			&=L_A(M_1,...,M_r,P)
+			\end{align*}
+			mit $\tau:M_1\times...\times M_r\rightarrow N\rightarrow N/Q$.
+		\end{enumerate}
+	\end{itemize}
+\end{proof}
+\begin{bem}\label{304bem}
 	$e_{(m_1,...,m_r)}\in A^{(M_1\times...\times M_r)}$ bilden ein Erzeugndensystem.\\
 	Also bilden auch die $\tau(m_1,...,m_r)=:m_1\otimes...\otimes m_r$ eine Erzeugenden-System des $A-$Moduls $M_1\otimes...\otimes M_r$.\\
 	\textbf{Aber:} Nicht jedes Element von $M_1\otimes...\otimes M_r$ ist in dieser Form.\\
 	\\
-	Also genüt es eine lineare Abbildung $u:M_1\otimes...\otimes M_r\rightarrow P$ auf den erzeugdnesn $m_1\otimes...\otimes m_r$ mit ($m_i\in M_i$) anzugeben.\\
-	Umgekehrt sei $P$ ein A-mOdul und es seien elemente $u(m_1\otimes...\otimes m_r)\in P$ gegeben für alle $m_i\in M_i$.\\
+	Also genügt es eine lineare Abbildung $u:M_1\otimes...\otimes M_r\rightarrow P$ auf den erzeugenden $m_1\otimes...\otimes m_r$ mit ($m_i\in M_i$) anzugeben.\\
+	Umgekehrt sei $P$ ein A-Modul und es seien Elemente $u(m_1\otimes...\otimes m_r)\in P$ gegeben für alle $m_i\in M_i$.\\
 	Genau dann existiert eine $A$-lineare Abbildung $u:M_1\otimes...\otimes M_r\rightarrow P$ mit $m_1\otimes ...\otimes m_r\mapsto u(m_1\otimes ...\otimes m_r)$, wenn für alle $i=1,...,r$, $a\in A$, $m_j\in M_j$ und $m_i'\in M_i$ gilt:
 	\[u(m_1\otimes ..\otimes a m_i+m_i'\otimes..\otimes m_r)=a u(m_1\otimes ..\otimes m_i\otimes..\otimes m_r)+u(m_1\otimes ..\otimes a m_i'\otimes..\otimes m_r)\]
 \end{bem}
@@ -655,22 +667,40 @@ mit $\ol{\psi}$ surjektiv.
 	Außerdem zu zeigen: $u(m)\otimes v(an+n')=a(u(m)\otimes v(n))+u(m)\otimes v(n)$\\
 	($\rightarrow $ Genauso.)
 \end{proof}
-\begin{bem}
-	3.6\\
+\begin{bem}\label{306bem}
 	\begin{enumerate}
-		\item $A\otimes_A M\approxeq M$\\
-		$u: a\otimes m\mapsto am$\\
-		$v: 1\otimes m.....m $
-		Dabei ist $u$ wohldefiniert, d.h. $(a,m)\rightarrow am$ ist bilinear.
-		%TODO
-		\item $M\otimes_A N\xrightarrow{\sim}N\otimes_A M, m\otimes n\mapsto n\otimes m$ ist ... von A-Moduln.\\
-		Zu zeigen: Wohldefineirtheit 
-		%TODO
-		\item $M\otimes_A N\otimes_A P\simeq (M\otimes_A N)\otimes_A P$\\
-		$m\otimes n\otimes p\mapsto (m\otimes n)\otimes p$\\
-		$m\otimes n\otimes p\mapsto m\otimes (n\otimes p)$
+		\item $A\otimes_A M\isomorph M$\\
+		\item $M\otimes_A N \isomfunc N\otimes_A M, m\otimes n\mapsto n\otimes m$ ist ... von A-Moduln.\\
+		\item 
+		\begin{align*}
+			M\otimes_A N\otimes_A P&\isomfunc (M\otimes_A N)\otimes_A P&&\isomfunc M\otimes_A(N\otimes_AP)\\
+			m\otimes n\otimes p&\mapsto (m\otimes n)\otimes p&&(m\otimes(n\otimes P))
+		\end{align*}
 	\end{enumerate}
 \end{bem}
+\begin{proof}
+	\begin{enumerate}
+		\item Sei $u: a\otimes m\mapsto am$,$v: 1\otimes m\mapsfrom m$
+		\begin{itemize}
+			\item Z.z. $u$ wohldefiniert, d.h. $(a,m)\rightarrow am$ ist bilinear:\\
+			Dann $(ba+a')=bam+a'm$ für alle $a,a',b\in A$ und $m\in M$.\\
+			Analog gilt Linearität in $m$.\\
+			Daraus folgt, dass $u$ $A$-linear ist.
+			\item Z.z. $v$ ist wohldefiniert:\\
+			analog zu $u$.
+			\item Z.z.: $v\circ u=\id_{A\otimes_A M}$:\\
+			\[(v\circ u)(a\times m)=v(am)=1\otimes am=a(1\otimes m)=a\otimes m\]
+			\item Z.z.: $u\circ v=\id_{M}$:
+		\end{itemize}
+		\item Es gilt zu zeigen
+			\begin{itemize}
+				\item Z.z. Wohldefiniertheit, also $(m,n)\mapsto n\otimes m$ ist bilinear
+				\item Existenz der Umkehrabbildung $n\otimes m\mapsto m\otimes n$
+			\end{itemize}
+	\end{enumerate}
+\end{proof}
+
+
 \begin{prop}3.7
 	Sei $(M_i)_{i\in I}$ eine Familie von $A$-Moduln, $N$ ein A-Modul:\begin{align*}
 	\left(\bigotimes_{i\in I}M_i\right)\otimes_A N\xrightarrow{\sim} \bigotimes_{i\in I}\left(M_1\otimes_A N\right)\\
@@ -718,7 +748,6 @@ mit $\ol{\psi}$ surjektiv.
 	&=B^{(I)}
 	\end{align*}
 	Also ist $B\otimes_A M$ frei.
-	%TODO
 \end{proof}
 %VL 02.11.2016
 \begin{prop}
@@ -761,6 +790,9 @@ mit $\ol{\psi}$ surjektiv.
 	da $\ol{x}=\ol{0}\in A/\mathfrak a$.\\
 	Noch zu zeigen:: $v$ ist Umkehrabbildung zu $\ol a\otimes m\mapsto \ol{am}$.
 \end{proof}
+
+%COUNTER
+\addtocounter{thm}{-1}
 \begin{definition}[Tensorprodukte von Algebren]
 	Sei $A\rightarrow  B_1$, $A\rightarrow  B_2$ A-Algebren.\\
 	Dann definieren wir auf dem A-Modul $B_1\otimes_A B_2$ eine Multiplikation:
@@ -771,10 +803,12 @@ mit $\ol{\psi}$ surjektiv.
 	und erhalten die $A$-Algebra $B_1\otimes_A B_2$.
 \end{definition}
 \begin{exm}
-	Sei $A\xrightarrow{\varphi} B$ eine A-Algebra und sei $C=A[X_1,...,X_n]/(f_1,...,f_r)$ und $f_i\in A[X-1,...,X_n]$.Dann ist
+	Sei $\varphi:A\to B$ eine A-Algebra und sei $C=A[X_1,...,X_n]/(f_1,...,f_r)$ und $f_i\in A[X-1,...,X_n]$.Dann ist
 	\[B\otimes_A A[X-1,...,X_n]/(f_1,...,f_r)=B[X_1,...,X_n]/(\tilde{f}_1,...,\tilde{d}_r)\]
 	wobei 
 	\[f_i=\sum_{\ul{j}\in \N_0^n}a_{\ul{j}}X^{\ul{j}}\rightarrow \tilde{f}_i=\sum_j\varphi(a_j)\]
+\end{exm}
+\begin{exm}
 	\begin{enumerate}
 		\item Sei $A=\Q$, $C=\Q[i]=\{a+b_i|a,b\in\Q\}=\Q[X]/(X^2+1)$
 		\item $\R\otimes_Q Q[i]=\R[X]/(X^2+1)=\C$
@@ -784,8 +818,12 @@ mit $\ol{\psi}$ surjektiv.
 \begin{exm}
 	$A[X]\otimes_A A[Y]=(A[X])[Y]=A[X,Y]$ mit $f\otimes g\mapsto fg$.\\
 	Dann ist die Umkehrabbildung
-	%TODO
+	\[\sum a_{ij}X^iY^j\mapsto \sum_{i,j}(a_{ij}X^i\otimes Y^j)\]
 \end{exm}
+
+%COUNTER
+\setcounter{thm}{10}
+
 \subsection*{C) Exaktheitseigenschaften}
 \begin{definition}[Homomorphismen-Funktor]
 	Seien $M,P$ A-Moduln.\\
@@ -805,14 +843,19 @@ mit $\ol{\psi}$ surjektiv.
 	w'&\mapsto v\cdot w
 	\end{align*}
 \end{definition}
+
 \begin{rem}
 	Eine Sequnez von $A$-lineare Abbildungen\[...\rightarrow M_{i-1}\xrightarrow{u_{i-1}}M_i\xrightarrow{u_{u_i}}M_{i+1}\rightarrow ...\]
 	heißt exakt, falls $\text{Ker}(u_i)=\text{Im}(u_{i-1})$
 \end{rem}
-\begin{exm}
+
+%COUNTER
+\addtocounter{thm}{-1}
+
+\begin{exm*}
 	$0\rightarrow M*\xrightarrow{u}M$ ist exakt genau dann wenn $u$ injektiv ist.\\
 	$M\xrightarrow{v}M''\rightarrow 0$ ist exakt genau dann wenn $v$ surjektiv ist
-\end{exm}
+\end{exm*}
 \begin{satz}
 	\begin{enumerate}
 		\item Sei $0\rightarrow M'\xrightarrow{u}M\xrightarrow{v}M''(*)$ eine Sequenz von $A-$Moduln.\\
@@ -822,33 +865,47 @@ mit $\ol{\psi}$ surjektiv.
 		w'&\mapsto u\circ w'&w&\mapsto v\circ w
 		\end{align*}
 		exakt ist.
-		\item %TODO
+		\item Sei $M'\to M\to M''\to 0 (**)$ eine Sequenz von $A$-Moduln. Dann ist $(**)$ genau dann exakt, wenn für jeden $A$-Modul $P$ die Sequenz
+		\begin{align*}
+		0\to\Hom_A(M'',P)&\to\Hom_A(M,P)&&\to\Hom_A(M',P)\\
+		w''&\mapsto w''\otimes v&w&\mapsto w\otimes u
+		\end{align*}
 	\end{enumerate}
 \end{satz}
 \begin{proof}Wir beweisen Schrittweise:
 	\begin{enumerate}
 		\item ``$(*)$ ist exakt $\Rightarrow$ $\Hom_A(P,(*))$ ist exakt``
 		\begin{enumerate}
-				\item $w'\mapsto u\circ w'$ injektiv:\\
-				Sei $w\in\Hom_A(P,M')$ mit $u\circ w'=0$.\\
-				Dann ist (da $u$ injektiv) $w'=0$. Also ist $\Ker(w'\mapsto u\circ w')=0.$
-				\item $\Img(w'\mapsto u\circ w')\subseteq\Ker(w\mapsto v\circ w)$:\\
-				Kompoosition: $w'\mapsto u\circ w'\mapsto \underbrace{(v\circ u)}_{=0}\circ w'$ ist Null.
-				\item $\Img(w\mapsto v\circ w)\subseteq\Ker(w'\mapsto u\circ w')$:\\
-				Sei $w\in\Hom_A(P,M)$ mit $v\circ w=0$, sodass $\Img(w)\subseteq\Ker(v)=\Img(u)$.
-			\end{enumerate}
-			\[\begin{tikzcd}
-				0\ar{r} & M'\ar{r}{u} & M\ar{r}{v} & M''\\
-				&& P \ar[dashed]{lu}{w'?} \ar{u}{w} \ar{ru}{0}&
-			\end{tikzcd}\]
-			``$\Leftarrow$``
-			\begin{enumerate}
-				\item $u$ injektiv: Sie $m'\in M$ mit $u(m')=0$, $P:=<m'>=Am'\subseteq M',w':P\rightarrow M'$ Inklusion.\\
-				Dann ist...
-				%TODO Rest der VL
-			\end{enumerate}
+			\item $w'\mapsto u\circ w'$ injektiv:\\
+			Sei $w\in\Hom_A(P,M')$ mit $u\circ w'=0$.\\
+			Dann ist (da $u$ injektiv) $w'=0$. Also ist $\Ker(w'\mapsto u\circ w')=0.$
+			\item $\Img(w'\mapsto u\circ w')\subseteq\Ker(w\mapsto v\circ w)$:\\
+			Kompoosition: $w'\mapsto u\circ w'\mapsto \underbrace{(v\circ u)}_{=0}\circ w'$ ist Null.
+			\item $\Img(w\mapsto v\circ w)\subseteq\Ker(w'\mapsto u\circ w')$:\\
+			Sei $w\in\Hom_A(P,M)$ mit $v\circ w=0$, sodass $\Img(w)\subseteq\Ker(v)=\Img(u)$.
+		\end{enumerate}
+		\[\begin{tikzcd}
+			0\ar{r} & M'\ar{r}{u} & M\ar{r}{v} & M''\\
+			&& P \ar[dashed]{lu}{w'?} \ar{u}{w} \ar{ru}{0}&
+		\end{tikzcd}\]
+		``$\Leftarrow$``
+		\begin{enumerate}
+			\item $u$ injektiv: Sie $m'\in M$ mit $u(m')=0$, $P:=<m'>=Am'\subseteq M',w':P\rightarrow M'$ Inklusion.\\
+			Dann folgt aus $u\circ w'=0$, da $w'\mapsto u\circ w'$ injektiv ist, dass $w'=0$ und damit $P=0$ sodass $m'=0$.
+			\item $\Img(u)\subseteq \Ker(v)$. Z.z. $v\circ u=0$.\\
+			Wir wissen bereits, dass für alls $A$-Moduln $P$ die Abbildung $\Hom_A(P,M')\to\Hom_A(P,M''),w'\mapsto v\circ u\circ w$ die Nullabbildung ist.\\
+			Wähle $P=M'$ und $w'=\id_{M'}$, dann ist $v\circ u=0$.
+			\item $\Ker(v)\subseteq\Img(u)$:\\
+			Sei $m\in \Ker(v)$, $P:Am\subseteq M$ und sei $w:P\rightarrow M$ eine Inklusion.\\
+			Dann ist $v\circ u=0$, d.h. $w\in\Ker(w\mapsto v\circ w)=\Img(w'\mapsto u\circ w')$.\\
+			Also exitsiert $w':P\rightarrow M'$ mit $u\circ w'=w$.\\
+			Da $u(w'(m))=w(m)=m$ gilt $m\in\Img(u)$.
+		\end{enumerate}
+		\item  Übung
 	\end{enumerate}
 \end{proof}
+
+
 %VL 07.11.2016
 \begin{bem}
 	\label{bem313}
@@ -913,16 +970,35 @@ mit $\ol{\psi}$ surjektiv.
 	Sei $A$ ein Ring, $S\subseteq A$ eine multiplikative Teilmenge.\\
 	Definiere auf $A\times S$ eine Äquivalenzrelation durch
 	\[(a,s)\sim (b,t):\Leftrightarrow at=bs\]
+	Definiere $S^{-1}A:=(A\times S)/\sim$. Die Äquivalenzklasse von $(a,s)$ wird mit $\frac{a}{s}$ bezeichnet.
 \end{definition}
 \begin{proof}
-	Dies ist eine Äquivalenzrelation:\begin{itemize}
+	Dies ist eine Äquivalenzrelation:
+	\begin{itemize}
 		\item Refelxivität
 		\item Symmetrie
-		\item Transitiv: $(a,s)\sim (b,t)$, $(b,t)\sim (c,u)$
-		\[\exists v,w\in S:\quad vat=bvs\quad,\quad wba=wtc\]
-		Dann ist $vbsw=^!$ %TODO bis "genannt kanonisch"
+		\item Transitiv: Sei $(a,s)\sim (b,t)$ und $(b,t)\sim (c,u)$\\
+		Dann
+		\begin{tikzcd}[row sep=small,column sep=small]
+			(tvw)au\ar[r,equal,"(!)"]\ar[d,equal] & (tvw)cs \ar[d,equal]\\
+			vbswu\ar[r,equal] & wbuvs
+		\end{tikzcd}\\
+		Also $\frac{a}{s}=\frac{b}{t}$ genau dann esnn es $v\in S$ gibt sodass $vat=vbs$.
 	\end{itemize}
 \end{proof}
+\begin{bem*}
+	$S^{-1}A$ ist Ring mit
+	\begin{align*}
+	\frac{a}{s}+\frac{b}{t}&:=\frac{at+bs}{st}&&\frac{a}{s}\cdot\frac{b}{t}&:=\frac{ab}{st}
+	\end{align*}
+	Dies ist Wohldefiniert und macht $A^{-1}A$ zu einem kommutativen Ring mit Eins$=\frac{1}{1}$ und Null$=\frac{0}{1}$.\\
+	Die Abbildung $\iota:A\rightarrow S^{-1}A,a\mapsto\frac{a}{1}$ ist ein Ringhomomorphismus und heißt \textbf{kanonisch}.
+\end{bem*}
+
+\begin{exm*}
+	Sei $S=\Z\setminus \{\}\subseteq A=\Z$. Dann ist $S^{-1}A=\Q$.
+\end{exm*}
+
 \begin{satz}[Universelle Eigenschaft]
 	Sei $S\subseteq A$ eine multiplikative Teilmenge und sei $1:A\rightarrow S^{-1}$ kanonisch. Sei $B$ ein Ring, $\varphi:A\rightarrow B$ ein Ring-Homomorphimsmus mit $\varphi(s)\in B^\times=\{b\in B\mid  \exists c\in B: bc=1\}$ für alle $s\in S$. Dann existiert ein eindeutiger RIngHomomorphismus $\tilde{\varphi}S^{-1 A\rightarrow B}$ mit $\tilde{\varphi}\circ 1=\varphi:$.
 	
@@ -997,14 +1073,21 @@ mit $\ol{\psi}$ surjektiv.
 \end{prop}
 \begin{proof}
 	\begin{enumerate}
-		\item $1$ ist wohldefiniert: z.Z:
+		\item $1$ ist wohldefiniert:
 		\begin{enumerate}
-			\item $\frac{a}{s}=\frac{b}{t}\Rightarrow \frac{am}{s}=\frac{bm}{t}$.
-			\item $\frac{am}{s}$ ist linear in $\frac{a}{s}$ und in $m$.
+			\item Z.z. $\frac{a}{s}=\frac{b}{t}\Rightarrow \frac{am}{s}=\frac{bm}{t}$:\\
+			Sei $\frac{a}{s}=\frac{b}{t}$. Ist äquivalent dazu, dass es $v\in S$ gibt mit $vat=vbs$.\\
+			Dann erfüllt $v$ auch $vatm=vbsm$ für alle $m\in M$, also auch $\frac{am}{s}=\frac{bm}{t}$.
+			\item Z.z. $\frac{am}{s}$ ist linear in $\frac{a}{s}$ und in $m$:
 		\end{enumerate}
-		\item %TODO
+		\item Existenz einer Umkehrabbildung:\\
+		Sei $v:S^{-1}M\rightarrow S^{-1}A\otimes_A M, \frac{m}{s}\mapsto\frac{1}{s}\otimes m$.\\
+		Aus $\frac{m}{s}=\frac{n}{t}$ folgt, dass auch $\frac{1}{s}\otimes m=\frac{1}{t}\otimes n$. Also ist die Abbildung wohldefiniert.\\
+		Zusätzlich gilt $v\circ u=\id_{S^{-1A\otimes_A M}}$ und $u\circ v=\id_{S^{-1}M}$.
 	\end{enumerate}
 \end{proof}
+
+
 %VL 09.11.2016
 \begin{satz}[Ideal in $S^{-1}A$]
 	Sei $S\subseteq A$ eine multilineare Teilmenge.
@@ -2648,4 +2731,200 @@ $f=\mu_{a,K}$ genau dann wenn $f$ normiert, $f(a)=0$ und $f$ irreduzibel ist.
 
 %TODO
 
+
+%VL 09.01.2017
+%COUNTER
+\setcounter{thm}{14}
+\begin{bem}\label{915bem}
+	Sei $A$ algebraische $K$-Algebra, $K\hookrightarrow L$ Körpererweiterung. Dann\[[A\otimes_K L:L]_S=[A:K]_S\]
+\end{bem}
+\begin{proof}
+	Sei $\Omega$ eine algebraisch abgeschlossene Erweiterung von $L$. Dann gibt es die Bijektion
+	\begin{align*}
+	\Hom_{K-\text{Algebra}}&\overleftrightarrow{1:1}\Hom_L(A\otimes_K L,\Omega)\\
+	\sigma&\mapsto (a\otimes l\mapsto l\sigma(a))\\
+	a\mapsto\tau(a\otimes 1)&\mapsfrom\tau
+	\end{align*}
+\end{proof}
+
+\begin{lem}\label{916lem}
+	Sei $A$ eine endliche $K$-Algebra. Dann ist $(A:K)_S$ die Anzahl der maximalen Ideale von $A\otimes_K\Omega$. ($\Omega$ als algebraisch abgeschlossene Erweiterung von $K$)
+\end{lem}
+\begin{proof}
+	Mit \ref{915bem} folgt, dass OE $\Omega=K$.\\
+	Seien $m_1,...,m_r\subset A$ die maximalen Ideal. Dann ist $A/m_i$ eine endliche Körpererweiterung von $\Omega$, also $A/m_I=\Omega$.\\
+	Dann folgt mit \ref{911.1}, dass \[\#\Hom_{\Omega-\text{Algebra}}(A,\Omega)=\#\bigcup_{i=1}^r\Hom_{\Omega-\text{Algebra}}(\underbrace{A/m_i}_{=\Omega},\Omega)=r\]
+\end{proof}
+
+\begin{prop}\label{917Prop}
+	Sei $a$ endliche $K$-Algebra. Dann gilt
+	\[[A:K]_S\leq[A:K](=\dim_K(A))\]
+\end{prop}
+\begin{proof}
+	Sei OE $K=\Omega$ algebraisch abgeschlossen. Sei $A=\prod_{i=1}^rA/m_ie_i$. Also
+	\begin{align*}
+	[A:K]_S&\overset{\ref{916lem}}{=}r=\sum_{i=1}^{r}\dim_K(\underbrace{A/m_i}_{=K})\\
+	&\leq\sum_{i=1}^{r}\dim_K(A/m_ie_i)=[A:K]
+	\end{align*}
+\end{proof}
+
+\begin{bem}
+	Der Beweis von \ref{917Prop} zeigt $[A:K]_S=[A:K]$ $\Leftrightarrow$ $A\otimes_K\Omega$ ist reduziert $\Leftrightarrow$ $A\otimes_K \Omega\isomorph \Omega\times...\times\Omega$ ($r=[A:K]$ mal).
+\end{bem}
+
+\begin{prop}\label{918prop}
+	Sei $K\hookrightarrow L$ algebraische Körpererweiterung, $A$ ganze $L$-Algebra.\\
+	Dann ist
+	\[[A:K]_S=[A:L]_S\cdot[L:K]_S\]
+\end{prop}
+\begin{proof}
+	Sie $\Omega$ ein algebraischer Abschluss in $L$. Betrachte
+	\[\rho:\Hom_{K-\text{Algebra}}(A;\Omega)\rightarrow \Hom_{K-\text{Alg}}(L,\omega),\quad\sigma\mapsto\sigma|_L\]
+	$\rho$ ist surjektiv (\ref{830Satz}). Sei $\varphi:L\hookrightarrow \Omega$ ein K-Algebra-Homomorphismus. Dann ist
+	\begin{align*}
+	\rho^{-1}(\{\varphi\})&=\{\sigma\in\Hom_{K-\text{Algebra}}(A,\Omega)\mid \sigma|_L=\varphi\}\\
+	&=\Hom_{L-\text{Algebra}}(A,\Omega)
+	\end{align*}
+	wobei $\Omega$ von $\varphi$ als $L$-Algebra aufgefasst wird.\\
+	Also
+	\begin{align*}
+	[A:K]_S&=\#\Hom_{K-\text{Alg}}(A,\Omega)\\
+	&=\sum_{\varphi\in\Hom_{K-\text{Alg}}(L,\Omega)}\#\varrho^{-1}(\{\varphi\})\\
+	&=\sum_{\varphi}[A:L]_S\\
+	&=[L_K]_S[A_L]_S
+	\end{align*}
+\end{proof}
+
+
+\subsection{Separable Polynome}
+\begin{definition}
+	Sei $f=a_nX^n+...+a_1X+a_0\in A[X]$.\\
+	Definiere \[f':=na_nX^{n-1}+(n-1)a_{n-1}X^{n-2}+...+2a_2X+a_1\]
+	$f'$ heißt die (formale) \textbf{Ableitung} von $f$.
+\end{definition}
+\begin{bem*}
+	Seien $f,g\in A[X]$ und $a,b\in A$.
+	\begin{itemize}
+		\item Die Ableitung ist Linear: $(af+bg)'=af'+bg'$
+		\item Es gilt die Leibnitz-Regel $(fg)'=fg'+f'g$
+	\end{itemize}
+\end{bem*}
+\begin{proof}
+	\begin{itemize}
+		\item Linearität. klar.
+		\item Aus der Linearität können wir OE annehmen, dass $f=X^i,g=X^j$.\\
+		Dann \[(fg)'=(X^{i+j})'=(i+j)X^{i+j-1}=iX^{i-1}X^j+jX^iX^{j-1}=fg'+f'g\]
+	\end{itemize}
+\end{proof}
+
+\begin{exm*}
+	Sei $\dim(K)=p>0$. Dann folgt aus $f=X^p+1$, dass $f'=pX^{p-1}=0$.
+\end{exm*}
+
+\begin{definition}
+	Sei $f\in K[X]$, $a\in K$. Dann ist
+	\[\ord_a(f):=\sup\{n\geq 0\mid\text{$(X-a)^n$ teilt $f$}\}\]
+	die \textbf{Ordnung der Nullstelle} $a$ von $f$.
+\end{definition}
+%COUNTER
+\addtocounter{thm}{-1}
+\begin{bem}\label{921bem}
+	\begin{itemize}
+		\item $\ord_a(f)=\infty\Leftrightarrow f=0$.
+		\item $\ord_a(f)=0\Leftrightarrow f(a)\neq 0$.
+		\item $\ord_a(f)=1\Leftrightarrow f(a)=0$ und $f'(a)\neq 0$.
+		\begin{proof}
+			$\ord_a(f)=1$ genau dann wenn $f=(X-a)g$ mit $g(a)\neq 0$.\\
+			$\Leftrightarrow f(a)=0$ und $f'(a)=g(a)+g'(a)(a-a)=g(0)\neq 0$.
+		\end{proof}
+	\end{itemize}
+\end{bem}
+
+
+\begin{definition}
+	Ein Polynom $f\in K[X]$, $f\neq 0$ heißt \textbf{separabel}, falls alle Nullstellen  in einem Zerfällungskörper paarweise verschieden sind.
+\end{definition}
+\begin{prop}\label{923prop}
+	Sei $\Omega$ eine algebraisch abgeschlossen Erweiterung von $K$, $f\in K[X],f\neq 0$. Dann sind äquivalent:
+	\begin{enumerate}
+		\item $f$ ist separabel
+		\item Alle Nullstellen von $f$ in $\Omega$ sind verschieden
+		\item $f$ und $f'$ haben in $\Omega$ keine gemeinsame Nullstelle.
+		\item $f$ und $f'$ sind in $K[X]$ teilerfremd
+	\end{enumerate}
+\end{prop}
+\begin{proof}
+	\begin{description}
+		\item[(1)$\Leftrightarrow$ (2)] Sei $L$ ein Zerfällungskörper von $f$. Dann existiert (\ref{830Satz}) eine eindeutiges Körpererweiterung $L\hookrightarrow \Omega$.
+		\item[(ii)$\Leftrightarrow$(iii)] aus \ref{921bem}
+		\item[(iii)$\Leftrightarrow$(iv)] $f$ und $f'$ zerfallen in $\Omega[X]$ in Linearfaktoren.\\
+		Also ist (iii) äquivalent daszu, dass $f$ und $f'$ sind in $\Omega[X]$ teilerfremd sind.\\
+		Ist äquivalent $\Omega\otimes_KK[X]/(f,f')\isomorph\Omega[X]/(f,f')=0$.\\
+		\ref{910} gibt uns dann die Äquivalenz zu $K[X]/(f,f')=0$, genau dann wenn $f,f'$ auch teilerfremd in $K[X]$ sind.
+	\end{description}
+\end{proof}
+
+\begin{exm*}
+	\begin{enumerate}
+		\item $(X^3-2)(X-1)\in \Q[X]$ ist separabel
+		\item Sei $K=\Quot(\mathbb{F}_p[T])$ und $f=X^p-T\in K[X]$ ist nach dem Eisensteinkriterium mit $p=T$ irreduzibel.\\
+		Aber $f$ ist nicht separabel:\\
+		Im Zerfällungskörper $K[\sqrt[p]{T}]$ gilt $f=(X-\sqrt[p]{T})^p$.\\
+		Äquivalent: $f$ ist nciht teilerfremd zu $f'=pX^{p-1}=0$.
+	\end{enumerate}
+\end{exm*}
+
+\begin{satz}\label{924satz}
+	Sei $f\in K[X]$ irreduzibel. Dann gilt
+	\begin{enumerate}
+		\item $f$ ist separabel genau dann wenn $f'\neq 0$.
+		\item Sei $\operatorname{char}(K)=0$. Dann ist $f$ separabel.
+	\end{enumerate}
+\end{satz}
+\begin{proof}
+	\begin{enumerate}
+		\item Sei $f'=0$, dann sind $f'$ und $f$ zueinander teilerfremd und somit (\ref{923prop}) $f$ separabel.
+		\item Sei $\operatorname{char}(K)=0$, dann $\deg(f')=\deg(f)-1$, also $\deg(f'\geq 0)$.\\
+		Also ist $f\neq 0$, sodass (1) $f$ separabel ist.
+	\end{enumerate}
+\end{proof}
+
+
+
+\subsection{Separable Algebren}
+
+\begin{definition}
+	Eine algebraisch $K$-Algebra $A$.\\
+	Ein $a\in A$ heißt \textbf{separabel}, falls $\mu_{a,K}$ separabel ist.\\
+	$A$ heißt \textbf{separabel}, falls jedes $a\in A$ separabel ist.
+\end{definition}
+
+\begin{theorem}\label{925thm}
+	Sei $A$ eine endliche $K$-Algebra und sei $\Omega$ eine algebraisch abgeschlossen Erweiterung von $K$.\\
+	Dann sind äquivalent:
+	\begin{enumerate}
+		\item $A$ ist separable $K$-Algebra
+		\item $[A:K]_S=[A:K]$
+		\item $A\otimes_K\Omega$ ist reduziert.
+		\item $A\otimes\Omega\isomorph \Omega^r$ also $\Omega$-Algebra.
+		\item Es existieren $a_1,...,a_n\in A$ separabel, sodass $A=K[a_1,...,a_n]$
+		\item Es exitsiert $a\in A$ separabel, sodass $A=K[a]$.
+	\end{enumerate}
+\end{theorem}
+\begin{proof}
+	Zeige:\\
+	\begin{tikzcd}
+		(6)\ar[dr,Rightarrow] & (4) \ar[r,Leftrightarrow,"\ref{918prop}"] & (2) \ar[r,Leftrightarrow,"\ref{918prop}"] & (3)\ar[d,Rightarrow]\\
+		& (5) \ar[u,Rightarrow] & & (1) \ar[ll,Rightarrow] \ar[lllu,Rightarrow,dashed,"\ref{931}9.31"'] %TODO set Label
+	\end{tikzcd}
+	\begin{description}
+		\item[(3)$\Rightarrow$(1)] Sei $a\in A$. (Zz. $a$ ist separabel)\\
+		Dann ist $K[a]=K[X]/\mu_{a,K}\hookrightarrow A$.\\
+		Dass ist $\Omega\otimes_K K[a]\hookrightarrow \Omega\otimes_K A$ injektiv.\\
+		Dann ist (mit (3)) $\Omega\otimes_K K[a]=\Omega[X]/(\mu_{a,K})$ ist reduziert.\\
+		Mit \ref{814} folgt, dass alle Nullstellen von $\mu_{a,K}$ in $\Omega$ verschieden sind. Also ist $\mu_{a,K}$ separabel, also auch $a$.
+		\item[(1)$\Rightarrow$(5)] klar
+		\item[(5)$\Rightarrow$(4)] description
+	\end{description}
+\end{proof}
 \end{document}
