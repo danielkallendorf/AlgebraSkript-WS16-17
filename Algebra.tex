@@ -2314,6 +2314,8 @@ Sei $K$ Körper, $f\in K[X]$, $f\neq 0$.
 	Eine \textbf{Teilerweiterung} ist ein Unterkörper $M$ von $L$, sodass $\iota(K)\subset M$.
 \end{definition}
 
+%TODO
+\todomark{die VL vom 12.12.2016}
 
 
 %VL 14.12.2016
@@ -3101,6 +3103,7 @@ $f=\mu_{a,K}$ genau dann wenn $f$ normiert, $f(a)=0$ und $f$ irreduzibel ist.
 %VL 16.01.2016
 %TODO
 \todomark{die VL vom 16.01.2016}
+\setcounter{thm}{7}
 %VL 18.01.2016
 \begin{satz}
 	Sei $K\hookrightarrow L$ eine endliche Galoiserweiterung und $M\subseteq L$ ein Zwischenkörper.\\
@@ -3226,4 +3229,164 @@ $f=\mu_{a,K}$ genau dann wenn $f$ normiert, $f(a)=0$ und $f$ irreduzibel ist.
 	\end{align*}
 	Also $\varphi\in\Gal(L/K)$ hat Ordnung $d$, und dann $\Gal(L/K)$ ist zyklisch.
 \end{proof}
+
+
+
+
+%VL 23.01.2017
+\subsection{Zyklische Erweiterungen}
+\begin{definition}
+	Sei $n\in \N$. Ein $\xi\in K$ heißt $n$-te \textbf{Einheitswurzel}, falls $\xi^n=1$.
+	Definiere $\mu_{n}(K):=\{\xi\in K\mid \xi^n=1\}\subseteq K^\times$ als Menge der $n$-ten Einheitswurzeln von $K$.
+\end{definition}
+\begin{bem*}
+	$\mu_{n}(K)$ ist Untergruppe von $(K^\times,\cdot)$.
+\end{bem*}
+
+\begin{bem}
+	Sei $n\in \N$. Definiere $m:=n$, falls $\cha(K)=0$.\\
+	Falls $\cha(K)=p>0$ schreibe $n=p^rm$ ($r\in\N_0$) mit $m$ teilerfrems zu $p$.
+	\begin{enumerate}
+		\item $\mu_n(K)=\mu_m(K)$
+		\item $\mu_n(K)$ ist endlich erzeugte zyklische Gruppe und $\#\mu_n(K)$ teilt $m$.
+		\item Ist $K$ algebraisch abgeschlossen, dann ist $\#\mu_n(K)$
+	\end{enumerate}
+\end{bem}
+\begin{proof}
+	\begin{enumerate}
+		\item $\mu_n(K)=\{\text{Nullstellen von $X^n-1$ in $K$}\}$. Nun gilt
+		\[X^n-1=(X^m)^{p^r}-1=(X^m-1)^{p^r}\]
+		Also gilt $\mu_n(K)=\{\text{Nullstellen von $X^m-1$ in $K$}\}=\mu_m(K)$.
+		\item $\mu_n(K)$ ist endlich, da $X^n-1$ nur endlich viele Nullteiler hat.\\
+		Dann folgt mit \ref{925}, dass $\mu_n(K)$ zyklisch ist.\\
+		Sei $\ol K$ algebraischer Abschluss. Dann hat $X^m-1$ genau $m$ Nullstellen, da $X^m-1$ separabel ist.
+		(Denn $mX^{m-1}\neq 0$ teilerfremd zu $X^m-1$).\\
+		Also ist $\mu_n(\ol K)=\mu_n(\ol K)$ und hat Ordnung $m$.\\
+		Da $\mu_n(K)\subseteq \mu_n(\ol K)$ Untergruppe ist, folgt $\#\mu_m(K)$ teilt $m$.
+	\end{enumerate}
+\end{proof}
+
+\begin{definition}
+	Sei $n\in\N$. Eine $n$-te Einheitswurzel $\xi\in K$ heißt \textbf{primitv}, falls $\ord(\xi)=n$.
+\end{definition}
+\begin{exm}
+	\begin{enumerate}
+		\item Sei $K=\C$.
+		\[\mu_n(\C)=\left\{e^\frac{2\pi i k}{n}\mid k\in\Z/n\Z\right\}\isomorph Z/n\Z\]
+		$e^{\frac{2\pi i k}{n}}$ ist genau dann primitiv, wenn $k$ teilerfremd zu $m$ ist. Genau dann wenn $k\in(\Z/n\Z)^\times$
+		\item Sei $K=\Q$
+		\[\mu_m(\Q)=\mu_m(\R)=\begin{cases}
+		\{+1,-1\}&\text{$n$ ist gerade}\\
+		\{1\}&\text{$n$ ist ungerade}
+		\end{cases}\]
+		\item Sei $q$ Primzahlpotenz. Dann
+		\[\mu_{q-1}(\F_q)=\F_q^\times\]
+	\end{enumerate}
+\end{exm}
+
+\begin{definition}
+	Die Abildung 
+	\begin{align*}
+	\varphi:\N_0&\to\N\\
+	\varphi(n)&\mapsto\#(\Z/n\Z)=\#\{0\leq k<n-1\mid\text{$k$ teilerfrems zu $n$}\}
+	\end{align*}
+	heißt \textbf{Eulersche $\varphi$-Funktion}
+\end{definition}
+\begin{prop}\label{1109prop}
+	\begin{enumerate}
+		\item Seien $m,n\in\N$ teilerfremd, dann
+		\[\varphi(mn)=\varphi(m)\varphi(n)\]
+		\item Sei $p$ Primzahl, $l\in \N$. Dann ist
+		\[\varphi(p^l)=p^l-p^{l-1}=(p-1)p^{l-1}\]
+	\end{enumerate}
+\end{prop}
+\begin{proof}
+\begin{enumerate}
+	\item Es gilt:
+	\[\varphi(mn)=\#(\Z/mn\Z)^\times=\#((\Z/m\Z)\times (\Z/n\Z)^\times)=\varphi(m)\varphi(n)\]
+	\item $\varphi(p^l)=\#\{0\leq <p^l\mid\text{$p$ teilt nicht $k$}\}=p^l-^{l-1}$ \\
+	und $p^{l-1}=\#\{0\leq k<p^l\mid \text{$p$ teilt nicht $k$} \}$
+\end{enumerate}
+\end{proof}
+
+\begin{exm*}
+	\begin{align*}
+	\varphi(1200)&=\varphi(3\cdot2^4\cdot 5^2)\\
+	&=\varphi(3)\cdot\varphi(2^4)\cdot\varphi(5^2)\\
+	&=(3-1)(2^4-2^3)(5^2-5^1)\\
+	&=2\cdot8\cdot 20=2^6\cdot 5
+	\end{align*}
+\end{exm*}
+
+%TODO Notation?
+
+\begin{satz}\label{1110satz}
+	Die Körpererweiterung $K\hookrightarrow K[\zeta]$ ist endlich und galoisch. Die Abbildung
+	$$\al:\Gal(K[\zeta]/K)\to(\Z/n\Z)^\times$$,$\sigma\mapsto a_\sigma$, wobei $\sigma(\zeta)=\zeta^{a_0}$ ist wohldefinierter injektiver Gruppen-Homomorphimsmus.\\
+	Insbesondere $[K[\zeta]:K]:\#\Gal(K[\zeta]/K)$ teilt $\varphi(n)$.
+\end{satz}
+\begin{proof}
+	\begin{itemize}
+		\item $K\hookrightarrow K[\zeta]$ ist separabel, denn $\mu_{\zeta,K}$ teilt $X^n-1$ und $X^n-1$ ist separabel, da $n\in K^\times$.\\
+		$K[\zeta]$ ist Zerfällunskörper von $X^n-1$, also ist $K\hookrightarrow K[\zeta]$ normal.
+		\item Z.z $\al$ ist wohldefiniert (insbesondere $a_0\in(\Z/n\Z)^\times$):\\
+		Da Gruppen-Automorphismen die Ordnung erhalten ist $\sigma(\zeta)$ primitv. Also $\sigma(\zeta=\zeta^{a_0})$ Einheint von $\Z/n\Z$.
+		\item Z.z. $\al$ ist Gruppen-Homomorphimsmus:\\
+		Seien $\sigma,\tau\in\Gal(K[\zeta]/K)$. Dann ist
+		\[\tau(\sigma(\zeta))=\tau(\zeta^{a_0})=\zeta^{a_\tau a_\sigma}\]
+		Es folgt, dass
+		\[\al(\tau\sigma)=a_\tau a_\sigma=\al(\tau)\al(\sigma)\]
+		\item Z.z. $\Ker(\al)=\{\id\}$:\\
+		Sei $\sigma\in\Ker(\al)$ ist äquivalent $\sigma(\zeta)=\zeta$.\\
+		Dann ist $\sigma=\id$.
+	\end{itemize}
+\end{proof}
+
+
+\begin{theorem}\label{1111th}
+	Sei $K=\Q$, $\zeta\in\C$ primitve $n$-te Einheitswurzel. Dann ist $\Q\hookrightarrow\Q$ eine endliche Galois-Erweiterung und $\Gal(\Q[\zeta]/\Q)\isomorph(\Z/n\Z)^\times$\\
+	Insbesondere ist $[\Q[\zeta]:Q]=\varphi(n)$.
+\end{theorem}
+\begin{proof}
+	Sei $0\leq r<n$ mit $(r,n)=1$
+	\begin{itemize}
+		\item Z.z. Es existiert $\sigma\in G:=\Gal(\Q[\zeta]/\Q)$ mit $\sigma(\zeta)=\zeta^r$.\\
+		Sei $r=p_1p_2...p_s$ Primfaktoerzerlegung, $p_i$ Primzahlen mit $(p_i,n)=1$.\\
+		Falls ein $\sigma_i\in G$ mit $\sigma_i(\zeta)=\zeta^{p_i}$. Dann schreiben $\sigma=\sigma_1\sigma_2...\sigma_s$.\\
+		Dann genügt es zu zeigen, dass $f:=\mu_{\zeta,\Q}=\mu_{\zeta^p,\Q}=:g$ für $p$ Primzahl mit $(p,n)=1$.\\
+		\\
+		Sei $f\neq g$, dann $X^n-1=fgu$ mit normiertem $u\in\Q[X]$. \\
+		Mit \ref{704Gauss}(?Lemma) $f,g,u\in\Z[X]$.\\
+		Reduktion modulo $p$ ergibt
+		\[X^n-1=\ol f\ol g\ol u\in\F_p[X]\] %Als \star bezeichnen
+		$\ol g(X^p)=\ol g(X^p)=\ol f$. Sei $v$ ein irreduzibbler Teiler von $\ol g$.\\
+		Dann ($\star$) gilt $v^2$ teilt $X^n-1$ in $\F_p[X]$. Dann ist also $X^n-1$ nicht separabel in $\F_p[X]$. Widerspruch zu $(p,n)=1$.\\
+		Also ist $\al$ separabel und mit \ref{1110satz} folgt die Behauptung.
+		
+	\end{itemize}
+\end{proof}
+
+%TODO... "Verstehen endlicher Erweiteungen"
+
+\begin{satz}[Satz von Konecker Weber]\label{1112kronweb}
+	Sei $\Q\hookrightarrow L$ eine endliche Galois-Erweiterung mit abelscher Galoisgruppe.\\
+	Dann existiert $n\in\N$ und primitive $n$-te Einheitswurzeln $\zeta\in\C$ und eine Einbettung $L\hookrightarrow\Q[\zeta]$
+\end{satz}
+\begin{proof}
+	Nicht im Zeitrahmen der Vorlesung
+\end{proof}
+
+
+\subsection{Konstruktion mit Zirkel und Lineal}
+\begin{definition}
+	Sei $M\subseteq \C$ Teilmenge.\\
+	Dann heißst $z\in\C$ \textbf{mit Zirkel und Lineal aus $M$ konstruierbar}, falls $z$ durch endlich viele Elementarkonstruktionen aus Elementen von $M$ konstruierbar ist.\\
+	\\
+	Als \textbf{Elementarfunktionen} aus $S$ bezeichnet man
+	\begin{enumerate}
+		\item Schnittpunkte von zwei Geraden die jeweils durch Punkte in $S$ gegeben sind.
+		\item Schnittpunkte von einer Geraden $y$ durch zwei Punkte in $S$ und einem Kreis mit Mittelpunkt in $S$ und einem Radius der der Entfernung von zwei punkten in $S$ entspricht
+		\item Schnittpunkt von Kreisen wie in (2).
+	\end{enumerate}
+\end{definition}
 \end{document}
