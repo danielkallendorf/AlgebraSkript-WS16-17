@@ -3388,5 +3388,125 @@ $f=\mu_{a,K}$ genau dann wenn $f$ normiert, $f(a)=0$ und $f$ irreduzibel ist.
 		\item Schnittpunkte von einer Geraden $y$ durch zwei Punkte in $S$ und einem Kreis mit Mittelpunkt in $S$ und einem Radius der der Entfernung von zwei punkten in $S$ entspricht
 		\item Schnittpunkt von Kreisen wie in (2).
 	\end{enumerate}
+%VL 25.01.2016
+	\[K(M):=\{z\in\C\mid \text{$z$ kann aus $M$ mit Zirkel und Lineal konstruiert werden}\}\]
 \end{definition}
+
+\begin{theorem}\label{1114thm}
+	Seien $0,1\in M$. Setze $\ol M:=\{\ol z\mid z\in M\}$.
+	\begin{enumerate}
+		\item $\Q(M\cup \ol M)\hookrightarrow K(M)$ ist eine algebraische Körper-Erweiterung.
+		\item Für $z\in\C$ sind äquivalent:
+		\begin{enumerate}
+			\item $z\in K(M)$
+			\item $z$ ist enthalten in einer Galois-Erweiterung $L$ von $\Q(M\cup \ol M)$, sodass $[L:\Q(M\cup\ol M)]=2^n$ für ein $n\in\N$.
+		\end{enumerate}
+	\end{enumerate}
+\end{theorem}
+\begin{proof}
+	Bosch, Algebra, §6.3
+\end{proof}
+
+\begin{exm}
+	\begin{enumerate}
+		\item Quadratur des Kreises: Es ist nicht möglich aus einem Kreis mit Radius 1 ein Quadrat mit gleichem Flächeninhalt mit Zirkel und Lineal zu Konstruieren.\\
+		Äquivalent: $\sqrt{\pi}\notin K(\{0,1\})$.\\
+		\begin{proof}
+			Durch ``Satz von Lindemenn'': $\pi$ ist transzendent über $\Q$.
+		\end{proof}
+		\item Verdopplung des Würfels: Es ist nicht möglich aus einem Würfel $W$ mit Kantenlänge 1 einen Würfel $W'$ zu konstruieren, sodass $\operatorname{vol}(W')=2\operatorname{vol}(W)$.\\
+		Äquivalent: $\sqrt[3]{2}\notin K(\{0,1\})$.
+		\begin{proof}
+			Angenommen $\sqrt[3]{2}\in K(\{0,1\})$, dann $\sqrt[3]{2}\in L$ mit $[L:\Q]=2^n$ für ein $n\in\N$.\\
+			Aus $\Q[\sqrt[3]{2}]\subseteq L$ folgt jedoch $[L:Q]$ ist durch $3$ teilbar. Widerspruch!
+		\end{proof}
+		\item Konstruktion eines regelmäßigen $n$-Ecks: Das in den Einheitskreis eingeschlossenen regelmäßige $n$-Eck mit Ecke $1$ ist genau dann in $K(\{0,1\})$, wenn $\varphi(n)$ eine $2$-er Potenz ist.\\
+		Äquivalent: $e^{\frac{2\pi i}{n}}\in K(\{0,1\})\Leftrightarrow [Q[e^{2\pi i/n}:\Q]]=2^k$ für ein $k\in\N$.\\
+		Sei $n=p_q^{l_1}...p_r^{l_r}$, dann $\varphi(n)=(p_1^{l_1}-p_1^{l_1-1})...(p_r^{l_r}-p_r^{l_r-1})$.\\
+		$\varphi(n)$ ist $2$-er Potenz $\Leftrightarrow $ $n=2^kp_1...p_s$, wobei $p_i$ verschiedene Primzahlen von der Form $2^{r_i}+1$ für $r_i\in\N$.
+	\end{enumerate}
+\end{exm}
+
+
+
+
+
+\subsection{Auflösbare Erweiterungen}
+\begin{definition}
+	Eine Körpererweiterung $K\hookrightarrow L$ heißt \textbf{durch Radikale auflösbar}, falls es eine Kette von Erweiterungen $K=K_0\subseteq K_1\subseteq...\subseteq K_r=L$ gibt, sodass $K_i=K_{i-1}[a_i]$, wobei:
+	\begin{enumerate}
+		\item Falls $\cha(K)=0$: $a_i=\sqrt[n_i]{\alpha_i}$, $\alpha_i\in K_{i-1}$, $n_i\in\N$.
+		\item Falls $\cha(K)=p>0$: $a_i=\sqrt[n_i]{\alpha_i}$, $\alpha_i\in K_{i-1}$, $n_i\in\N$ mit $(n_i,p)=1$\\
+		Oder $a_i$ ist Nullstelle eines Polynoms der Form $X^p-X-\al_i$, $\al_i\in K_{i-1}$.
+	\end{enumerate}
+\end{definition}
+
+\begin{definition}
+	Eine Gruppe $G$ heißt \textbf{auflösbar}, falls es eine Kompositionsreihe (Kette von Untergruppen) $\{e\}=G_0\subseteq g_1\subseteq...\subseteq G_r=G$ gibt, sodass $G_i/G_{i-1}$ abelsch ist für alle $i=1,...,r$.
+\end{definition}
+
+\begin{bem}
+	Sei $G$ auflösbar und $H\subseteq G$ Untergruppe, dann ist $H$ auflösbar.
+\end{bem}
+
+\begin{exm}
+	Die Symmetrische Gruppe $S_n$ ist genau dann auflösbar, wenn $n\leq 4$.
+\end{exm}
+
+\begin{definition}
+	Eine endliche separable Erweiterung von Körpern $K\hookrightarrow L$ heißt \textbf{auflösbar}, wenn Erweiterung $L\hookrightarrow M$ existiert, sodass $K\hookrightarrow L$ galoisch und mit ausflösbarer Galois-Gruppe ist.
+\end{definition}
+\begin{proof}
+	Man kann $M$ als normale Hülle von $K\hookrightarrow L$ wählen.
+\end{proof}
+
+\begin{theorem}\label{1121thm}
+	Sei $K\hookrightarrow L$ endlich separabel.\\
+	Dann ist $K\hookrightarrow K$ genau dann durch Radikale auflösbar, wenn $K\hookrightarrow L$ auflösbar ist.
+\end{theorem}
+\begin{proof}
+	Lang, Algebra, VI, §7
+\end{proof}
+
+\begin{definition}
+	Sei $f\in K[X]$ normiert und separabel. Dann heißt $f$ \textbf{durch Radikale auflösbar}, falls der Zerfällungskörper $L$ von $f$ eine auflösbare Erweiterung von $K$ ist.
+\end{definition}
+%COUNTER
+\addtocounter{thm}{-1}
+\begin{kor}\label{1122kor}
+	$f\in K[X]$ ist genau dann durch Radikale auflösbar, wenn $\Gal(L/K)$ auflösbar ist.
+\end{kor}
+
+\begin{exm}
+	Sei $\cha(K)=0$, $f\in K[X]$ irreduzibel und $n:=\deg(f)$.\\
+	Sei $L$ Zerfällungskörper von $f$. Dann ist $\Gal(L/K)$ isomorph zu Untergruppen von $S_n$.\\
+	Also folgt aus $n\leq 4$, dass $f$ durch Radikale auflösbar ist.\\
+	Falls $n\geq 5$ und $\Gal(L/K)\isomfunc S_n$, dann ist $f$ nicht durch Radikale auflösbar.
+\end{exm}
+
+\begin{exm}
+	Sei $\cha(K)=0$, $\deg(f)=3$. Sei OE $f=X^2+3pX+2q$, mit $p,q\in K$.\\
+	Berechnung der Nullstellen von $f$:
+	\[u:=\sqrt[3]{-q+\sqrt{q^2+p^3}},\quad v:=\sqrt[3]{-q-\sqrt{q^2+p^3}}\]
+	So dass $uv=-p$.\\
+	Dann sind die Nullstellen von $f$:
+	\[x_1=u+p,\quad x_2=\zeta u+\zeta^2 v\,\quad x_3:=\zeta^2u+\zeta v\]
+	Wobei $\zeta$ primitive $3$-te Einheitswurzel.
+	(In einem Zerfällungskörper von $f$)
+\end{exm}
+\begin{proof}
+	Van der Waerden: Algebra(?)
+\end{proof}
+
+
+
+
+
+
+\section{Endlich erzeugt Algebren über Körper}
+(Oder: Lineare Algebra)
+
+
+\subsection{Hilbertscher Nullstellensatz}
+
 \end{document}
