@@ -28,6 +28,8 @@
 \newcommand{\R}{\ensuremath{\mathbb{R}}}
 \newcommand{\C}{\ensuremath{\mathbb{C}}}
 \newcommand{\F}{\ensuremath{\mathbb{F}}}
+\newcommand{\AF}{\ensuremath{\mathbb{A}}}
+
 \newcommand{\la}{\ensuremath{\lambda}}
 \newcommand{\al}{\ensuremath{\alpha}}
 \newcommand{\ol}[1]{\overline{#1}}
@@ -52,7 +54,12 @@
 \newcommand{\ord}{\ensuremath\operatorname{Ord}}
 \newcommand{\cha}{\ensuremath{\operatorname{char}}}
 \newcommand{\Gal}{\ensuremath{\operatorname{Gal}}}
-
+\newcommand{\Max}{\ensuremath{\operatorname{Max}}}
+\newcommand{\sgn}{\ensuremath{\operatorname{sgn}}}
+\newcommand{\tr}{\ensuremath{\operatorname{tr}}}
+\newcommand{\rk}{\ensuremath{\operatorname{rk}}}
+\newcommand{\diag}{\ensuremath{\operatorname{diag}}}
+\newcommand{\res}{\ensuremath{\operatorname{red}}}
 
 \newenvironment{sumup}{\begin{framed}\textbf{Zusammenfassung:}\\}{\end{framed}}
 
@@ -226,11 +233,11 @@
 \end{exm}
 
 \begin{bem}
-	Sei $\varphi:A\to B$ ein Ring-Homomorphimsmus
+	Sei $\varphi:A\to B$ ein Ring-Homomorphismus
 	\begin{enumerate}
 		\item Sei $q\subseteq B$ Primideal, dann ist $\varphi^{-1}(q)\subset A$ ein Primideal.
 		\begin{proof}[Beweis 1]
-			Wir wissen, dass $\varphi$ einen injektiven Ring-Homomorphimsmus $A/\varphi^{-1}\to B/q$ induziert.\\
+			Wir wissen, dass $\varphi$ einen injektiven Ring-Homomorphismus $A/\varphi^{-1}\to B/q$ induziert.\\
 			Da $B/q$ nullteilerfrei ist, folgt, dass $A/\varphi^{-1}(q)$ nullteilerfrei ist. Dann folgt, dass $\varphi^{-1}(q)$ Primideal ist.
 		\end{proof}
 		\begin{proof}[Beweis 2]
@@ -312,7 +319,7 @@ Sei im folgende $A$ ein Ring.
 \end{proof}
 %COUNTER
 \addtocounter{thm}{-1}
-\begin{prop}
+\begin{prop}\label{111prop}
 	Sei $\mathfrak a$ ein Ideal, $\mathfrak p_1,...,\mathfrak p_n$ Primideale.\\
 	Es gelte $\mathfrak a\not\subseteq \mathfrak p_i$ für alle $i$.\\
 	Dann gilt 
@@ -407,7 +414,7 @@ Sei $A$ weiterhin ein Ring
 	\end{enumerate}
 \end{exm*}
 
-\begin{prop}
+\begin{prop}\label{118prop}
 	$\Jac(A)=\{x\in A\mid 1-xy\in A^\times\forall y\in A \}$
 \end{prop}
 \begin{proof}
@@ -863,7 +870,8 @@ mit $\ol{\psi}$ surjektiv.
 	$0\rightarrow M*\xrightarrow{u}M$ ist exakt genau dann wenn $u$ injektiv ist.\\
 	$M\xrightarrow{v}M''\rightarrow 0$ ist exakt genau dann wenn $v$ surjektiv ist
 \end{exm*}
-\begin{satz}
+
+\begin{satz}\label{312satz}
 	\begin{enumerate}
 		\item Sei $0\rightarrow M'\xrightarrow{u}M\xrightarrow{v}M''(*)$ eine Sequenz von $A-$Moduln.\\
 		Dann ist $(*)$ genau dann exakt, wenn für jeden A-Modul $P$ die Sequenz
@@ -915,7 +923,7 @@ mit $\ol{\psi}$ surjektiv.
 
 %VL 07.11.2016
 \begin{bem}
-	\label{bem313}
+	\label{313bem}
 	Seiene $M,N,P$ A-Moduln. Dann ist
 	\begin{align*}
 	\Hom_A(M\otimes_A N,P)&=L_A(M,N;P)&\quad (*)\\
@@ -940,13 +948,13 @@ mit $\ol{\psi}$ surjektiv.
 	exakt.
 \end{prop}
 \begin{proof}
-	Formal mit \ref{bem313}.\\
+	Formal mit \ref{313bem}.\\
 	Sei $M'\rightarrow M \rightarrow M''\rightarrow 0$ exakt.\\
-	Dann gilt mit $\ref{bem312}$, dass für alle A-Mdouln $P$:
+	Dann gilt mit $\ref{313bem}$, dass für alle A-Mdouln $P$:
 	\[0\rightarrow \Hom_A(M'',H_N(P))\rightarrow \Hom_A(M,H_N(P))\rightarrow \Hom_A(M',H_N(P))\]
-	Ist jeweils gleich (\ref{bem313})
+	Ist jeweils gleich (\ref{313bem})
 	\[0\rightarrow \Hom_A(T_N(M''),P)\rightarrow \Hom_A(T_N(M),P)\rightarrow \Hom_A(T_N(M'),P)\]
-	exakt, sodass mit \ref{312}
+	exakt, sodass mit \ref{312satz}
 	\[T_N(M')\rightarrow \underbrace{T_N(M)}_{=M\otimes_AN}\rightarrow T_N(M'')\rightarrow 0\]
 	exakt ist.
 \end{proof}
@@ -1006,15 +1014,15 @@ mit $\ol{\psi}$ surjektiv.
 	Sei $S=\Z\setminus \{\}\subseteq A=\Z$. Dann ist $S^{-1}A=\Q$.
 \end{exm*}
 
-\begin{satz}[Universelle Eigenschaft]
-	Sei $S\subseteq A$ eine multiplikative Teilmenge und sei $1:A\rightarrow S^{-1}$ kanonisch. Sei $B$ ein Ring, $\varphi:A\rightarrow B$ ein Ring-Homomorphimsmus mit $\varphi(s)\in B^\times=\{b\in B\mid  \exists c\in B: bc=1\}$ für alle $s\in S$. Dann existiert ein eindeutiger RIngHomomorphismus $\tilde{\varphi}S^{-1 A\rightarrow B}$ mit $\tilde{\varphi}\circ 1=\varphi:$.
+\begin{satz}[Universelle Eigenschaft]\label{404satzUniv}
+	Sei $S\subseteq A$ eine multiplikative Teilmenge und sei $1:A\rightarrow S^{-1}$ kanonisch. Sei $B$ ein Ring, $\varphi:A\rightarrow B$ ein Ring-Homomorphismus mit $\varphi(s)\in B^\times=\{b\in B\mid  \exists c\in B: bc=1\}$ für alle $s\in S$. Dann existiert ein eindeutiger Ring-Homomorphismus $\tilde{\varphi}S^{-1 A\rightarrow B}$ mit $\tilde{\varphi}\circ 1=\varphi:$.
 	
-	\[
+	\begin{center}
 		\begin{tikzcd}
 		A\ar{r}{\forall\varphi:\varphi(s)\subseteq B^\times}\ar{d}{1} & B\\
 		S^{-1}A\ar{ru}{\exists!\tilde\varphi} &
 		\end{tikzcd}
-	\]
+	\end{center}
 \end{satz}
 \begin{proof}
 	\underline{Eindeutigkeit} Für $\frac{a}{s}-in S^{-1}A$ muss für $\tilde{\varphi}$ gilt:
@@ -1026,9 +1034,10 @@ mit $\ol{\psi}$ surjektiv.
 	Definiere $\tilde\varphi$ durch $(*)$\\
 	Z.z: $\tilde\varphi$ ist wohldefiniert.
 \end{proof}
-\begin{bem}
+
+\begin{bem}\label{405bem}
 	Sei $S\subseteq A$ eine multilineare Teilmenge.\\
-	Dann gilt: $1:A\rightarrow S^{-1}A$ ist injektive $\Leftrightarrow$ S enthält keien Nullteiler.
+	Dann gilt: $1:A\rightarrow S^{-1}A$ ist injektive $\Leftrightarrow$ S enthält keinen Nullteiler.
 \end{bem}
 \begin{proof}
 	\begin{align*}
@@ -1056,8 +1065,8 @@ mit $\ol{\psi}$ surjektiv.
 	\end{align*}
 	eine $S^{-1}A$ lineare Abbildung.
 \end{satz}
-\begin{satz}[Lokalisierung ist exakt]
-	InhaltSei $M'\xrightarrow{u}M\xrightarrow{v}M''$ eine exakte Sequenz von A-Moduln, $S\subseteq$ eine multilineare Teilmenge. Dann ist
+\begin{satz}[Lokalisierung ist exakt]\label{408satzLok}
+	Sei $M'\xrightarrow{u}M\xrightarrow{v}M''$ eine exakte Sequenz von A-Moduln, $S\subseteq$ eine multilineare Teilmenge. Dann ist
 	\[S^{-1}M'\xrightarrow{S^{-1}u}S^{-1}M\xrightarrow{S^{-1}v}S^{-1}M''\]
 	eine exakte Sequnez von $S^{-1}A$ Moduln.
 \end{satz}
@@ -1113,12 +1122,11 @@ mit $\ol{\psi}$ surjektiv.
 		Dann folgt $b\mapsto\iota^{-1}(b)$ ist injektiv und jedes Ideal von $S^{-1}A$ ist von der Form $S^{-1}\mathfrak a$ für einIdeal $\mathfrak a\subseteq A$.
 		\item Sei $\mathfrak a\subseteq A$ ein Ideal. Dann gilt:
 		Es gibt ein Ideal $b\subseteq S^{-1}A$ mit $\mathfrak a=\iota^{-1(b)}$.\\
-		Dies ist Äquivalent dazu, dass kein $s\in S$ ins $A/\mathfrak a$ Nullteiler ist.
+		Dies ist Äquivalent dazu, dass kein $s\in S$ in $A/\mathfrak a$ Nullteiler ist.
 		\item Man hat zueinander inverse Bijektionen: \label{4104}
 		\[\left\{q\subset S^{-1 A}\mid \text{Primideal}\right\}
-		\xrightarrow{q\mapsto\iota^{-1(q)}}\atop\xleftarrow[\mathfrak p\mapsto S^{-1\mathfrak p}]{}\left\{\text{Primiedeale $\mathfrak p\subset A$ mit $\mathfrak p\cap S=\emptyset$}\right\}
+		{\xrightarrow{q\mapsto\iota^{-1(q)}}\atop\xleftarrow[\mathfrak p\mapsto S^{-1\mathfrak p}]{}}\left\{\text{Primideale $\mathfrak p\subset A$ mit $\mathfrak p\cap S=\emptyset$}\right\}
 		\]
-		%TODO 4
 	\end{enumerate}
 \end{satz}
 \begin{proof}
@@ -1137,30 +1145,52 @@ mit $\ol{\psi}$ surjektiv.
 		&\Leftrightarrow\mathfrak a=\iota^{-1}(S^{-1}\mathfrak a)\\
 		&\Leftrightarrow A/\mathfrak 
 		a\xrightarrow{\ol{a} \mapsto \ol{\left(\frac{a}{1}\right)}}
-		S^{-1}A/S^{-1}\mathfrak a=^{\ref{480}}S^{-1}A/\mathfrak a\quad\text{injektiv}\\
+		S^{-1}A/S^{-1}\mathfrak a=^{\ref{408satzLok}}S^{-1}A/\mathfrak a\quad\text{injektiv}
 		\end{align*}
-		(Wende $\ref{480}$ an auf die exakte Sequenz
-		\begin{align*}
-		0\rightarrow \mathfrak a&\rightarrow A\rightarrow A/\mathfrak a\rightarrow 0
-		\intertext{Dann ist auch}
-		0\rightarrow S^{-1}\mathfrak a&\rightarrow S^{-1}A\rightarrow S^{-1}(A/\mathfrak a)\rightarrow 0\\
-		\end{align*} exakt.)
-		Mit $\ref{450}$ gilt äquivalenz dazu, dass kein $s\in S$ ist Nullteiler in $A/\mathfrak a$.
-		\item %TODO Proof 4
+		(Wende $\ref{408satzLok}$ an auf die exakte Sequenz $0\rightarrow \mathfrak a\rightarrow A\rightarrow A/\mathfrak a\rightarrow 0$. Dann ist auch $0\rightarrow S^{-1}\mathfrak a\rightarrow S^{-1}A\rightarrow S^{-1}(A/\mathfrak a)\rightarrow 0$ exakt.)\\
+		Mit $\ref{405bem}$ gilt äquivalenz dazu, dass kein $s\in S$ in $A/\mathfrak a$  Nullteiler ist.
+		\item Aus (2) und (3).
 	\end{enumerate}
 \end{proof}
-%TODO 4.10, 4.11
-\begin{satz}[Universelle Eigenschaft des Quotientenkörpers]
+
+\begin{definition}
+	Sei $A$ nullteilerfrei und $S:=A\setminus\{0\}$ eine multiplikative Teilmenge.\\
+	Dann heißt $\Quot(A):S^{-1}A$ \textbf{Quotientenkörper}.
+\end{definition}
+
+\begin{bem*}
+	Für $\frac{a}{s}\in(S^{-1}A)\setminus\{0\}$ gilt $a\in S$. Also existiert ein inverses Element: $\frac{s}{a}$.\\
+	Also ist der $\Quot(A)$ ein Körper.\\
+	Außerdem gilt, dass die Abbildung $A\to\Quot(A),a\mapsto \frac{a}{1}$ injektiv ist.
+\end{bem*}
+
+\begin{satz}[Universelle Eigenschaft des Quotientenkörpern]
 	Sei $\iota:A\rightarrow \Quot(A)$ kanonisch und sei $\varphi:A\rightarrow K$ ein injektiver Ring-Homomorphismus wobei $K$ ein Körper.\\
-	Dann existiert genau ein Homomorphismus von Körpern $\tilde{\varphi}:\Quot(A)\rightarrow K$.
+	Dann existiert genau ein Homomorphismus von Körpern $\tilde{\varphi}:\Quot(A)\rightarrow K$, sodass $\tilde{\varphi}\circ\iota=\varphi$.
+	\begin{center}
+		\begin{tikzcd}
+			A \ar[r,"\forall \varphi \text{ injektiv}"] \ar[d, "\iota"] & K\\
+			\Quot(A) \ar[ur,"\exists!\varphi"',dashed]&
+		\end{tikzcd}
+	\end{center}
 \end{satz}
-%TODO. Beweis?
+\begin{proof}
+	Da $\varphi$ injektiv ist gilt $\varphi(???)\subseteq K\setminus\{0\}=K^\times$.\\ %TODO nicht lesbar
+	Dann folgt mit \ref{404} die Behauptung.
+\end{proof}
+
+
+
+
+
+
 \subsection{Lokale Ringe und Restklassenkörper}
 \begin{definition}
 	Ein Ring $A$ heißt \underline{lokal} wenn er genau ein Maximales Ideal besitzt.\\
 	Dann bezeichnet $\mathfrak m_A$ dieses Maximales Ideal.\\
 	Der Körper $\kappa(A):=A/\mathfrak m_A$ heißt \underline{Restklassenkörper von $A$}.
 \end{definition}
+
 \begin{exm}
 	\begin{itemize}
 		\item Jeder Körper ist ein lokaler Ring.
@@ -1168,9 +1198,11 @@ mit $\ol{\psi}$ surjektiv.
 		Oder wenn $A$ Körper ist
 	\end{itemize}
 \end{exm}
+
 \begin{definition}
 	Ein lokaler Hauptideal Ring der kein Körper ist, heißt \underline{diskreter Bewertungsring}.
 \end{definition}
+
 \begin{exm}
 	Sei $\mathfrak p\subset A$ Primideal, $S:=A\backslash \mathfrak p$ multiplikative Teilmenge, $A_{\mathfrak p}:=S^{-1}A$.
 	\[\{\text{Primideals in $A-\mathfrak p$}\}\leftrightarrow\{\text{Primideals $q\subset A$ mit $q\subseteq \mathfrak p$}\}\]
@@ -1178,6 +1210,7 @@ mit $\ol{\psi}$ surjektiv.
 	Also ist $A_{\mathfrak p}$ ein lokaler Ring mit maximalem Ideal $S^{-1}\mathfrak p$.\\
 	Der Körper $\kappa(\mathfrak p):=A/S^{-1}\mathfrak p$ heißt \underline{Restklassenkörper in $\mathfrak p$}.
 \end{exm}
+
 \begin{bem}
 	Seien $q\subseteq\mathfrak p\subset A$ Primideale.\begin{enumerate}
 		\item \begin{align*}
@@ -1193,6 +1226,10 @@ mit $\ol{\psi}$ surjektiv.
 		\end{align*}
 	\end{enumerate}
 \end{bem}
+
+
+
+
 \subsection{Spektren}
 \begin{rem}
 	Ein \underline{Topologischer Raum} ist ein Paar $(X;\mathfrak T)$ wobei $X$ eine Menge, $\mathfrak T\subseteq \mathscr P(X)$, sodass gilt:
@@ -1203,23 +1240,32 @@ mit $\ol{\psi}$ surjektiv.
 	\end{enumerate}
 Die Mengen in $\mathfrak T$ heißen \underline{offen}.
 \end{rem}
+
 \begin{rem}
 	Seine $X,Y$ topologische Räume. Eine Abbildung $f:X\rightarrow Y$ heißt \ul{stetig}, falls $f^{-1}(V)\subseteq X$ ist offen für alle offenen $V\subseteq Y$.
 \end{rem}
+
 \begin{rem}
 	Sei $(X,\mathfrak T)$ ein topologischer Raum $B\subseteq \mathfrak T$ heißt \ul{Basis der Topologie}, falls jeder offenen Teilmenge Vereinigung von Menge aus $B$ ist.
 \end{rem}
+
 \begin{exm}
 	Sei $(X,d)$ eien metrischer Raum, dann heißt $U\subseteq X$ offen, falls \[\forall x\in U\exists\epsilon>0:B_\epsilon(x)\{y\in X\mid M(x,y)<\epsilon\}\subseteq U\]Basis der Topologie: $\{B_\epsilon(x)\mid\epsilon\in \R^{>0},x\in X\}$
 \end{exm}
+
 \begin{definition}
 	Sein topologischer Raum $X$ heißt \underline{Hausdorffsch}, falls $\forall x,y\in X$ mit $x\neq y$ existieren $x\in U\subseteq X$, $y\in V\subseteq X$ offen, sodass $U\cap V=\emptyset$.
 	Metrische Räume sind Hausdorffsch.
 \end{definition}
+
 \begin{definition}
 	Ein topologischer Raum $X$ heißt \ul{quasikompakt}, falls jede offene Überdeckung $(U_i)_{i\in I}$ von $X$ (d.h. $U_i\subseteq X$ offen für alle $i\in I$ mit $\bigcup_{i\in I}U_i=X$) eine endliche Teilüberdeckung besitzt.
 	(d.h. $\exists J\subseteq I$ endliche Teilmenge, sodass $\bigcup_{i\in I}U_i=X$.)
 \end{definition}
+
+
+
+
 %VL 14.11.2016
 \subsubsection{Spielzeugmodell (der Funktionalanalysis)}
 Sei $X$ ein kompakter topologischer Raum,
@@ -1228,60 +1274,70 @@ Sei $x\in X$, dann betrachte
 \[\mathfrak M_x:=\{f\in A\mid f(x)=0\}\subseteq A\]
 Dies ist ein Minimales Ideal, denn
 \[A/\mathfrak M_x\isomfunc \C, \ol{f}\mapsto f(x)\]
+
 \begin{satz}
 	Die Abbildung 
-\begin{align*}
-	X&\rightarrow \operatorname{Max}(A):=\{\mathfrak M\subset A\mid \text{maximales Ideal}\}\\
-	x&\mapsto\mathfrak M_x
-\end{align*}
+	\begin{align*}
+		X&\rightarrow \operatorname{Max}(A):=\{\mathfrak M\subset A\mid \text{maximales Ideal}\}\\
+		x&\mapsto\mathfrak M_x
+	\end{align*}
 	ist bijektiv.
 \end{satz}
+
 \begin{kor}
 	Sei $f\in A$ und für $\mathfrak M_x\in\operatorname{Max}(A)$ sie $f(x)=$ Bild von $f$ in $A/\mathfrak M_x=\C$.
 	\begin{align*}
-	D(f)&=\{\mathfrak M\in \operatorname{Max}(A)\mid \text{$\ol{f}$ in $A/\mathfrak M$ ist $\neq 0$}\}\\
-	&=\{\mathfrak M\in\operatorname{Max}(A)\mid f\notin\mathfrak M\}\\
-	&=\sigma(\{x\in X\mid f(x)\neq 0\})
+		D(f)&=\{\mathfrak M\in \operatorname{Max}(A)\mid \text{$\ol{f}$ in $A/\mathfrak M$ ist $\neq 0$}\}\\
+		&=\{\mathfrak M\in\operatorname{Max}(A)\mid f\notin\mathfrak M\}\\
+		&=\sigma(\{x\in X\mid f(x)\neq 0\})
 	\end{align*}
 \end{kor}
+
 \begin{definition}
 	$U\subseteq\operatorname{Max}(A)$ heißt \textbf{offen}, falls $\exists F\subseteq\operatorname{Max}(A)$ mit
 	\[U=\bigcup_{f\in F}D(f)\]
 	Dies ist die Topologie uf $\operatorname{Max}(A)$.\\
 	(Bemerke: $D(f)\cap D(g)=D(fg)$)
 \end{definition}
+
 \begin{satz}
 	$\sigma$ ist Homomorphismus
-\end{satz}
-Seien $X,Y$ kompakte topologische Räume, $F:X\rightarrow Y$ stetig.\\
-Mann erhält den $\C-$Algebra-Homomorphismus:
-\begin{align*}
-\varphi:A_Y&\rightarrow A_x\\
-f&\mapsto f\circ F
-\end{align*}
-Habe Kommutierendes Diagramm
-\[\begin{tikzcd}
-	X \ar[d,"F"] \ar[d,"\sigma"',"\sim"] & & Y\ar[d,"\sigma"',"\sim"]\\
-	\operatorname{Max}(A_x) \ar[rr,"\mathfrak M\mapsto\varphi^{-1}(\mathfrak M)"] && \operatorname{Max}(A_Y)
-\end{tikzcd}\]
+	Seien $X,Y$ kompakte topologische Räume, $F:X\rightarrow Y$ stetig.\\
+	Mann erhält den $\C-$Algebra-Homomorphismus:
+	\begin{align*}
+		\varphi:A_Y&\rightarrow A_x\\
+		f&\mapsto f\circ F
+	\end{align*}
+	Habe Kommutierendes Diagramm
+	\begin{center}
+		\begin{tikzcd}
+		X \ar[rr,"F"] \ar[d,"\sigma"',"\sim"] & & Y\ar[d,"\sigma"',"\sim"]\\
+		\max(A_x) \ar[rr,"\mathfrak m\mapsto\varphi^{-1}(\mathfrak m)"'] & & \max(A_Y)
+		\end{tikzcd}
+	\end{center}
 
-Es folgt $\forall \mathfrak M\subset A_x$ maximal, sodass $\varphi^{-1}(\mathfrak M)\subset A$ maximal ist.\\
+	Es folgt $\forall \mathfrak m\subset A_x$ sind maximal, sodass $\varphi^{-1}(\mathfrak m)\subset A$ maximal ist.
+\end{satz}
+
 %TODO Kommentar
-\begin{def}
-	\label{satz414}
-	Sei $A$ ein Ring. Setze $X=\Spec(A):=\{y\subset A\mid\text{Primideal con $A$}\}$ als das \textbf{Spektrum von $A$}.\\
+%COUNTER
+\setcounter{thm}{16}
+\begin{definition}
+	Sei $A$ ein Ring. Setze $X=\Spec(A):=\{y\subset A\mid\text{Primideal von $A$}\}$ als das \textbf{Spektrum von $A$}.\\
 	Für $x\in X$ bezeichne $y_x\subset A$ das korrespondierene Primideal.
 	Sei $f\in A$, $x\in X$. Dann definiere
 	\[f(x):=\text{Bild von $f$ unter}A\rightarrow A/y_x\hookrightarrow\Quot(A/y_x)=\kappa(x)\]
-\end{def}
+\end{definition}
+
 \begin{bem}
 	$f$ ist keine Funktion $X\rightarrow ?$.\\
-	Seetze
+	Setze
 	\begin{align*}
 	D(f):&=\{x\in X\mid f(x)\neq 0\}\\
 	&=\{x\in X\mid f\notin y_x\}
 	\end{align*}
 \end{bem}
+
 \begin{definition}
 	Eine Teilmenge $U\subseteq X=\Spec(A)$ heißt \textbf{offen}, falls $F\subseteq A$ Teilmenge existiert, sodass $U=\bigcup_{f\in F}D(f)$.\\
 	Wir erhalten die sogenannte \textbf{Zanski-Topologie}.
@@ -1292,6 +1348,9 @@ Es folgt $\forall \mathfrak M\subset A_x$ maximal, sodass $\varphi^{-1}(\mathfra
 	x&=D(x)
 	\end{align*} 
 \end{definition}
+
+%COUNTER
+\setcounter{thm}{17}
 \begin{kor}[$D(f)$ als Spektrum]
 	Sei $f\in A$ und sei $S_f:=\{1,f,f^2,...,\}$. Dann ist\begin{align*}
 	\Spec(S^{-1}_fA)&=\{y\in\Spec(A)\mid y\cap S_f=\emptyset\}\\
@@ -1299,6 +1358,7 @@ Es folgt $\forall \mathfrak M\subset A_x$ maximal, sodass $\varphi^{-1}(\mathfra
 	&=D(f)
 	\end{align*}
 \end{kor}
+
 \begin{satz}[Abgeschlossenen Teilmengen]
 	Sei $X=\Spec(A)$, $Y\subseteq X$ Teilmenge. Dann
 	\[\text{$Y\subseteq X$ abgeschlossen}
@@ -1313,11 +1373,12 @@ Es folgt $\forall \mathfrak M\subset A_x$ maximal, sodass $\varphi^{-1}(\mathfra
 	&&&=\Spec(A/\mathfrak a)
 	\end{align*}
 \end{satz}
+
 \begin{satz}[Funktorialität]
-	\label{satz420}
+	\label{420satz}
 	Sei $\varphi
 	A\rightarrow  B$ ein Homomorphismus on Ringen.\\
-	Dann ist $\varphi\Spec B\to\Spec(A),q\mapsto \varphi^{-1}(q)$ stetig.
+	Dann ist $\varphi:\Spec B\to\Spec(A),q\mapsto \varphi^{-1}(q)$ stetig.
 \end{satz}
 \begin{proof}
 	Für $f\in A$ gilt
@@ -1329,7 +1390,11 @@ Es folgt $\forall \mathfrak M\subset A_x$ maximal, sodass $\varphi^{-1}(\mathfra
 	&=D(\varphi(f))\subseteq\Spec(B)\text{ offen.}
 	\end{align*}
 \end{proof}
-\subsection{Lemma von Nokagama???}
+
+
+
+
+\subsection{Lemma von Nakayama}
 \begin{definition}
 	Sei $u:M\rightarrow N$ ein Homomorphismus von $A$-Moduln und sei $(m_1,...,m_r)$ ein Erzeugendensystem von $M$ und $(n_1,...,n_s)$ von N.\\
 	Dann exitsiert
@@ -1338,14 +1403,16 @@ Es folgt $\forall \mathfrak M\subset A_x$ maximal, sodass $\varphi^{-1}(\mathfra
 	\[n(m_j)=\sum_{i=1}^{s}t_{ij}n_i\]
 	Dann heißt $T$ eine \textbf{Matrix von $U$ bezüglich $(m_1,...,m_r)$ und $(n_1,...,n_s)$}.
 \end{definition}
-\begin{bem}
+
+\begin{bem*}
 	\begin{enumerate}
 		\item T ist nicht eindeutig duch $u$ bestimmt\\
 		(es sei denn $(n_1,...,n_s)$ ist Basis)
 		\item Nicht jede Matrix in $M_{s\times r}(A)$ ist eine Matrix von $u$ bezüglich $(m_1,...,m_r)$ und $(n_1,...,n_s)$.\\
 		(Es sei denn $m_1,...,m_r$ ist Basis von $M$)
 	\end{enumerate}
-\end{bem}
+\end{bem*}
+
 \begin{rem}
 	Sei $T\in M_n(A)=A^{n\times m}$, $n\in \N$.\\
 	Dann existiert $S\in M_n(A)$, sodass $TS=ST=\det TI_m$. Dann ist $S=(s_{ij})$
@@ -1353,6 +1420,7 @@ Es folgt $\forall \mathfrak M\subset A_x$ maximal, sodass $\varphi^{-1}(\mathfra
 	($T$ mit $j$-ter Spalte und $i-$ter Spalte gestrichen.)\\
 	$S$ heißt die Adjunkte von $T$.
 \end{rem}
+
 \begin{satz}[Cayley-Hamilton]
 	\label{423CayHam}
 	Sei $M$ ein $A$-Modul, $(m_1,...,m_n)$ ein Erzeugendensystem und sei $u:m\rightarrow M$ eine $A$-Lineare Abbildung. Sei $T\in M_r(A)$ eine Matrix von $u$ bezüglich $(m_1,...,m_r)$.\\
@@ -1388,13 +1456,12 @@ Es folgt $\forall \mathfrak M\subset A_x$ maximal, sodass $\varphi^{-1}(\mathfra
 	\end{align*}
 	Multipliziere $(\star)$ mit $\delta_{kj}(u)$.
 	\[0=\sum_{i=1}^{r}\underbrace{\sum_{j=1}^{r}\delta_{kj}(u)(u\delta_{ji}-t_{ji})}_{\substack{\text{k-te Koeffizienten von}\\DC(u)=\chi_T(u)\delta_{ki}}}m_i\]
-	Also ...
-	%TODO
+	Also ist $0=\sum_{i=1}^{r}(\chi_T(u)\delta_{ki})m_i=\chi_T(u)m_k$ für alle $k=1,...,r$. Für $M=(m_1,...,m_r)$ folgt, dass $\chi_T(u)(M)=0$, also $\chi_T(u)\in\End_A(M)$.
 \end{proof}
-\begin{lem}[Lemma von Nakogama (1. Version)]
-	\label{424Nakayana1}
+
+\begin{lem}[Lemma von Nakayama (1. Version)] \label{424Nakayama1}
 	Sei $M$ eine endlich erzeugter $A-$Modul, $\mathfrak a\subseteq A$ ein Ideal, sodass $M=\mathfrak aM$.\\
-	Dann existerit $f\in1+\mathfrak a=\{1+x\mid x\in \mathfrak a\}$, sodass $fM=0$
+	Dann existiert $f\in1+\mathfrak a=\{1+x\mid x\in \mathfrak a\}$, sodass $fM=0$
 \end{lem}
 \begin{proof}
 	Wende \ref{423CayHam} auf $u=\id_M:$
@@ -1405,7 +1472,8 @@ Es folgt $\forall \mathfrak M\subset A_x$ maximal, sodass $\varphi^{-1}(\mathfra
 	\[f=1+a_1+a_2+...+a_r\in 1+\mathfrak a\]
 	sodass $fM=0$
 \end{proof}
-\begin{bem}
+
+\begin{bem*}
 	%Bild: \Spec(A/\mathfrak a)\subset D(f)\subset Spec(A)\subset M
 	(Einschränkung von $A$ auf $\Spec(A/\mathfrak a)$)
 	\[...=A/\mathfrak a\otimes_AM=M/\mathfrak aM=0\]
@@ -1421,19 +1489,31 @@ Es folgt $\forall \mathfrak M\subset A_x$ maximal, sodass $\varphi^{-1}(\mathfra
 	Zu $(\star\star)$: Sei $M$ endlich erzeugt.\\
 	Dann $S^{-1}_fM=0$ genau dann wenn $\exists g\in S_f:gM=0$.\\
 	$\Leftrightarrow \exists n\in \N: f^nM=0\Leftrightarrow fM=0$
-\end{bem}
-\begin{lem}[Lemma von Nakagana (2.Version)]
-	\label{425Nakagana2}
+\end{bem*}
+
+\begin{lem}[Lemma von Nakayama (2.Version)]
+	\label{425Nakayama2}
 	Sei $M$ ein endlich erzeugter $A$-Modul, $\mathfrak a\subseteq\Jac(A)$ ein Ideal mit $M=\mathfrak aM$. Dann $M=0$.
 \end{lem}
 \begin{proof}
-	Sei $\mathfrak a\subseteq \Jac(A)\overset{\ref{(118)}}\Rightarrow1\mathfrak a\subseteq A^\times\overset{\ref{424Nakayana1}}\Rightarrow$
-		...%TODO... 
+	Sei $\mathfrak a\subseteq \Jac(A)$ Dann ist mit \ref{118prop} $1\mathfrak a\subseteq A^\times$ und mit \ref{424Nakayama1} folgt die Behauptung.
 \end{proof}
-... %TODO
-\begin{exm}
+
+\begin{lem}[Lemma von Nakayama (Wichtige Version)]
+	\label{427Nakayamaw}
+	Sei $M$ ein endlich erzeugter $A$-Modul, $N$ ein $A$-Modul, $U:N\rightarrow  M$ ein $A$-lineare Abbildung, sei $\mathfrak a\subseteq A$ ein Ideal mit $\mathfrak a\subseteq \Jac(A)$ (z.B. $A$lokal, $\mathfrak a$ maximales Ideal),
+	und sei $\id_{A/\mathfrak a}:A/\mathfrak a\otimes_A M$ sujektiv.\\
+	Dann ist $u$ surjektiv.
+\end{lem}
+\begin{proof}
+	Betrachte $C:=\CoKer(u):=M/\Img(u)$. Da $M$ endlich erzeugt ist ist auch $C$ endlich erzeugt.\\
+	%TODO Beweis verstehen
+\end{proof}
+
+\begin{exm*}
 	Sei $A=\Z$, $M=\Z$. Dann ist die $\Z$-lineare Abbildung $M\xrightarrow{\cdot 2}\Z$ injektiv aber nicht bijektiv.
-\end{exm}
+\end{exm*}
+
 \begin{satz}
 	\label{427}Sei $M$ ein endlich erzeugter A-Modul und sein $U:M\rightarrow M$ eine surjektive A-lineare Abbildung.\\
 	Dann ist $u$ ein Isomorphismus.
@@ -1441,19 +1521,34 @@ Es folgt $\forall \mathfrak M\subset A_x$ maximal, sodass $\varphi^{-1}(\mathfra
 \begin{proof}
 	Fass $(M,u)$ als $A[X]$ Modul auf durch $X\cdot m:=u(m)$ für $m\in M$.\\
 	Dann ist $u$ genau dann surjektiv, wenn $X\cdot M=M$ ist.\\
-	Es folgt durch $\ref{424Nakayana1}$ mit $\mathfrak a=(X)$, dass es ein $g\in A[X]$ gibt, sodass $(a+gX)(M)=0$.\\
+	Es folgt durch $\ref{424Nakayama1}$ mit $\mathfrak a=(X)$, dass es ein $g\in A[X]$ gibt, sodass $(a+gX)(M)=0$.\\
 	Sei $m\in\Ker(u)$, dann
 	\[u=(1+gX)(m)=m+\underbrace{g(u)(m)u(m)}_{=0}=m\]
 	Also ist $u$ injektiv.
 \end{proof}
+
+
+
+
 \section{Noethersche und Artinsche Ringe}
 \subsection{Noethersche und Artinsche Moduln}
 \begin{lem}\label{501lem}
-	...%TODO
+	Sei $(\Sigma,\leq)$ eine partiell geordnete Menge. Dann sind äquivalent:
+	\begin{enumerate}
+		\item Jede Aufsteigende Kette $x_1\leq x_1\leq...$ von Elementen $x_i\in\Sigma$ wird stationär.
+	\item Jede nicht leere Teilmenge von $\Sigma$ besetzt ein maximales Element.
+	\end{enumerate}
 \end{lem}
 \begin{proof}
-	... %TODO
+	\begin{description}
+		\item[nicht (2)$\Rightarrow$ nicht(1):] Sei $T\subseteq\Sigma$ nicht leer und beseitze kein maximales Element.\\
+		Dann gibt es $x_1\in T$ und $x_1$ ist nicht maximal.\\
+		Also gibt es $x_2\in T$, sodass $x_1< x_2$. Dann ergibt sich induktiv die nicht stationäre Kette $x_1<x_2<...$.
+		\item[(2)$\Rightarrow$ (1):] Sei $T:=\{x_i\mid i\in\N_0\}\subseteq \Sigma$. Dann besitzt $T$ ein maximales Element $x_n$ für ein $n\in\N$.\\
+		Dann ist $x_n=x_{n+1}=...$, also jede Kette die in einer Teilmenge $T$ enthalten ist stationär.
+	\end{description}
 \end{proof}
+
 \begin{definition}
 	Ein $A$-Modul heißt \textbf{noethersch}, falls die folgenden äquivalenten Bedingungen erfüllt sind:
 	\begin{enumerate}
@@ -1471,11 +1566,8 @@ Es folgt $\forall \mathfrak M\subset A_x$ maximal, sodass $\varphi^{-1}(\mathfra
 	\end{enumerate}
 \end{definition}
 
-%Zerlegung in zwei Definitionen,
-%Synchronisation mit VL Nummerierung
+%COUNTER
 \addtocounter{thm}{-1}
-
-
 \begin{definition}
 	Der Ring $A$ heißt \textbf{noethersch}, wenn er als $A$-Modul noethersch ist.
 	Äquivalent dazu sind:
@@ -1693,6 +1785,7 @@ Es folgt $\forall \mathfrak M\subset A_x$ maximal, sodass $\varphi^{-1}(\mathfra
 		Wenn $s=l(M)$, dann ist $(M_i)$ JH-Reihe. Wenn $s<l(M)$, dann ist $(M_i)$ keine JH-Reihe und die Kompositions-Reihe kann ergänzt werden.
 	\end{enumerate}
 \end{proof}
+
 \begin{satz} %5.16
 	Sei $0\rightarrow M'\xrightarrow{u} M\xrightarrow{v} M''\rightarrow 0$ eine exakte Sequenz von $R$-Moduln. (Dabei ist $R$ nicht notwendiger weise kommutativ) Dann ist $l(M)=l(M')+l(M'')$.\\
 	(Insbesondere ist $l(M)<\infty$ genau dann wenn $l(M'),l(M'')<\infty$)\\
@@ -1709,6 +1802,7 @@ Es folgt $\forall \mathfrak M\subset A_x$ maximal, sodass $\varphi^{-1}(\mathfra
 	 eine Kompositions-Reihe mit einfachen Subquotienten, also eine JH-Reihe.\\
 	 Diese hat Länge $r+s=l(M')+l(M'')$.
 \end{proof}
+
 \begin{satz}\label{517Satz}
 	Sei $M$ ein $A$-Modul ($A$ ist kommutativer Ring). Dann ist äquivalent:\begin{enumerate}
 		\item $l(M)<\infty$ \label{517i}
@@ -1724,8 +1818,10 @@ Es folgt $\forall \mathfrak M\subset A_x$ maximal, sodass $\varphi^{-1}(\mathfra
 	Induktiv gilt $M=M_0\subsetneqq M_1\subsetneqq M_2\subsetneqq ...$, woebi $M_{i-1}/M$ ist einfach.\\
 	Da $M$ artinsch ist folgt, dass es ein $r\in\N_0$ gibt, sodass $M_r=0$.
 \end{proof}
+
 \begin{exm}
-	Sei $K$ Körper, $V$ ein $K$-Vektorraum. Dann sind äquivalent:\begin{enumerate}
+	Sei $K$ Körper, $V$ ein $K$-Vektorraum. Dann sind äquivalent:
+	\begin{enumerate}
 		\item $\dim_K(V)y\infty$
 		\item $l_k(V)y\infty$
 		\item $V$ ist noethersch
@@ -1792,7 +1888,7 @@ Wenn $A$noethersch, so ist auch $A/\mathfrak a$ noethersch für alle $\mathfrak 
 
 
 
-\subsection{Artin-Ringe}
+\subsection{Artin-Ringe}\label{5DArtin}
 \begin{lem}\label{523lem}
 	In einem Artinring $A$ ist jedes Primideal ein maximales Ideal.
 \end{lem}
@@ -1810,7 +1906,7 @@ Wenn $A$noethersch, so ist auch $A/\mathfrak a$ noethersch für alle $\mathfrak 
 	Sei $\Sigma:=\{m_1\cap...\cap m_r\mid r\ge 0mm_i\subset A\text{ maximale Ideale}\}$. Dann folgt aus $A\in\Sigma$, dass $\sigma\neq \emptyset$.\\
 	Da $A$ artinsch folgt, dass $\Sigma$ ein minimales Element beseitzt (etwa $m_1\cap...\cap m_n$).\\
 	Sei $m\subset A$ ein maximales Ideal. Dann ist $m\cap m_1\cap...\cap m_n=m_1\cap...\cap m_n$.\\
-	Dann ist $m\supset m_1\cap...\cap m_n=m_1\cdot ...\cdot m_n$. Dann gibt es mit \ref{111} ein $i$, sodass $m\supseteq m_i$. Da $m_i$ minimal folgt, dass es sogar ein $i$ gibt mit $m=m_i$.\\
+	Dann ist $m\supset m_1\cap...\cap m_n=m_1\cdot ...\cdot m_n$. Dann gibt es mit \ref{111prop} ein $i$, sodass $m\supseteq m_i$. Da $m_i$ minimal folgt, dass es sogar ein $i$ gibt mit $m=m_i$.\\
 	Also gilt $\{m\subset A\text{maximales Ideal}\}=\{m_1,...,m_n\}$.\\
 	Dann folgt, mit \ref{523lem} die Behauptung.
 \end{proof}
@@ -2314,15 +2410,166 @@ Sei $K$ Körper, $f\in K[X]$, $f\neq 0$.
 	Eine \textbf{Teilerweiterung} ist ein Unterkörper $M$ von $L$, sodass $\iota(K)\subset M$.
 \end{definition}
 
-%TODO
-\todomark{die VL vom 12.12.2016}
+\begin{exm}
+	\begin{enumerate}
+		\item $\R$ ist Körpererweitung von $\Q$ und $\C$ von $\R$.
+		\item $\Q[\sqrt{2}]=\{a+b\sqrt{2}\mid a,b\in\Q\}$
+		\item Sei $K$ ein Körper, dann ist $K\hookleftarrow \Quot(K[X])$ Körpererweiterung.
+	\end{enumerate}
+\end{exm}
 
+\begin{definition}
+	Sei $K\hookleftarrow L$ Körpererweiterung. Sei $(M_i)_{i\in I}$ eine Familie von Teilerweiterungen $M_i\subset L$ und $S\subset L$ Teilmenge. Dann ist 
+	\[K(S):=\bigcap_{\substack{M\subset L}\\\text{Teilerweiterung}\\S\subset M}M\]
+	die kleinste Teilerweiterung die $S$ enthält. Genannt die \textbf{von $S$ erzeugt Teilerweiterung}.
+	\[K(S)=\left\{\frac{f(s_1,...,s_n)}{g(t_1,...,t_m)}\vline\begin{array}{l}
+	f\in K[X_1,...,X_n]\\
+	g\in K[X_1,...,X_m]
+	\end{array}\text{$s_i,t_j\in S$, $g(t_1,...,t_m)\neq 0$, $m,n\in \N_0$}\right\}\]
+\end{definition}
+\begin{bem*}
+	Ist $S=\{s_1,...,s_n\}$, schreibe $K(s_1,...,s_n):=K(\{s_1,...,s_n\})$
+\end{bem*}
+\begin{definition}
+	Eine Körpererweiterung $K\hookrightarrow L$ heißt \textbf{endlich erzeugt}(als Körpererweitung), falls eine endliche Teilmenge $S\subset L$ existiert mit $K(S)=L$.
+\end{definition}
+
+%COUNTER
+\addtocounter{thm}{-1}
+\begin{exm}
+	$\R(i)=\C=R[i]$
+\end{exm}
+
+
+
+
+\subsection{Primkörper}
+\begin{definition}
+	Ein Körper $K$ heißt Primkörper, falls $K=\Q$ oder $K=\F_p$ ($p$ Primzahl)
+\end{definition}
+
+\begin{definition}
+	Sei $A$ ein Ring, $K$ ein Körper und $K\subseteq A$. Sei $\varphi:\Z\to A$ der eindeutige Ringhomomorphismus.\\
+	Dann ist $\cha(A)$, die \textbf{Charakteristik} von $A$ definiert als
+	\begin{enumerate}
+		\item Wenn $\Ker(\varphi)=\{0\}$, dann ist $\cha(A)=0$
+		\item Wenn $\Ker(\varphi)=p\Z$, für eine Primzahl $p$, dann ist $\cha(A)=p$.
+	\end{enumerate}
+\end{definition}
+\begin{bem*}
+	Dann ist $\varphi(\Z)$ der kleinste Unterring von $A$. Insbesondere ist $\varphi(\Z)\subset A$, also ist $\varphi(\Z)$ nullteilerfrei. Da $\varphi(K)=\Z/\Ker(\varphi)$ ist $\Ker(\varphi)$ ein Primideal, also ist entweder $\Ker(\varphi)=\{0\}$ oder $\Ker(\varphi)=p\Z$ mit $p$ Primzahl.
+\end{bem*}
+\begin{bem*}
+	Wenn $(\F_p\to)A\to B\neq 0$ ein Ring-Homomorphismus ist, dann gilt $\cha(A)=\cha(B)$.
+\end{bem*}
+
+\begin{definition}
+	Sei $p$ eine Primzahl, $A$ ein Ring der Charakteristik $p$.\\
+	Dann wird der Ring-Homomorphismus $F:A\to A,x\mapsto x^p$ der \textbf{Frobenius-Homomorphismus} von $A$ genannt.
+\end{definition}
+\begin{bem*}
+	Es gilt $p\cdot 1=0\in A$. Insbesondere gilt für $x,y\in A$, dass $(x+y)^p=x^p+y^p$, denn
+	\[(x+y)^p=\sum_{k=0}^{p}\left(p\choose k\right)x^{n-k}y^{k}\]
+	und $\left(p\choose k\right)=\frac{p(p-1)...(p-k+1)}{k!}$ ist durch $p$ teilbar, falls $1\leq k\leq p-1$.\\
+	Daraus folgt, dass die Abbildung ein Homomorphismus ist.
+\end{bem*}
+	
+\begin{definition}
+	Ein Ring $A$ heißt \textbf{perfekt}, falls $A$ einen Körper enthält und falls $\cal(A)=0$ oder $\cha(A)=p$ und $FA\to A,x\mapsto x^p$ bijektiv ist.
+\end{definition}
+
+\begin{exm}
+	\begin{enumerate}
+		\item Sei $K=\F_p$ ein endlicher Körper. Dann ist $\cha(K)=p$ und $p$ ein Primzahl.
+		\item Sei $K$ ein Körper der Charakteristik $p$. Dann ist $K(X)=\Quot(K[X])$ nicht perfekt, denn $X\in K[X]$ ist irreduzibel, also keine $p$-te Potenz.
+	\end{enumerate}
+\end{exm}
+
+
+
+
+\subsection{Endliche Algebren über Körper}
+
+\begin{rem}
+	Eine $K$-Algebra $B$ heiß \textbf{endlich}, falls $\dim_K(B)<\infty$.
+\end{rem}
+
+%COUNTER
+\addtocounter{thm}{-1}
+\begin{lem}\label{810lem}
+	Sei $R$ ein Ring, $A$ ein freier $R$-Modul, $R\to A$ eine $R$-Algebra, $M$ ein $R$-Modul.\\
+	Dann ist $M$ ein freier $R$-Modul und $\rk_M(R)=\rk_R(A)\rk_A(M)$.
+\end{lem}
+\begin{proof}
+	Es gilt $M\isomorph A^{(I)}\isomorph (R^{(I)})^{(J)}=R^{(I\times J)}$
+\end{proof}
+
+\begin{definition}
+	Sei $A$ eine $K$-Algebra. Dann heißt $[A:K]:=\dim_K(A)$ der \textbf{Grad der Körpererweiterung}.
+\end{definition}
+\begin{bem*}
+	Für den Grad der Körpererweiterung gilt:
+	\begin{enumerate}
+		\item Sei $\varphi:K\to A$ eine $K$-Algebra. Dann ist $[A:K]=1$ genau dann wenn $\varphi$ ein Isomorphismus ist.
+		\item Sei $K\hookrightarrow L$ ein Körper-Erweiterung. Dann $[L\otimes_K A:L]=[A:K]$. (\ref{309})
+		\item Sei $M\hookrightarrow K$ eine Körpererweiterung. Dannn ist $[A:M]=[A:K][K:M]$. (\ref{810lem}) 
+	\end{enumerate}
+\end{bem*}
+
+\begin{bem}
+	\begin{enumerate}
+		\item Jeder nullteilerfreie Ring ist reduziert.
+		\item Jeder Unterring eine reduzierten Rings ist Reduziert
+		\item  Seien $A_1,A_2$ Ringe. Dann ist $A_1\times A_2$ genau dann reduziert, wenn $A_1$ und $A_2$ reduziert sind.
+	\end{enumerate}
+\end{bem}
+
+\begin{satz}[Struktur endlicher $K$-Algebren]\label{813struktur}
+	Sei $A$ eine endliche $K$-Algebra. Da jedes Ideal in $A$ ein $K$-Untervektorraum in $A$ ist und jede absteigende Kette von Idealen stationär ist, ist $A$ artinsch.\\
+	Vorausgriff auf Kapitel \ref{5DArtin}: $A$ besitzt endlic viele Primideal $\mathfrak m_1,...,\mathfrak m_r$. Jdes dieser Primideale ist maximal und es existieren $x_1,...,r_x\in\N$, mit
+	\[A=\prod_{i=1}^r(A/\mathfrak m_i) l_i\]
+	Dabei ist $(A/\mathfrak m_i)l_i$ ein lokaler Artin-Ring mit Resklassenkörper $A/\mathfrak m_i$. Ferner gilt
+	\begin{enumerate}
+		\item $A$ ist genau dann reduziert, wenn $\mathfrak m_1\cap...\cap\mathfrak m_r=\{0\}$ bzw. $l_1=...=l_r$.
+		\item $A$ ist genau dann nullteilerfrei, wenn $r=1$ und $l_1=1$. Äquivalent dazu ist, dass $A$ Körper ist.
+	\end{enumerate}
+\end{satz}
+
+\begin{exm}
+	\begin{enumerate}
+		\item Sei $K$ Körper, $f\in K[X]$ mit $\deg(f)\geq 1$, sei $A=K[X]$. Dann ist $[A:K]=\deg(f)$.
+		\item Sei $f=f_1^{l_1}...f_r^{l_r}$, wobei $f_i\in K[X]$ irreduzible, paarweise Teilerfremde Polynome sind und $l_i\in\N$.\\
+		Dann sind $\mathfrak m_i:=$(Bild von $f_i$ in $A$) alle maximalen Ideale von $A$ und es gilt
+		\begin{enumerate}
+			\item $A$ ist reduziert $\Leftrightarrow$ $l_1,...,l_r=1$
+			\item $A$ nullteilerfrei $\Leftrightarrow$ $A$ ist Körper
+		\end{enumerate}
+	\end{enumerate}
+\end{exm}
+
+
+
+
+\subsection{Algebraische und transzendente Elemente}
+\begin{definition}
+	Sei $\varphi:K\to A$ eine $K$-Algebra. Dann heißt $a\in A$ \textbf{algebraisch über $K$}, falls $a$ ganz über $K$ ist (d.h. es gibt $f\in K[X]$, $f\neq 0$ mit $f(a)=0$)
+\end{definition}
+
+%COUNTER
+\addtocounter{thm}{-1}
+\begin{definition}
+	$a\in A$ heißt \textbf{transzendent} über $K$ wenn es nicht algebraisch ist.
+\end{definition}
+
+\begin{exm}
+	\begin{enumerate}
+		\item Sei $n\in\N$, $q\in\Q$. Dann ist jede $n$-te Wurzel $\sqrt[n]{a}\in\C$ algebraisch über $\Q$ (da Nullstelle des Polynoms $X^n-a\in\Q[X]$)
+		\item $\sqrt[3]{2}+\sqrt{7}$ ist algebraisch über $\Q$
+		\item $\pi,e\in\R$ sind transzendent über $\Q$.
+	\end{enumerate}
+\end{exm}
 
 %VL 14.12.2016
-\setcounter{subsection}{4}
-\setcounter{thm}{16}
-
-
 \begin{definition}
 	Sei $A$ eine $K$-Algebra, $a\in A$ algebraisch. Betrachte den $K$-Algebra Homomorphismus $\varphi:K[X]\rightarrow A$, $f\mapsto f(a)$.
 	Dann ist $\mu_{a,K}\in K[X]$ das \textbf{Minimalpolynom von $a$ über $K$}, wenn $\Ker(\varphi)=(\mu_{a,K})$.
@@ -2466,7 +2713,7 @@ $f=\mu_{a,K}$ genau dann wenn $f$ normiert, $f(a)=0$ und $f$ irreduzibel ist.
 	\end{enumerate}
 \end{bem}
 
-\begin{satz}
+\begin{satz}\label{829satz}
 	Sei $K\hookrightarrow L$ und $K\hookrightarrow L'$ Körpererweiterungen. Sei $a\in L$ algebraisch über $K$.
 	\begin{enumerate}
 		\item Sei $\varphi:K[a]\to L'$ ein $K-$Algebra-Homomorphismus.\\
@@ -2501,7 +2748,7 @@ $f=\mu_{a,K}$ genau dann wenn $f$ normiert, $f(a)=0$ und $f$ irreduzibel ist.
 	$\varphi$ ist eindeutig, da die K-Algebra $K[a]$ durch $a$ erzeugt wird.
 \end{proof}
 
-\begin{satz}\label{830Satz}
+\begin{satz}\label{830satz}
 	Sei $K\hookrightarrow L$ eine algebraische Erweiterung und sie $L'$ eine algebraische abgeschlossene Erweiterung von $K$.\begin{enumerate}
 		\item Dass existiert ein $K-$Algebra-Homomorphismus $\varphi:L\hookrightarrow L'$.
 		\item Falls $L$ und $L'$ algebraisch Abschlüssen von $K$ sind, ist $\varphi$ ein Homomorphismus.
@@ -2723,7 +2970,7 @@ $f=\mu_{a,K}$ genau dann wenn $f$ normiert, $f(a)=0$ und $f$ irreduzibel ist.
 \begin{bem}
 	Sei $A$ eine endliche $K$-Algebra.
 	Dann folgt mit \ref{813}, dass $A=\prod_{i=1}^{r}A/m_i e_i$, mit $m_1,...,m_r\subset A$ maxmimale Ideale.\\
-	Sei $B$ eine nullteilerfreie $K$-Algebra, sie $\varphi:A\to B$ein $K$-Algebra-Homomorphimsmus.\\
+	Sei $B$ eine nullteilerfreie $K$-Algebra, sie $\varphi:A\to B$ein $K$-Algebra-Homomorphismus.\\
 	Dann ist $\varphi(A)\subseteq B$ nullteilerfrei, oder $\Ker(\varphi)=m_i$ für ein $I\in\{1,...,r\}$.\\
 	Also faktorisiert $\varphi$ in $A\to A/m_i\hookrightarrow B$- Insebsondere:
 	\[\Hom_{K-\text{Algebra}}(A,B)=\dot{\bigcup}_{i=1}^r\Hom_{k-\text{Algebra}}(A/m_i,B)\label{911.1}\]
@@ -2953,7 +3200,7 @@ $f=\mu_{a,K}$ genau dann wenn $f$ normiert, $f(a)=0$ und $f$ irreduzibel ist.
 		\varphi:K[a_1])\otimes_K...\otimes_K K[a_n]&\to K[a_1,...,a_n]\\
 		x_1\otimes...\otimes y_n&\mapsto x_1\cdot...\cdot x_n
 		\end{align*}
-		Dann ist $\varphi$ surjektiver $K$-Algebra-Homomorphimsmus.\\
+		Dann ist $\varphi$ surjektiver $K$-Algebra-Homomorphismus.\\
 		Es folgt, dass $A\otimes_K\Omega$ Quotient der $\Omega$-Algebra $\Omega^{d_1\cdot...\cdot d_n}$ und damit $A\otimes_K\Omega\isomorph \Omega^m$, $m\leq d_1\cdot...\cdot d_n$
 	\end{description}
 \end{proof}
@@ -3100,11 +3347,11 @@ $f=\mu_{a,K}$ genau dann wenn $f$ normiert, $f(a)=0$ und $f$ irreduzibel ist.
 	 der \textbf{Fixkörper} von $H$.
 \end{definition}
 
-%VL 16.01.2016
+%VL 16.01.2017
 %TODO
 \todomark{die VL vom 16.01.2016}
 \setcounter{thm}{7}
-%VL 18.01.2016
+%VL 18.01.2017
 \begin{satz}
 	Sei $K\hookrightarrow L$ eine endliche Galoiserweiterung und $M\subseteq L$ ein Zwischenkörper.\\
 	Dann ist $K\hookrightarrow L$ normal $\Leftrightarrow$ $\Gal(L/M)\subseteq \Gal(L/K)$ ist Normalteiler.\\
@@ -3213,7 +3460,7 @@ $f=\mu_{a,K}$ genau dann wenn $f$ normiert, $f(a)=0$ und $f$ irreduzibel ist.
 	Sei $f=X^{p^m}-X$, dann ist $f'=-1$, also ist $f$ separabel.\\
 	Es folgt $\#\{a\in\ol{\F_p}\mid a^{p^m}=a\}=p^m$.\\
 	Sei $K$ ein beliebiger Körper mit $p^m$ Elementen.\\
-	Wähle einen $\F_p$-Algebra-Homomorphimsmus $K\hookrightarrow\ol{\F_p}$ (betrachte $K$ als Unterkörper von $\ol{\F_p}$)\\
+	Wähle einen $\F_p$-Algebra-Homomorphismus $K\hookrightarrow\ol{\F_p}$ (betrachte $K$ als Unterkörper von $\ol{\F_p}$)\\
 	Also $K^\times=\{a\in\ol{F_p}\mid a^{p^m-1}=1\}$. Es folgt $K=\{a\in\ol{\F_p}\mid a^{p^m}=a\}$
 \end{proof}
 
@@ -3322,7 +3569,7 @@ $f=\mu_{a,K}$ genau dann wenn $f$ normiert, $f(a)=0$ und $f$ irreduzibel ist.
 
 \begin{satz}\label{1110satz}
 	Die Körpererweiterung $K\hookrightarrow K[\zeta]$ ist endlich und galoisch. Die Abbildung
-	$$\al:\Gal(K[\zeta]/K)\to(\Z/n\Z)^\times$$,$\sigma\mapsto a_\sigma$, wobei $\sigma(\zeta)=\zeta^{a_0}$ ist wohldefinierter injektiver Gruppen-Homomorphimsmus.\\
+	$$\al:\Gal(K[\zeta]/K)\to(\Z/n\Z)^\times$$,$\sigma\mapsto a_\sigma$, wobei $\sigma(\zeta)=\zeta^{a_0}$ ist wohldefinierter injektiver Gruppen-Homomorphismus.\\
 	Insbesondere $[K[\zeta]:K]:\#\Gal(K[\zeta]/K)$ teilt $\varphi(n)$.
 \end{satz}
 \begin{proof}
@@ -3331,7 +3578,7 @@ $f=\mu_{a,K}$ genau dann wenn $f$ normiert, $f(a)=0$ und $f$ irreduzibel ist.
 		$K[\zeta]$ ist Zerfällunskörper von $X^n-1$, also ist $K\hookrightarrow K[\zeta]$ normal.
 		\item Z.z $\al$ ist wohldefiniert (insbesondere $a_0\in(\Z/n\Z)^\times$):\\
 		Da Gruppen-Automorphismen die Ordnung erhalten ist $\sigma(\zeta)$ primitv. Also $\sigma(\zeta=\zeta^{a_0})$ Einheint von $\Z/n\Z$.
-		\item Z.z. $\al$ ist Gruppen-Homomorphimsmus:\\
+		\item Z.z. $\al$ ist Gruppen-Homomorphismus:\\
 		Seien $\sigma,\tau\in\Gal(K[\zeta]/K)$. Dann ist
 		\[\tau(\sigma(\zeta))=\tau(\zeta^{a_0})=\zeta^{a_\tau a_\sigma}\]
 		Es folgt, dass
@@ -3388,7 +3635,7 @@ $f=\mu_{a,K}$ genau dann wenn $f$ normiert, $f(a)=0$ und $f$ irreduzibel ist.
 		\item Schnittpunkte von einer Geraden $y$ durch zwei Punkte in $S$ und einem Kreis mit Mittelpunkt in $S$ und einem Radius der der Entfernung von zwei punkten in $S$ entspricht
 		\item Schnittpunkt von Kreisen wie in (2).
 	\end{enumerate}
-%VL 25.01.2016
+%VL 25.01.2018
 	\[K(M):=\{z\in\C\mid \text{$z$ kann aus $M$ mit Zirkel und Lineal konstruiert werden}\}\]
 \end{definition}
 
@@ -3471,6 +3718,7 @@ $f=\mu_{a,K}$ genau dann wenn $f$ normiert, $f(a)=0$ und $f$ irreduzibel ist.
 \begin{definition}
 	Sei $f\in K[X]$ normiert und separabel. Dann heißt $f$ \textbf{durch Radikale auflösbar}, falls der Zerfällungskörper $L$ von $f$ eine auflösbare Erweiterung von $K$ ist.
 \end{definition}
+
 %COUNTER
 \addtocounter{thm}{-1}
 \begin{kor}\label{1122kor}
@@ -3508,5 +3756,444 @@ $f=\mu_{a,K}$ genau dann wenn $f$ normiert, $f(a)=0$ und $f$ irreduzibel ist.
 
 
 \subsection{Hilbertscher Nullstellensatz}
+
+%VL 30.01.2017
+\begin{theorem}[Hilbertscher Nullstellensatz]\label{1201ThmHlbNst}
+	Sei $A$ ein nullteilerfreier Ring, $K=\Quot(A)$, $K\hookrightarrow L$ eine Körpererweiterung, so dass $L$ als $A$-Algebra endlich erzeugt ist. Dann gilt
+	\begin{enumerate}
+		\item $K\hookrightarrow L$ ist endlich.
+		\item $\exists a\in A,a\neq0:K=A[a^{-1}]:=S^{-1}A$ mit $S=\{1,a,a^2,...\}$.
+	\end{enumerate}
+\end{theorem}
+\begin{proof}
+	Sei $M\subseteq L$ endlich, sodass $A=A[M]$.\\
+	Induktion nach $\#M$:
+	\begin{description}
+		\item[$\#M=0$], dann ist $A=K=L$.
+		\item[$\#M\geq 1$]:
+		\begin{description}
+			\item[1. Fall:] Alle Elemente aus $M$ sind algebraisch über $K$.\\
+			Dann folgt mit \ref{604Satz} sofort (1).\\
+			Wähle nun eine $K$-Basis $(e_1,...,e_n)$ von $L$. Dann kann man als Linearkombination schreiben:
+			\begin{enumerate}
+				\item $1\in L$
+				\item Elemente von $M$
+				\item $e_ie_j$ für $1\leq i,j\leq n$.
+			\end{enumerate}
+			Sei nun $a\in A,a\neq 0$, sodass für jeden Koeffizienten $c\in K$ einer dieser Linearkombinationen gilt $a\cdot c\in A$ und sei $B:=\{\sum_{i=1}^{n}a_ie_i\mid a_i\in A[a^{-1}]\}\subseteq L$.\\
+			Dann ist $B$ ein Unterring der $A$ und $M$ enthält.\\
+			Also gilt $B=L$ und insbesondere folgt aus $K\cdot e_1\subseteq B$, dass $K=A[a^{-1}]$.
+			\item[2. Fall:] Es gilt $m\in M$, sodass $m$ transzendent über $K$ ist. \\
+			Dann ist $L$ als $A[m]$-Algebra von $M\setminus\{m\}$ erzeugt.\\
+			Die Induktionsvoraussetzung gibt die Existenz von $P\in A[X],P\neq 0$, sodass $A[m][P(m)^{-1}]=\Quot(A[m])$.\\
+			Sei $\ol K$ ein algebraischer Abschluss von $K$. Da $\ol K$ unendlich ist gibt es $x\in\ol K$ mit $P(x)\neq 0$.\\
+			Also existiert ein $A$-Algebra-Homomorphismus 
+			\begin{align*}
+			E:=A[m][P(m)^{-1}]&\to \ol K\\ m&\mapsto x
+			\end{align*}
+			Da $\ol K$ abgeschlossen über $K$ ist folgt, dass $E$ algebraisch über $K$ ist. Widerspruch zu $m$ transzendent!
+		\end{description}
+	\end{description}
+\end{proof}
+
+\begin{kor}\label{1202kor}
+	Sei $K$ ein Körper, $A$ eine endlich erzeugte $K$-Algebra und $\mathfrak m\subset A$ ein maximales Ideal.\\
+	Dann ist $K\to A/\mathfrak m$ eine endlich erzeugte Körpererweiterung.
+\end{kor}
+\begin{proof}
+	Sei $A$ endlich erzeugt, dann ist $C:=A/\mathfrak  m$ endlich erzeugte $K$-Algebra, sodass mit \ref{1201ThmHlbNst} $K\hookrightarrow K$ endlich ist.
+\end{proof}
+
+\begin{kor}\label{1203kor}
+	Sei $K$ ein algebraisch abgeschlossener Körper und für $x=(x_1,...,x_n)\in K^n$ sei $\mathfrak m_x:=(T_1-x_1,...,T_n-x_n)\subseteq K[T_1,...,T_n]$.\\
+	Dann ist $\mathfrak m_x$ maximales Ideal von $K[T_1,...,T_n]$ und jedes maximale Ideal von $K[T_1,...,T_n]$ ist von dieser Form.
+\end{kor}
+\begin{proof}
+	Sei $\varphi:K[T_1,...,T_n]\to K, T_o\mapsto x_i$.\\
+	Dann folgt aus $\Ker(\varphi)=\mathfrak m_x$ (da $\varphi$ surjektiv), dass $\mathfrak m_x$ maximales Ideal ist.\\
+	Sei nun $\mathfrak m\subset K[T_1,...,T_n]$ maximales Ideal. Dann ist mit \ref{1202kor} $K[T_1,...,T_n]/\mathfrak m\isomorph K$, da $K$ algebraisch abgeschlossen.\\
+	Sei nun $x_i$ Das Bild von $T_i$, für $i=1,...,m$. Dann ist $\mathfrak m_{(x_1,...,x_m)}\subseteq\mathfrak m$ und da schon $\mathfrak m_x$ maximales Ideal ist $\mathfrak m_x=\mathfrak m$.
+\end{proof}
+
+
+\begin{kor}\label{1204kor}
+	Sei $K$ ein Körper, $A$ endlich erzeugte $K$-Algebra und $\mathfrak a\subseteq A$ Ideal.\\
+	Dann ist
+	\[\rad(\mathfrak a)=\bigcap_{\substack{\mathfrak m\subset A\text{Max Ideal}\\\mathfrak a\subseteq \mathfrak m}}\mathfrak m\]
+\end{kor}
+\begin{proof}
+	Aus \ref{1115} folgt, dass
+	\[\rad(\mathfrak a)=\bigcap_{\substack{\mathfrak g\subset A\\\text{$\mathfrak p$ Primideal}}}\]
+	Also ist OE $\mathfrak a=\mathfrak p$ Primideal und $\mathfrak p=\rad(\mathfrak p)$.\\
+	Ersetze nun $A$ durch $A/\mathfrak p$.\\
+	Dann ist OE $\mathfrak p=(0)$ und $A$ nullteilerfrei.\\
+	Angenommen es gäbe $x\neq0$
+	\[x\in\bigcap_{\substack{\mathfrak m\subset A\text{Max. Ideal}\\\mathfrak a\subseteq \mathfrak m}}\mathfrak m\]
+	Dann ist $A[x^{-1}]\neq 0$ und endlich erzeugen $K$-Algebra.\\
+	Sei $M\subseteq A[x^{-1}]$ maximales Ideal. Dann folgt mit \ref{1202kor}, dass $A[x^{-1}]/M$ endlicje Körpererweiterung von $K$ ist.\\
+	Betrachte nun die Abbildungen
+	\[\varphi:A\to A[x^{-1}]\to A[x]/M=:L\]
+	Dann ist $\Img(\varphi)$ Teilkörper von $L$ und damit $\Ker(\varphi)\subset A$ maximales Ideal.\\
+	Da aber $\varphi(x)\neq 0$, also $x\notin\Ker(\varphi)$ ergibt sich ein Widerspruch!
+\end{proof}
+
+
+
+\subsection{Affine Räume}
+
+\subsubsection{Affiner Raum: (nicht naive Version)}
+	Für ein $n\in\N$ definiere
+	\[\AF^n_K:=(K[T_1,...,T_n])=\{\mathfrak p\subset K[T_1,...,T_n]\mid\text{$\mathfrak p$ Primideal}\}\]
+	als den \textbf{affinen Raum}.
+	??? %TODO
+
+
+\begin{exm*}
+	Sei $n=1$: $\AF_K^1=\{(0)\}\cup\{(f)\mid \text{$f\in K[T]$ ist normiert und irreduzibel}\}$.\\
+	Dann sind Abgeschlossenen Teilmengen: $V((\mathfrak p))$ für Polynome $\mathfrak p\in K[T]$
+	\[V((\mathfrak p))=\{(f)\mid \text{$f\in K[T]$ normiert und irreduzible mit $f$ teilt $g$}\}\]
+	Es folgt, dass $V((0))=\AF_K^1$.\\
+	Beachte: Wenn $K$ endlich ist $\#\AF_K^1=\infty$.
+\end{exm*}
+
+\subsubsection{Affiner Raum: (naive Version)}
+	Betrachte $\iota:K^n\to\AF_K^n,x=(x_1,...,x_n)\mapsto\mathfrak m_x:=(T_1-x_1,...,T_n-x_n)$.\\
+	Dann ist $\iota$ injektiv. Nun versehen wir $K^n$ mit der intuitiven Topologie:
+	$A\subseteq K^n$ ist abgeschlossen ist äquivalent dazu, dass es eine Teilmenge $M\subseteq K[T_1,...,T_n]$ gibt, sodass
+	\[A=\{x\in K^n\mid M\subseteq\mathfrak m_x\}=\{x\in K^n\mid f(x)=0\forall f\in M\}=:V_0(M)\]
+
+\begin{bem}
+	Sei $M\subseteq K[T_1,...,T_n]$. Dann existieren $f_1,...,f_r\in M$ mit $(M)=(f_1,...,f_r)$.\\
+	Insbesondere $V(M)=V(f_1,...,f_r)$.
+\end{bem}
+\begin{proof}
+	Der Hilbertsche Basissatz gibt die Existenz von $g_1,...,g_s\in(M)$ mit $(M)=(g_1,...,g_s)$.\\
+	Dann kann man $g_i$ schreiben als $g_i=\sum_{j=1}^{r}a_{ij}f_{ij}$, wobei $a_{ij}\in K[T_1,...,T_m]$ und $f_{ij\in M}$.\\
+	Es folgt, dass $(M)=(f_{ij})$.
+\end{proof}
+
+%VL 01.02.2017
+%COUNTER
+\setcounter{thm}{9}
+
+\begin{prop}\label{1210prop}
+	Sei $A$ ein Ring. Dann ist $\Spec(A)$ genau dann irreduzibel, wenn es genau ein minimales Primideal $\mathfrak p$ gibt (d.h. wenn $q\subseteq\mathfrak p$ Primideal ist, dann gilt $q=\mathfrak p$)\\
+	Insbesondere: $A$ ist genau dann nullteilerfrei, wenn $(0)$ ein Primideal ist, oder $\Spec(A)$ ist irreduzible und $A$ ist reduziert.
+\end{prop}
+\begin{proof}
+	\begin{description}
+		\item[``$\Leftarrow$''] Sei $\mathfrak p\in\Spec(A)$, das eindeutige normale Primideal.\\
+		Sei $Y\subseteq\Spec(A)$ abgeschlossen. Dann ist $Y=V(\mathfrak a)=\{\mathfrak p\in \Spec(A)\mid\mathfrak a\subseteq\mathfrak p\}$ für Ideale $\mathfrak a\subseteq A$.
+		\begin{itemize}
+			\item Sei nun $q\in Y$, $q'\in \Spec(A)$ mit $q\subseteq q'$. Dann ist $q'\in Y$.
+			\item Sei $U\subseteq\Spec(A)$ offen, $q\in U$, $q'\in\Spec(A)$ mit $q'\subseteq q$, dann ist $q'\in U$. 
+		\end{itemize}
+		Also gilt $U\neq\emptyset$ genau dann wenn, $\mathfrak p\in U$.
+		\item[``$\Leftarrow$''] Algebraische Geometrie
+	\end{description}
+\end{proof}
+
+\begin{kor}
+	Sei $n\in\N_0$. Dann ist $\AF_K^n$ irreduzibel.
+\end{kor}
+
+\begin{prop}
+	Sei $K$ ein unendlicher Körper. Dann ist $K^n\subseteq\AF_K^n$ dicht.\\
+	(dann ist auch $K^n$ irreduzibel)
+\end{prop}
+\begin{proof}
+	Sei $Y=V(\mathfrak a)\subseteq \AF_K^n$ abgeschlossen mit $K^n\subseteq V(\mathfrak a)$.\\
+	Sei $f\in\mathfrak a$, $\mathfrak m_x:=(T_1-x_1,...,T_x-x_n)$. Dann ist $f\in\mathfrak m_x$ und $f(x)=0$ für alle $x\in K^n$.\\
+	Da $K$ unendlich ist folgt, dass $f=0$. Also ist $\mathfrak a=(0)$ und $V(\mathfrak a)=\AF_K^n$.
+\end{proof}
+
+\begin{satz}\label{1213satz}
+	Sei $A$ endlich erzeugte $K$-Algebra. Dann ist $\Max(A):=\{\mathfrak m\subseteq A\text{ maximales Ideal}\}\subseteq\Spec(A)$ sehr dicht.. D.h.
+	\begin{align*}
+	\{\text{$U\subseteq\Spec(A)$ offen}\}&\to\{\text{$U'\subseteq \Max(A)$ offen}\}\\
+	U&\mapsto U\cap\Max(A)
+	\end{align*}
+	ist bijektiv.
+\end{satz}
+\begin{kor}\label{1214kor}
+	Sei $K$ algebraisch abgeschlossen. Dann ist $K^n\subseteq \AF_K^n$ sehr dicht.
+\end{kor}
+\begin{proof}[Beweis von \ref{1213satz} und \ref{1214kor}]
+\begin{itemize}
+	\item Uu zeigen:
+		\begin{align*}
+		\{\text{$Y\subseteq \Spec(A)$ agbeschlossen}\}&\to\{\text{$Y'\subseteq\Max(A)$ abgeschlossen}\}\\
+		Y&\mapsto Y\cap\Max(A)
+		\end{align*}
+		ist injektiv.\\
+		\item Also ist zu zeigen: $\ol{A\cap\Max(A)}=Y$:\\
+		Sei $Y=V(\mathfrak a)$, $\mathfrak a\subseteq A$Ideal.
+		\[Y\cap\Max(A)=\{\text{$\mathfrak a\subset A$ maximal} \mid\mathfrak a\subseteq\mathfrak m\}\]
+		Dann (H18)
+		\begin{align*}
+		\ol{Y\cap\Max(A)}
+		&=V\left(\bigcap_{\mathfrak p\in Y\cap \Max(A)}\mathfrak p\right)\\
+		&=V\left(\bigcap_{\substack{\text{$\mathfrak m\subset A$ maximal}\\ a\subseteq\mathfrak m}}\mathfrak m\right)\\
+		&\overset{=}{\ref{1204kor}} V(\rad(\mathfrak a))=V(\mathfrak a)=Y
+		\end{align*}
+\end{itemize}
+\end{proof}
+
+
+
+
+\subsection{Polynomiale Identitäten}
+
+\begin{bem}
+	Inhalt...
+\end{bem}
+%TODO
+
+%VL 06.02.2017
+%COUNTER
+\setcounter{thm}{17}
+\begin{satz}\label{1218satz}
+	Sei $K$ algebraisch abgeschlossen, $U:=\{A\in M_n(K)\mid\text{$A$ hat $n$ verschiedene Eigenwerte}\}\subseteq M_n(K)$ ist offen und nicht leer.\\
+	Insbesondere liegt $\{A\in M_n(K)\mid\text{$A$ ist diagonalisierbar}\}\subseteq M_n(K)$ dicht. 
+\end{satz}
+\begin{proof}
+	Betrachte die stetige Abbildung
+	\begin{align*}
+	\sigma:M_n(K)&\to &P_n&\to K^n/S_m\\
+	A&\mapsto\chi_A&f&\mapsto\operatorname{Nullstellen}(f)
+	\end{align*}
+	Dann ist $U=\sigma^{-1}(\{[a_1,...,a_n]\mid a_i\neq a_j\forall i\neq j\})$.\\
+	Dabei ist $\{[a_1,...,a_n]\mid a_i\neq a_j\forall i\neq j\}\subseteq K^n/S_n$ offen.\\
+	Also ist $U\subseteq M_n(K)$ offen. 
+\end{proof}
+\begin{bem*}
+	Sei $K=\C$, $U\subseteq M_n(\C)$ offen bezüglich der analytischen Topologie (also auch dicht).
+\end{bem*}
+
+\begin{satz}[Cailey-Hamilton]\label{1219caiham}
+	Sei $K$ eine Körper. Dann gilt $\chi_A(A)=0$
+\end{satz}
+\begin{proof}
+	Ersetze $K$ durch seinen algebraischen Abschluss.\\
+	Sei nun also OE $K$ algebraisch abgeschlossen.
+	\begin{align*}
+	M_n(K)&\to M_n(K)\\A\mapsto\chi_A(A)
+	\end{align*}
+	ist polynomial.\\
+	Mit \ref{1218satz} recht es zu zeigen, dass $\chi_A(A)=0$ für diagonaliserbares $A$.\\
+	Es gilt $\chi_{S^{-1}AS}=\chi_A$ und $p(S^{-1}AS)=S^{-1}p(A)S$ für alle Polynome $p\in K[X]$.\\
+	Also gilt OE, dass $A$ Diagonalmatrix ist.\\
+	Da aber $\chi_A=\prod_{i}(X-\la_i)$ für Eigenwerte $\la_i$ folgt $\chi_A(A)=0$.
+\end{proof}
+
+
+\begin{prop}\label{1220prop}
+	Seien $A,B\in M_n(K)$. Dann gilt $\chi_{AB}=\chi_{BA}$.
+\end{prop}
+\begin{proof}
+	Sei OE $K$ algebraisch abgeschlossen.\\
+	Es ist zu zeigen, dass für alle $A\i M_n(K)$:
+	\[(G_A):(B\mapsto\chi_{AB})=(B\mapsto\chi_{BA})\]
+	%TODO
+	Mit \ref{1218satz} reicht es zu zeigen, dass $(G_A)$ für diagonalisierbare $B$.\\
+	Sei nun $B$ diagonalisierbar, $S\in\operatorname{GL}_n(K)$, mit $SBS^{-1}$ ist Diagonalmatrix.\\
+	Dann gilt (...?)
+	%TODO
+\end{proof}
+
+\begin{bem}
+	Sei $K$ ein Körper $V$ ein endlich-dimensionaler Vektorraum.\\
+	Wähle eine Basis in $V$. \\
+	Dann gibt es einen Homomorphisus von $K$-Vektorräumen $K^n\isomfunc V$. Die Zariski-Topologie auf $K^n$ liefert auch eine Topologie auf $V$.
+\end{bem}
+\begin{bem*}
+	Diese Topologie ist unabhängig von der Wahl der Basis.
+\end{bem*}
+\begin{proof}
+\[\begin{tikzcd}
+		V \ar[r,"\sim"] \ar[d,"\id_V"] & K^n \ar[d,"\text{Basiswechsel}"]\\
+		V \ar[r,"\sim"] & K^n
+	\end{tikzcd}\]
+	Da der Basiswechsel eine invertierbare, lineare Abbildung $\Rightarrow$ Homomorphismus ist, folgt, dass $\id_V$ ein Homäomorphismus ist.
+\end{proof}
+
+\begin{prop}
+	Sei $K$ ein Körper, $A$ eine endliche separable $K$-Algebra. Dann ist $\{a\in A\mid K[a]=A\}\subseteq A$ offen und nicht leer.
+\end{prop}
+\begin{proof}
+	Mit \ref{926thm} folgt, dass die Menge nicht leer ist.\\
+	Sei $\Omega$ eine algebraisch abgeschlossene Erweiterung von $K$.\\
+	Dann ist $a\in A$ primitiv $\Leftrightarrow$ $\varphi(a)\neq\psi(a)$ für alle $K$-Algebra-Homomorphismen $\varphi\psi:A\to\Omega$ und $\varphi\neq\psi$. (\ref{926thm}(1))\\
+	Es reicht also zu zeigen, dass $\{a\in A\mid\varphi(a)\neq\psi(a)\}\subseteq A$ offen ist.\\
+	\\
+	Wähle nun $E\subseteq\Omega$ Unterkörper mit $[E:K]<\infty$ und $\varphi(A),\psi(A)\subseteq E$.\\
+	\[\{a\in A\varphi(a)\neq\psi(a)\}=\{a\in A\mid(\varphi-\psi))a\neq 0\}\subseteq A\]
+	ist offen. $\varphi,\psi$ sind $K$-lineare Abbildungen.
+\end{proof}
+
+
+
+
+
+\subsection{Universelle Identitäten}
+\begin{exm}
+	Es gilt mit $A=(a_{ij}),B=(b_{ij}),c_{ij}=\sum_{k=1}^{n}a_{ik}b_{kj}$, dass
+	\[\det(AB)=\sum_{\sigma\in S_n}\sgn(\sigma) c_{1,\sigma(1)}....c_{n\sigma(n)}\]
+	\[\det(A)\det(B)=\left(\sum_{\sigma\in S_n}\sgn(\sigma)a_{1,\sigma(1)}...a_{n\sigma(n)}\right)
+	\left(\sum_{\sigma\in S_n}\sgn(\sigma)b_{1,\sigma(1)}...b_{n\sigma(n)}\right)\]
+	%TODO Sinn, Erkenntnis?
+\end{exm}
+
+
+\begin{satz}\label{1223satz}
+	Sei $_N\in\N$, $f,g\in\Z[X_1,...,X_N]$. Dann sind äquivalent
+	\begin{enumerate}
+		\item $f=g$
+		\item Für jeden Ring $R$ und für alle $a_1,...,a_N\in R$ gilt: $f(a_1,...,a_N)=g(a_1,...,a_N)$.
+		\item Es gibt eine offenen, nichtleere Menge $U\subseteq\C^N$, sodass $f(z)=g(z)$ für alle $z=(z_1,...,z_N)\in U$.
+	\end{enumerate}
+\end{satz}
+\begin{proof}
+	\begin{description}
+		\item[1)$\Rightarrow$ 2)$\Rightarrow$ 3)] ist klar.
+		\item[3 $\Rightarrow$ 1)] Sei $f=g$ in $\Z[X-1,...,X_N]$, ist äquivalent zu $f=g$ in $\C[X_1,...,X_N]$ und äquivalent zu $f(z_1,...,z_N)=g(z_1,...,z_N)$ für alle $(z_1,...,z_n)\in \C^N$.\\
+		Da $f,g$ analytisch sind folgt mit dem Identitätssatz, dass $f=g$ auf einer offenen und abgeschlossenen Menge gelten muss, also auf der leeren Menge oder ganz $\C^N$.
+	\end{description}
+\end{proof}
+
+
+
+\begin{satz}
+	Sei $R$ ein Ring, $A\in M_n(R)$, $A^*=(a_{ij}^*)$ die Adjunkte, $a_{ij}^*:=(-1)^{i+j}\det(A_{ij})$ (streichen der $j$-ten Spalte und $i$-ten Zeile).\\
+	Dann gilt $AA^*=A^*A=\det(A)I_n$
+\end{satz}
+\begin{proof}
+	Der $(i-j)$-te Koeffizient von ($AA^*$ oder $A^*A$ oder $\det(A)I_n$ ist Polynom in den Koeffizienten von $A$.\\
+	Sei OE $R=\C$. Dann folgt mit \ref{1223satz}
+	(...?) %TODO
+\end{proof}
+
+
+\begin{satz}
+	Sei $A\in M_n(R)$, $R$ ein Ring.\\
+	Für $I,J\subseteq\{1,...,n\}$ sei $A_{I,J}$ die Matrix in der alle $i\in I$-ten Zeilen und $j\in J$-ten Spalten streicht.\\
+	Sei $\chi_A(X)=X^n+a_{1}X^{n-1}+...+a_n$ und schreibe $\Sigma_r:=\{J\subseteq\{1,...,n\}\mid\#J=r\}$.\\
+	Dann ist
+	\[a_r=(-1)^r\sum_{J\in\Sigma_r}\det(A_{J,J})\]
+\end{satz}
+\begin{proof}
+	Mit \ref{1223satz} und \ref{1218satz} folgt, dass OE $R=\C$ und $A$ diagonalisierbar ist.\\
+	%TODO
+\end{proof}
+
+
+%VL 08.02.2017
+
+\begin{satz}
+	Sei $R$ ein Ring, $M,N$ freie $R$-Moduln, $f\in\End_R(M)$ und $g\in\End_R(N)$.\\
+	Dann ist 
+	\[\tr(f\otimes g)=\tr(f)\tr(g)\]
+	und für $n:=\rk_R(N)$, $m:=\rk_R(M)$ gilt
+	\[\det(f\otimes g)=\det(f)^n\det(g)^m\]
+\end{satz}
+\begin{proof}
+	Wir wissen, das die Spur und Determinante von der Wahl der Basis unabhängig ist.\\
+	Also sei OE $f$ gegeben durch $A\in M_m(R)$, $A=(a_{ij})_{ij}$ und $g$ gegeben durch $B\in M_m(R)$.\\
+	Dann ist $f\otimes g$ gegeben durch
+	\[(\underbrace{a_{ij}B}_{\in M_n(R)})_{1\leq i,j\leq m}=
+	\begin{pmatrix}
+	a_{11}B&a_{21}B&\cdots &a_{1m}B\\
+	a_{21}B&&&\vdots\\
+	\vdots&&&\\
+	a_{m1}B&\cdots&&a_{mm}B
+	\end{pmatrix}\]
+\end{proof}
+Aus \ref{1223satz} folgt, dass wir OE annehmen können, dass $R=\C$ und $A,B$ Diagonalmatrizen sind.\\
+Also ist $f\otimes g$ gegeben durch $\diag(a_{ii}b_{jj})_{1\le i,j\le m}$. Dann
+\begin{align*}
+\tr(f\otimes g)&=\sum_{i,j}a_{ii}b_{jj}=\left(\sum_{i}a_{ii}\right)\left(\sum_{jj}b_{jj}\right)=\tr(f)\tr(g)\\
+\det(f\otimes g)&=\prod_{i,j}a_{ii}b_{jj}=\prod_i\left(a_{ii}^n\prod_jb_{jj}\right)=\prod_i a_{ii}^n\det(g)=\det(g)^m\det(f)^n
+\end{align*}
+
+\begin{bem}
+	Sei $R$ ein Ring, $f=X^n+a_1X^{n-1}+...+a_n\in R[X]$.\\
+	Dann heißst
+	\[C_f=\begin{pmatrix}
+	0&&&-a_n\\
+	1&\ddots&&\vdots\\
+	&\ddots&0&-a_1\\
+	&&1&-a_1
+	\end{pmatrix}\]
+	die Begleitmatrix von $f$ und es gilt $\chi_{C_f}=f$
+\end{bem}
+\begin{proof}
+	Wir können auch hier OE annehmen, dass $R=\C$.\\
+	Dann ist der Satz aus der Linearen Algebra bekannt.
+\end{proof}
+
+\begin{definition}
+	Sei $R$ ein Ring, $f,g\in R[X]$ normiert vom Grad $m$ bzw $n$. Wähle die Matrizen $A\in M_m(R)$ und $B\in M_n(R)$ mit $\chi_A=f$ und $\chi_B=g$. Dann heißt
+	\[\res(f,g):=\det(A\otimes I_m-I_m\otimes B)\]
+	\textbf{Resultante} von $f$ und $g$.\\
+	\\
+	Alternative Definition:\\
+	Sei $f=a_1X^n+...+a_n$ und $g=b_0X^m+...+b_m$. Dann ist
+	\[\res(f,g)=\det
+	\begin{pmatrix}
+	a_0&a_1   &\cdots&a_n   &      &      \\
+	   &\ddots&\ddots&      &\ddots&      \\
+	   &      &a_0   &a_1   &\cdots&a_n   \\
+	b_0&b_1   &\cdots&b_m   &      &      \\
+	   &\ddots&\ddots&      &\ddots&      \\
+	   &      &b_0   &b_1   &\cdots&b_m   \\
+	\end{pmatrix}\]
+\end{definition}
+
+\begin{satz}
+	Sei $R$ ein Ring, $f,g\in R[X]$ normiert. Dann ist $(f,g)=R[X]$ genau dann wenn $\res(f,g)\in R^\times$.
+\end{satz}
+\begin{proof}
+	\begin{enumerate}
+		\item Sei $\varphi:R\to R'$ ein Ring-Homomorphismus. Dann folgt aus $a\in R^\times$ auch $\varphi(a)\in(R')^\times$.\\
+		Sei $f=X^n+a_1X^{n-1}+...+a_n\in R[X]$ und sei $\varphi(f):=X^n+\varphi(a_1)X_{n-1}+...+\varphi(a_n)\in R'[X]$ Dann gilt die Äquivalenzkette:
+		\begin{itemize}
+			\item $(f,g)=R[X]$ ist Äquivalent zu:
+			\item Es gibt $s,t\in R[X]$, mit $sf+tg=1$.\\
+			(Daraus folgt die Existenz von $s',t'\in R'[X]$, mit $s'\varphi(f)+t'\varphi(g)=1$)
+			\item Durch die Wahl von $s'=\varphi(s)$ und $t'=\varphi(t)$ folgt die Äquivalenz zu $(\varphi(f),\varphi(g))=R'[X]$
+		\end{itemize}
+		\item Sei OE $R$ noethersch:\\
+		Sei $S\subseteq R$ die Menge der Koeffizienten von $f$ und $g$, mit $\#S<\infty$.
+		\begin{description}
+			\item[''$\Rightarrow$``] Seien $f,g\in\Z[S][X]$.
+			Da $\Z[S]$ nach dem Hilbertschen Basissatz (???) noethersch ist folgt, dass $\res(f,g)\in \Z[S]^\times\subseteq R^\times$.
+			\item[''$\Leftarrow$``] Sei $u$ Inverses von $\res(f,g)$, dann ist $\res(f,g)\in \Z[S,n]^\times$.\\
+			Da $\Z[S,n]$ noethersch ist folgt, dass $(f,g)=\Z[S,n][X]$ und da $R$ noethersch folgt auch $(f,g)=R[X]$.
+		\end{description}
+		\item Sei OE $R$ reduziert und noethersch:\\
+		Sei $R$ noethersch, dann ist $\Nil(R)=\{\text{$a\in R$ nilpotent}\}$ endlich erzeugt, etwa durch $a_1,...,a_t$ mit $a_i^N=0$ für alle $i$.\\
+		Dann ist $\Nil(R)^{tN}=(0)$.\\
+		Mit dem Lemma von Nakayama folgt $(f,g)\to R[X]$ ist surjektiv.\\
+		Dann ist $R\xrightarrow{\cdot \res(f,g)} R$ surjektiv genau dann wenn modulo $\Nil(R)$ surjektiv ist.\\
+		Also kann $R$ durch $R/\Nil(R)$ entwickelt werden.\\
+		Also können wir OE annehmen, dass $R$ reduziert ist.
+		\item Betrachte 
+		\[\varphi:R\to\prod_{\mathfrak p\in \Spec(R)}K(\mathfrak p)\]
+		Dann ist $\varphi$ injektiv und
+		\[\left(\prod_{\mathfrak p\in \Spec(R)}K(\mathfrak p)\right)^\times\cap R=R\setminus\left(\bigcup_{\mathfrak p\in \Spec(R)}\mathfrak p\right)=R^\times\]
+		Angenommen die Aussage sei bekannt für $R=K$ Körper.
+		\begin{description}
+			\item[``$\Rightarrow$''] Sei $(f,g)=R[X]$, dann ist auch (1) $(\varphi(f),\varphi(g)=R'[X]$. Da $R'$ das Produkt von Körpern ist folgt dass $\res(\varphi(f),\varphi(g))=\varphi(\res(f,g))\in(R')^\times\cap R=R^\times$.
+			\item[``$\Leftarrow$''] Sei $(f,g)\to R[X]$ surjektiv. Die ist äquivalent dazu, dass alle $\mathfrak m\subset R$ maximal sind.\\
+			Dann ist $(f,g)_{\mathfrak m}\to R[X]_{\mathfrak m}=R_{\mathfrak m}[X]$.\\
+			Also ist OE $R$ lokal und neothersch.\\
+			Sei $\mathfrak m\subseteq R$ ein maximales Ideal. Dann gibt es eine Norm
+			\[\norm{a}:=\rho^{\sup\{r\in \N_0\mid a\in\mathfrak m^r\}}\]
+			für $\rho\in(0,1)$.\\
+			Dann kann man $R$ zu einem Ring $\tilde{R}$ vervollständigen und $R\to\tilde{ f} R$ ist treuflach.\\
+			Dann gilt für ein maximales Ideal $\mathfrak m\in\tilde{R}$, dass $\lim\limits_{m\to 0}\hat{R}/\hat{\mathfrak m}^n=\hat R$. 
+		\end{description}
+	\end{enumerate}
+\end{proof}
 
 \end{document}
